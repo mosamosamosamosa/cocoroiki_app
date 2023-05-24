@@ -10,3 +10,4 @@ const kBorderColor = Color(0xFFCACACA);
 const kNameBoxColor = Color(0xFFEFEFEF);
 const kSelectColor = Color(0xFF777777);
 const kNonSelectColor = Color(0xFF737373);
+const kNonTabSelectColor = Color(0xFFA3A3A3);
