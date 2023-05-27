@@ -1,9 +1,6 @@
-import 'package:cocoroiki_app/screens/home_screen.dart';
 import 'package:cocoroiki_app/screens/screen.dart';
-import 'package:cocoroiki_app/screens/timeline/post_screen.dart';
-import 'package:cocoroiki_app/screens/timeline/timeline_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/scheduler.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Screen(),
+      home: Screen(),
     );
   }
 }
