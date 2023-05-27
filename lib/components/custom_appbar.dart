@@ -31,7 +31,11 @@ class CustomAppbar extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset('assets/image/back_button.png'),
+              GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Image.asset('assets/image/back_button.png')),
               Text("新規投稿",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               Text(
