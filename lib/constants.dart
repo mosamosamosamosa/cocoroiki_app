@@ -11,3 +11,6 @@ const kNameBoxColor = Color(0xFFEFEFEF);
 const kSelectColor = Color(0xFF777777);
 const kNonSelectColor = Color(0xFF737373);
 const kNonTabSelectColor = Color(0xFFA3A3A3);
+const kBackgroundColor = Color(0xFFF5F5F5);
+const kPostButtonColor = Color(0xFFFD9D9D9);
+const kDateColor = Color(0xFF919191);
