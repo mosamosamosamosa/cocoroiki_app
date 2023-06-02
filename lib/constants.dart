@@ -18,3 +18,4 @@ const kDateColor = Color(0xFF919191);
 const kButtomBottonColor = Color(0xFFFCCC00);
 const kButtomBotton2Color = Color(0xFFFFA500);
 const kshadoeColor = Color(0xFF7D432A);
+const kBorder2Color = Color(0xFFFF7A00);
