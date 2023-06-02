@@ -4,6 +4,7 @@ import 'package:cocoroiki_app/screens/timeline/post_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:intl/intl.dart';
 
 class TimelineScreen extends StatefulWidget {
   const TimelineScreen({super.key});
@@ -15,6 +16,7 @@ class TimelineScreen extends StatefulWidget {
 class _TimelineScreenState extends State<TimelineScreen> {
   @override
   Widget build(BuildContext context) {
+    DateFormat outputFormat = DateFormat('yyyy年MM月dd日 H:m');
     double deviceW = MediaQuery.of(context).size.width;
     double deviceH = MediaQuery.of(context).size.height;
     return Scaffold(
