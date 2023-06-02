@@ -1,6 +1,6 @@
 import 'package:cocoroiki_app/constants.dart';
-import 'package:cocoroiki_app/screens/timeline/albam_screen.dart';
-import 'package:cocoroiki_app/screens/timeline/timeline_screen.dart';
+import 'package:cocoroiki_app/screens/grandparent/timeline/albam_screen.dart';
+import 'package:cocoroiki_app/screens/grandparent/timeline/timeline_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {

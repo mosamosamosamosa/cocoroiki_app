@@ -1,4 +1,5 @@
 import 'package:cocoroiki_app/constants.dart';
+import 'package:cocoroiki_app/screens/kid/quest/tree_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -10,7 +11,7 @@ class QuestScreen extends StatefulWidget {
 }
 
 class _QuestScreenState extends State<QuestScreen> {
-  int granCount = 4;
+  int granCount = 1;
   bool visible1 = false;
   bool visible2 = false;
   bool visible3 = false;
@@ -57,7 +58,14 @@ class _QuestScreenState extends State<QuestScreen> {
                   visible: visible1,
                   child: Positioned(
                       bottom: 260,
-                      child: SvgPicture.asset('assets/svg/green.svg')),
+                      child: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (BuildContext context) => TreeModal());
+                          },
+                          child: SvgPicture.asset('assets/svg/green.svg'))),
                 ),
                 Visibility(
                   visible: visible2,
