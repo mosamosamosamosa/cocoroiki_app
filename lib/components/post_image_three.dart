@@ -12,6 +12,8 @@ class PostImageThree extends StatefulWidget {
 class _PostImageThreeState extends State<PostImageThree> {
   @override
   Widget build(BuildContext context) {
+    double deviceW = MediaQuery.of(context).size.width;
+    double deviceH = MediaQuery.of(context).size.height;
     return Row(
       children: [
         SizedBox(width: 20),
@@ -19,7 +21,7 @@ class _PostImageThreeState extends State<PostImageThree> {
           height: 200,
           width: 152,
           child: FittedBox(
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
             child: ClipRRect(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
