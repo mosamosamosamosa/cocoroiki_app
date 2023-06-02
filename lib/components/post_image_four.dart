@@ -17,23 +17,6 @@ class _PostImageFourState extends State<PostImageFour> {
         SizedBox(width: 22),
         Column(
           children: [
-            // Container(
-            //     child: Image.network(posts_list[0].image_url[0]),
-            //     height: 96,
-            //     width: 152,
-            //     decoration: const BoxDecoration(
-            //       color: kImageBoxColor,
-            //       borderRadius: BorderRadius.only(
-            //         topLeft: Radius.circular(10),
-            //       ),
-            //       boxShadow: [
-            //         BoxShadow(
-            //           color: Colors.black26, //色
-
-            //           offset: Offset(0, 2),
-            //         ),
-            //       ],
-            //     )),
             SizedBox(
                 height: 96,
                 width: 152,
@@ -41,7 +24,6 @@ class _PostImageFourState extends State<PostImageFour> {
                     borderRadius:
                         BorderRadius.only(topLeft: Radius.circular(10)),
                     child: Image.network(posts_list[0].image_url[0]))),
-
             SizedBox(height: 8),
             SizedBox(
                 height: 96,

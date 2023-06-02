@@ -15,41 +15,23 @@ class _PostImageTwoState extends State<PostImageTwo> {
     return Row(
       children: [
         SizedBox(width: 16.5),
-        Container(
-            child: Image.network(posts_list[0].image_url[0]),
+        SizedBox(
             height: 200,
             width: 152,
-            decoration: const BoxDecoration(
-              color: kImageBoxColor,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  bottomLeft: Radius.circular(10)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26, //色
-
-                  offset: Offset(0, 2),
-                ),
-              ],
-            )),
+            child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    topLeft: Radius.circular(10)),
+                child: Image.network(posts_list[0].image_url[0]))),
         SizedBox(width: 8),
-        Container(
-            child: Image.network(posts_list[0].image_url[0]),
+        SizedBox(
             height: 200,
             width: 152,
-            decoration: const BoxDecoration(
-              color: kImageBoxColor,
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(10),
-                  bottomRight: Radius.circular(10)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26, //色
-
-                  offset: Offset(0, 2),
-                ),
-              ],
-            )),
+            child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(10),
+                    topRight: Radius.circular(10)),
+                child: Image.network(posts_list[0].image_url[0]))),
       ],
     );
   }
