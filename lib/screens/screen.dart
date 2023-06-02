@@ -1,7 +1,7 @@
 import 'package:cocoroiki_app/components/buttom_bar.dart';
 import 'package:cocoroiki_app/constants.dart';
-import 'package:cocoroiki_app/screens/home_screen.dart';
-import 'package:cocoroiki_app/screens/quest/quest_screen.dart';
+import 'package:cocoroiki_app/screens/grandparent/home_screen.dart';
+import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
