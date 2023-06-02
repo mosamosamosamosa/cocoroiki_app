@@ -21,7 +21,7 @@ class _PostImageThreeState extends State<PostImageThree> {
           height: 200,
           width: 152,
           child: FittedBox(
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
             child: ClipRRect(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
