@@ -1,3 +1,4 @@
+import 'package:cocoroiki_app/components/buttom_bar.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/screens/home_screen.dart';
 import 'package:cocoroiki_app/screens/quest/quest_screen.dart';
@@ -23,51 +24,71 @@ class _ScreenState extends State<Screen> {
     HomeScreen(),
     QuestScreen()
   ];
+
+  bool pushed1 = false;
+  bool pushed2 = false;
+  bool pushed3 = false;
   @override
   Widget build(BuildContext context) {
     double deviceW = MediaQuery.of(context).size.width;
     double deviceH = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: pageList[selectedIndex],
-      bottomNavigationBar: SizedBox(
-        height: deviceH * 0.13,
-        child: BottomNavigationBar(
-          selectedLabelStyle: TextStyle(fontSize: 12),
-          // unselectedLabelStyle: TextStyle(backgroundColor: kFontColor),
-          elevation: 10,
-
-          backgroundColor: kAppBarColor,
-          fixedColor: kFontColor,
-          type: BottomNavigationBarType.fixed,
-          items: [
-            BottomNavigationBarItem(
-                icon: selectedIndex == 0
-                    ? SvgPicture.asset('assets/svg/home.svg')
-                    : SvgPicture.asset('assets/svg/home2.svg'),
-                label: 'タイムライン'),
-            BottomNavigationBarItem(
-                icon: selectedIndex == 1
-                    ? SvgPicture.asset('assets/svg/home.svg')
-                    : SvgPicture.asset('assets/svg/home2.svg'),
-                label: ''),
-            BottomNavigationBarItem(
-                icon: selectedIndex == 2
-                    ? SvgPicture.asset('assets/svg/home.svg')
-                    : SvgPicture.asset('assets/svg/home2.svg'),
-                label: ''),
-            BottomNavigationBarItem(
-                icon: selectedIndex == 3
-                    ? SvgPicture.asset('assets/svg/home.svg')
-                    : SvgPicture.asset('assets/svg/home2.svg'),
-                label: '')
-          ],
-          currentIndex: selectedIndex,
-          onTap: (index) {
-            setState(() {
-              selectedIndex = index;
-            });
-          },
-        ),
+      body: Stack(
+        children: [
+          pageList[selectedIndex],
+          Positioned(
+            bottom: 64,
+            left: 0,
+            right: 0,
+            child: Row(
+              children: [
+                SizedBox(width: 65),
+                GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        pushed1 = true;
+                        pushed2 = false;
+                        pushed3 = false;
+                        selectedIndex = 0;
+                      });
+                    },
+                    child: ButtomBar(
+                        pushed: pushed1, icon: 'clock.svg', title: 'タイムライン')),
+                SizedBox(width: 24),
+                GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        pushed1 = false;
+                        pushed2 = true;
+                        pushed3 = false;
+                        selectedIndex = 1;
+                      });
+                    },
+                    child: ButtomBar(
+                      pushed: pushed2,
+                      icon: 'tree_icon.svg',
+                      title: 'ひろば',
+                    )),
+                SizedBox(width: 24),
+                GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        pushed1 = false;
+                        pushed2 = false;
+                        pushed3 = true;
+                        selectedIndex = 2;
+                      });
+                    },
+                    child: ButtomBar(
+                      pushed: pushed3,
+                      icon: 'book_icon.svg',
+                      title: 'クエスト',
+                    )),
+                SizedBox(width: 65),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
