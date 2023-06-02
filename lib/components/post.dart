@@ -3,7 +3,10 @@ import 'package:cocoroiki_app/components/post_image_one.dart';
 import 'package:cocoroiki_app/components/post_image_three.dart';
 import 'package:cocoroiki_app/components/post_image_two.dart';
 import 'package:cocoroiki_app/constants.dart';
+import 'package:cocoroiki_app/data/database.dart';
+import 'package:cocoroiki_app/data/database.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Post extends StatefulWidget {
   const Post({super.key});
@@ -15,8 +18,9 @@ class Post extends StatefulWidget {
 class _PostState extends State<Post> {
   @override
   Widget build(BuildContext context) {
+    DateFormat outputFormat = DateFormat('yyyy年MM月dd日 H:m');
     Widget post;
-    int imageNum = 4;
+    int imageNum = posts_list[0].image_url.length;
     if (imageNum == 1) {
       post = PostImageOne();
     } else if (imageNum == 2) {
@@ -26,9 +30,10 @@ class _PostState extends State<Post> {
     } else {
       post = PostImageFour();
     }
+
     return Container(
       width: 354,
-      height: 455,
+      //height: ,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -48,7 +53,7 @@ class _PostState extends State<Post> {
             top: 16,
             right: 16,
             child: Text(
-              "2023年5月23日",
+              outputFormat.format(posts_list[0].created_at),
               style: TextStyle(color: kDateColor),
             ),
           ),
@@ -58,18 +63,25 @@ class _PostState extends State<Post> {
                 padding: const EdgeInsets.only(top: 28, left: 16),
                 child: Row(
                   children: [
-                    Container(
-                      alignment: Alignment.center,
-                      width: 60,
-                      height: 60,
-                      child: Text("写真"),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: kImageBoxColor,
-                      ),
+                    SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: CircleAvatar(
+                          radius: 32,
+                          foregroundImage: NetworkImage(users_list[0].image)),
                     ),
+                    // Container(
+                    //   alignment: Alignment.center,
+                    //   width: 60,
+                    //   height: 60,
+                    //   child: Text("写真"),
+                    //   decoration: const BoxDecoration(
+                    //     shape: BoxShape.circle,
+                    //     color: kImageBoxColor,
+                    //   ),
+                    // ),
                     SizedBox(width: 8),
-                    Text("朋子 (母名前)",
+                    Text(posts_list[0].username,
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -78,12 +90,13 @@ class _PostState extends State<Post> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 16, left: 20, right: 20),
-                child: Text("投稿文入ります投稿文入ります投稿文入ります投稿文入ります投稿文入ります投稿文入ります投稿文入ります",
+                padding: const EdgeInsets.only(top: 12, left: 16, right: 20),
+                child: Text(posts_list[0].content,
                     style: TextStyle(color: kFontColor, fontSize: 16)),
               ),
-              SizedBox(height: 18),
+              SizedBox(height: 16),
               post,
+              SizedBox(height: 60),
             ],
           ),
         ],

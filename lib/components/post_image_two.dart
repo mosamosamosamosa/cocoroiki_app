@@ -1,4 +1,5 @@
 import 'package:cocoroiki_app/constants.dart';
+import 'package:cocoroiki_app/data/database.dart';
 import 'package:flutter/material.dart';
 
 class PostImageTwo extends StatefulWidget {
@@ -15,6 +16,7 @@ class _PostImageTwoState extends State<PostImageTwo> {
       children: [
         SizedBox(width: 16.5),
         Container(
+            child: Image.network(posts_list[0].image_url[0]),
             height: 200,
             width: 152,
             decoration: const BoxDecoration(
@@ -32,6 +34,7 @@ class _PostImageTwoState extends State<PostImageTwo> {
             )),
         SizedBox(width: 8),
         Container(
+            child: Image.network(posts_list[0].image_url[0]),
             height: 200,
             width: 152,
             decoration: const BoxDecoration(

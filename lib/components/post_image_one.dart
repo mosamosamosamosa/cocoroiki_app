@@ -1,4 +1,5 @@
 import 'package:cocoroiki_app/constants.dart';
+import 'package:cocoroiki_app/data/database.dart';
 import 'package:flutter/material.dart';
 
 class PostImageOne extends StatefulWidget {
@@ -12,6 +13,7 @@ class _PostImageOneState extends State<PostImageOne> {
   @override
   Widget build(BuildContext context) {
     return Container(
+        child: ClipRect(child: Image.network(posts_list[0].image_url[0])),
         height: 200,
         width: 300,
         decoration: BoxDecoration(
