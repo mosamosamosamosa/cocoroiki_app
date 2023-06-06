@@ -17,49 +17,46 @@ class _PostImageThreeState extends State<PostImageThree> {
     return Row(
       children: [
         SizedBox(width: 20),
-        SizedBox(
+        Container(
+          clipBehavior: Clip.antiAlias,
           height: 200,
           width: 152,
-          child: FittedBox(
-            fit: BoxFit.fill,
-            child: ClipRRect(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10)),
-                child: SizedBox(
-                    width: 152,
-                    child: Image.network(posts_list[0].image_url[0]))),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
           ),
+          child: FittedBox(
+              fit: BoxFit.cover,
+              child: Image.network(posts_list[0].image_url[0])),
         ),
         SizedBox(width: 8),
         Column(
           children: [
-            SizedBox(
+            Container(
+              clipBehavior: Clip.antiAlias,
               height: 96,
               width: 152,
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: ClipRRect(
-                    borderRadius:
-                        BorderRadius.only(topRight: Radius.circular(10)),
-                    child: SizedBox(
-                        width: 152,
-                        child: Image.network(posts_list[0].image_url[0]))),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(10),
+                ),
               ),
+              child: FittedBox(
+                  fit: BoxFit.cover,
+                  child: Image.network(posts_list[0].image_url[0])),
             ),
             SizedBox(height: 8),
-            SizedBox(
+            Container(
+              clipBehavior: Clip.antiAlias,
               height: 96,
               width: 152,
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: ClipRRect(
-                    borderRadius:
-                        BorderRadius.only(bottomRight: Radius.circular(10)),
-                    child: SizedBox(
-                        width: 152,
-                        child: Image.network(posts_list[0].image_url[0]))),
+              decoration: const BoxDecoration(
+                borderRadius:
+                    BorderRadius.only(bottomRight: Radius.circular(10)),
               ),
+              child: FittedBox(
+                  fit: BoxFit.cover,
+                  child: Image.network(posts_list[0].image_url[0])),
             ),
           ],
         ),

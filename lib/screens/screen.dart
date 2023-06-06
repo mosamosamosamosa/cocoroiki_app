@@ -1,7 +1,9 @@
 import 'package:cocoroiki_app/components/buttom_bar.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/screens/grandparent/home_screen.dart';
+import 'package:cocoroiki_app/screens/grandparent/timeline/timeline_screen.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
+import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -19,10 +21,9 @@ class _ScreenState extends State<Screen> {
   int selectedIndex = 0;
   //選択する可能性のあるページ
   List<Widget> pageList = const [
-    HomeScreen(),
+    Timelinekids(),
     QuestScreen(),
     HomeScreen(),
-    QuestScreen()
   ];
 
   bool pushed1 = false;

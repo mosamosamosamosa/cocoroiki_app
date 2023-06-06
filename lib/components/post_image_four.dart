@@ -17,41 +17,65 @@ class _PostImageFourState extends State<PostImageFour> {
         SizedBox(width: 22),
         Column(
           children: [
-            SizedBox(
-                height: 96,
-                width: 152,
-                child: ClipRRect(
-                    borderRadius:
-                        BorderRadius.only(topLeft: Radius.circular(10)),
-                    child: Image.network(posts_list[0].image_url[0]))),
+            Container(
+              clipBehavior: Clip.antiAlias,
+              height: 96,
+              width: 152,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                ),
+              ),
+              child: FittedBox(
+                  fit: BoxFit.cover,
+                  child: Image.network(posts_list[0].image_url[0])),
+            ),
             SizedBox(height: 8),
-            SizedBox(
-                height: 96,
-                width: 152,
-                child: ClipRRect(
-                    borderRadius:
-                        BorderRadius.only(bottomLeft: Radius.circular(10)),
-                    child: Image.network(posts_list[0].image_url[0]))),
+            Container(
+              clipBehavior: Clip.antiAlias,
+              height: 96,
+              width: 152,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                ),
+              ),
+              child: FittedBox(
+                  fit: BoxFit.cover,
+                  child: Image.network(posts_list[0].image_url[0])),
+            ),
           ],
         ),
-        SizedBox(width: 2),
+        SizedBox(width: 8),
         Column(
           children: [
-            SizedBox(
-                height: 96,
-                width: 152,
-                child: ClipRRect(
-                    borderRadius:
-                        BorderRadius.only(topRight: Radius.circular(10)),
-                    child: Image.network(posts_list[0].image_url[0]))),
+            Container(
+              clipBehavior: Clip.antiAlias,
+              height: 96,
+              width: 152,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(10),
+                ),
+              ),
+              child: FittedBox(
+                  fit: BoxFit.cover,
+                  child: Image.network(posts_list[0].image_url[0])),
+            ),
             SizedBox(height: 8),
-            SizedBox(
-                height: 96,
-                width: 152,
-                child: ClipRRect(
-                    borderRadius:
-                        BorderRadius.only(bottomRight: Radius.circular(10)),
-                    child: Image.network(posts_list[0].image_url[0]))),
+            Container(
+              clipBehavior: Clip.antiAlias,
+              height: 96,
+              width: 152,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(10),
+                ),
+              ),
+              child: FittedBox(
+                  fit: BoxFit.cover,
+                  child: Image.network(posts_list[0].image_url[0])),
+            ),
           ],
         ),
       ],
