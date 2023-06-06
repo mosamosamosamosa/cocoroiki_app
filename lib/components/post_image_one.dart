@@ -12,11 +12,17 @@ class PostImageOne extends StatefulWidget {
 class _PostImageOneState extends State<PostImageOne> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        height: 200,
-        width: 300,
-        child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            child: Image.network(posts_list[0].image_url[0])));
+    return Container(
+      clipBehavior: Clip.antiAlias,
+      height: 200,
+      width: 300,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(10),
+        ),
+      ),
+      child: FittedBox(
+          fit: BoxFit.cover, child: Image.network(posts_list[0].image_url[0])),
+    );
   }
 }
