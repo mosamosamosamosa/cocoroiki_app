@@ -1,5 +1,6 @@
 import 'package:cocoroiki_app/components/select_button.dart';
 import 'package:cocoroiki_app/constants.dart';
+import 'package:cocoroiki_app/screens/kid/quest/grand_room_screen.dart';
 import 'package:flutter/material.dart';
 
 class TreeModal extends StatefulWidget {
@@ -55,13 +56,22 @@ class _TreeModalState extends State<TreeModal> {
           ),
           SizedBox(height: 50),
           selectedN || selectedY
-              ? Container(
-                  child: Text('つぎへ'),
-                  height: 56,
-                  width: 142,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                  ))
+              ? GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => GrandRoomScreen()));
+                  },
+                  child: Container(
+                      alignment: Alignment.center,
+                      child: Text('つぎへ'),
+                      height: 56,
+                      width: 142,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                      )),
+                )
               : Container()
         ],
       ),
