@@ -1,3 +1,5 @@
+import 'package:cocoroiki_app/components/bottom_button.dart';
+import 'package:cocoroiki_app/components/buttom_bar.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/screens/kid/quest/tree_modal.dart';
 import 'package:flutter/material.dart';
@@ -124,6 +126,9 @@ class _QuestScreenState extends State<QuestScreen> {
                     ],
                   ),
                 ),
+                Padding(
+                    padding: const EdgeInsets.only(bottom: 65),
+                    child: BottomButton()),
               ],
             )));
   }

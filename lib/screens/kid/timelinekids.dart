@@ -45,28 +45,28 @@ class _TimelinekidsState extends State<Timelinekids> {
                             }))),
                   ],
                 ),
-                Positioned(
-                  bottom: 0,
-                  child: Container(
-                    height: deviceH * 0.315,
-                    width: deviceW,
-                    decoration:
-                        BoxDecoration(color: Colors.white.withOpacity(0.9)),
-                  ),
-                ),
+                // Positioned(
+                //   bottom: 0,
+                //   child: Container(
+                //     height: deviceH * 0.315,
+                //     width: deviceW,
+                //     decoration:
+                //         BoxDecoration(color: Colors.white.withOpacity(0.9)),
+                //   ),
+                // ),
               ],
             ),
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //     elevation: 0,
-      //     backgroundColor: kPostButtonColor,
-      //     onPressed: () {
-      //       Navigator.push(context,
-      //           MaterialPageRoute(builder: (context) => const PostScreen()));
-      //     },
-      //     child: const Icon(Icons.add, color: Colors.black)),
+      floatingActionButton: FloatingActionButton(
+          elevation: 0,
+          backgroundColor: Color(0xFFFCCC00),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const PostScreen()));
+          },
+          child: const Icon(Icons.add, color: Colors.white)),
     );
   }
 }

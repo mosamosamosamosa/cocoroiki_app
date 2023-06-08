@@ -13,7 +13,7 @@ class CustomAppbar2 extends StatelessWidget {
       children: [
         Container(
           width: deviceW,
-          height: 100,
+          height: 115,
           decoration: BoxDecoration(
             color: kAppBarColor,
             boxShadow: [
@@ -27,7 +27,7 @@ class CustomAppbar2 extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.only(bottom: 13),
           child: Text("タイムライン",
               style: TextStyle(
                   fontSize: 20,
