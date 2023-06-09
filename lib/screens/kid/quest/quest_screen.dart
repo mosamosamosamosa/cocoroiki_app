@@ -126,8 +126,8 @@ class _QuestScreenState extends State<QuestScreen> {
                     ],
                   ),
                 ),
-                Padding(
-                    padding: const EdgeInsets.only(bottom: 65),
+                const Padding(
+                    padding: EdgeInsets.only(bottom: 65),
                     child: BottomButton()),
               ],
             )));
