@@ -169,7 +169,7 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                 },
                 left: _isChanged ? deviceW * 0.415 : deviceW * 0.16,
                 bottom: 66,
-                duration: Duration(milliseconds: 380),
+                duration: Duration(milliseconds: 100),
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -198,7 +198,7 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                   ),
                 )),
             AnimatedPositioned(
-                curve: Curves.linear,
+                //curve: Curves.
                 onEnd: () {
                   setState(() {
                     // if (!flagQuest) {
@@ -213,7 +213,7 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                 },
                 right: _isChanged ? deviceW * 0.415 : deviceW * 0.16,
                 bottom: 66,
-                duration: Duration(milliseconds: 380),
+                duration: Duration(milliseconds: 100),
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
