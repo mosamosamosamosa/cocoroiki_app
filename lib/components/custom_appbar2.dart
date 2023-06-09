@@ -1,5 +1,7 @@
 import 'package:cocoroiki_app/constants.dart';
+import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class CustomAppbar2 extends StatelessWidget {
   const CustomAppbar2({super.key});
@@ -26,6 +28,10 @@ class CustomAppbar2 extends StatelessWidget {
             ],
           ),
         ),
+        Positioned(
+            left: 24,
+            top: 80,
+            child: SvgPicture.asset('assets/svg/humberger.svg')),
         Padding(
           padding: const EdgeInsets.only(bottom: 13),
           child: Text("タイムライン",
@@ -33,6 +39,43 @@ class CustomAppbar2 extends StatelessWidget {
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.white)),
+        ),
+        Positioned(
+          right: 16,
+          top: 56,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => QuestScreen()));
+            },
+            child: Column(
+              children: [
+                SvgPicture.asset('assets/svg/switch.svg'),
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Text(
+                      'ひろばへ',
+                      style: TextStyle(
+                        fontSize: 11,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 3
+                          ..color = Color(0xFF3E0E0E),
+                      ),
+                    ),
+                    Text(
+                      'ひろばへ',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         )
       ],
     );
