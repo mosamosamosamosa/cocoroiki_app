@@ -1,3 +1,4 @@
+import 'package:cocoroiki_app/components/favorite_button.dart';
 import 'package:cocoroiki_app/components/post_image_four.dart';
 import 'package:cocoroiki_app/components/post_image_one.dart';
 import 'package:cocoroiki_app/components/post_image_three.dart';
@@ -6,6 +7,7 @@ import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/data/database.dart';
 import 'package:cocoroiki_app/data/database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 class Post extends StatefulWidget {
@@ -96,7 +98,17 @@ class _PostState extends State<Post> {
               ),
               SizedBox(height: 16),
               post,
-              SizedBox(height: 60),
+              SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(width: 21),
+                  FavoriteButton(),
+                  SizedBox(width: 32),
+                  SvgPicture.asset('assets/svg/comment.svg')
+                ],
+              ),
+              SizedBox(height: 8),
             ],
           ),
         ],

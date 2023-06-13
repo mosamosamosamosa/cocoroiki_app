@@ -16,9 +16,12 @@ class _PostImageOneState extends State<PostImageOne> {
     return GestureDetector(
       onTap: () {
         showDialog(
+            barrierColor: Colors.black.withOpacity(0.8),
             context: context,
-            builder: (BuildContext context) =>
-                ImageModal(image: posts_list[0].image_url[0]));
+            builder: (BuildContext context) => ImageModal(
+                  image: posts_list[0].image_url[0],
+                  activeIndex: 0,
+                ));
       },
       child: Container(
         clipBehavior: Clip.antiAlias,
