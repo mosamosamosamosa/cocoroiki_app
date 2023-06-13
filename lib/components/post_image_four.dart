@@ -21,9 +21,12 @@ class _PostImageFourState extends State<PostImageFour> {
             GestureDetector(
               onTap: () {
                 showDialog(
+                    barrierColor: Colors.black.withOpacity(0.8),
                     context: context,
-                    builder: (BuildContext context) =>
-                        ImageModal(image: posts_list[0].image_url[0]));
+                    builder: (BuildContext context) => ImageModal(
+                          image: posts_list[0].image_url[0],
+                          activeIndex: 0,
+                        ));
               },
               child: Container(
                 clipBehavior: Clip.antiAlias,
@@ -43,9 +46,10 @@ class _PostImageFourState extends State<PostImageFour> {
             GestureDetector(
               onTap: () {
                 showDialog(
+                    barrierColor: Colors.black.withOpacity(0.8),
                     context: context,
-                    builder: (BuildContext context) =>
-                        ImageModal(image: posts_list[0].image_url[0]));
+                    builder: (BuildContext context) => ImageModal(
+                        image: posts_list[0].image_url[1], activeIndex: 1));
               },
               child: Container(
                 clipBehavior: Clip.antiAlias,
@@ -58,7 +62,7 @@ class _PostImageFourState extends State<PostImageFour> {
                 ),
                 child: FittedBox(
                     fit: BoxFit.cover,
-                    child: Image.network(posts_list[0].image_url[0])),
+                    child: Image.network(posts_list[0].image_url[1])),
               ),
             ),
           ],
@@ -69,9 +73,12 @@ class _PostImageFourState extends State<PostImageFour> {
             GestureDetector(
               onTap: () {
                 showDialog(
+                    barrierColor: Colors.black.withOpacity(0.8),
                     context: context,
-                    builder: (BuildContext context) =>
-                        ImageModal(image: posts_list[0].image_url[0]));
+                    builder: (BuildContext context) => ImageModal(
+                          image: posts_list[0].image_url[2],
+                          activeIndex: 2,
+                        ));
               },
               child: Container(
                 clipBehavior: Clip.antiAlias,
@@ -84,16 +91,19 @@ class _PostImageFourState extends State<PostImageFour> {
                 ),
                 child: FittedBox(
                     fit: BoxFit.cover,
-                    child: Image.network(posts_list[0].image_url[0])),
+                    child: Image.network(posts_list[0].image_url[2])),
               ),
             ),
             SizedBox(height: 8),
             GestureDetector(
               onTap: () {
                 showDialog(
+                    barrierColor: Colors.black.withOpacity(0.8),
                     context: context,
-                    builder: (BuildContext context) =>
-                        ImageModal(image: posts_list[0].image_url[0]));
+                    builder: (BuildContext context) => ImageModal(
+                          image: posts_list[0].image_url[3],
+                          activeIndex: 3,
+                        ));
               },
               child: Container(
                 clipBehavior: Clip.antiAlias,
@@ -106,7 +116,7 @@ class _PostImageFourState extends State<PostImageFour> {
                 ),
                 child: FittedBox(
                     fit: BoxFit.cover,
-                    child: Image.network(posts_list[0].image_url[0])),
+                    child: Image.network(posts_list[0].image_url[3])),
               ),
             ),
           ],
