@@ -4,7 +4,9 @@ import 'package:cocoroiki_app/screens/image_modal.dart';
 import 'package:flutter/material.dart';
 
 class PostImageFour extends StatefulWidget {
-  const PostImageFour({super.key});
+  const PostImageFour({super.key, required this.myPost});
+
+  final bool myPost;
 
   @override
   State<PostImageFour> createState() => _PostImageFourState();
@@ -15,7 +17,6 @@ class _PostImageFourState extends State<PostImageFour> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SizedBox(width: 22),
         Column(
           children: [
             GestureDetector(
@@ -30,8 +31,8 @@ class _PostImageFourState extends State<PostImageFour> {
               },
               child: Container(
                 clipBehavior: Clip.antiAlias,
-                height: 96,
-                width: 152,
+                height: widget.myPost ? 104 : 96,
+                width: widget.myPost ? 170 : 152,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
@@ -53,8 +54,8 @@ class _PostImageFourState extends State<PostImageFour> {
               },
               child: Container(
                 clipBehavior: Clip.antiAlias,
-                height: 96,
-                width: 152,
+                height: widget.myPost ? 104 : 96,
+                width: widget.myPost ? 170 : 152,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(10),
@@ -82,8 +83,8 @@ class _PostImageFourState extends State<PostImageFour> {
               },
               child: Container(
                 clipBehavior: Clip.antiAlias,
-                height: 96,
-                width: 152,
+                height: widget.myPost ? 104 : 96,
+                width: widget.myPost ? 170 : 152,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(10),
@@ -107,8 +108,8 @@ class _PostImageFourState extends State<PostImageFour> {
               },
               child: Container(
                 clipBehavior: Clip.antiAlias,
-                height: 96,
-                width: 152,
+                height: widget.myPost ? 104 : 96,
+                width: widget.myPost ? 170 : 152,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(10),

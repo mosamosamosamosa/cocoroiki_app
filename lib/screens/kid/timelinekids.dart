@@ -1,3 +1,4 @@
+import 'package:cocoroiki_app/components/custom_app_bar.dart';
 import 'package:cocoroiki_app/components/custom_appbar.dart';
 import 'package:cocoroiki_app/components/custom_appbar2.dart';
 import 'package:cocoroiki_app/components/post.dart';
@@ -6,6 +7,7 @@ import 'package:cocoroiki_app/screens/post_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 class Timelinekids extends StatefulWidget {
@@ -24,18 +26,43 @@ class _TimelinekidsState extends State<Timelinekids> {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: SingleChildScrollView(
-        child: Column(
+        child: Stack(
           children: [
-            CustomAppbar2(),
             Stack(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      height: deviceH,
+                      width: 50,
+                      decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
+                    ),
+                    Container(
+                      height: deviceH,
+                      width: 50,
+                      decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
+                    ),
+                    Container(
+                      height: deviceH,
+                      width: 50,
+                      decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
+                    ),
+                    Container(
+                      height: deviceH,
+                      width: 50,
+                      decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
+                    )
+                  ],
+                ),
                 Column(
                   children: [
                     SizedBox(
                         height: deviceH,
                         width: deviceW,
                         child: ListView.builder(
-                            padding: EdgeInsets.only(top: deviceH * 0.03),
+                            padding: EdgeInsets.only(
+                                top: deviceH * 0.18, bottom: deviceH * 0.06),
                             itemCount: 3,
                             //shrinkWrap: true,
                             itemBuilder: ((BuildContext context, index) {
@@ -54,6 +81,7 @@ class _TimelinekidsState extends State<Timelinekids> {
                 //         BoxDecoration(color: Colors.white.withOpacity(0.9)),
                 //   ),
                 // ),
+                CustomAppBar(title: 'タイムライン', reading: 'humberger.svg'),
               ],
             ),
           ],
