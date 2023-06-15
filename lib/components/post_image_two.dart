@@ -4,7 +4,8 @@ import 'package:cocoroiki_app/screens/image_modal.dart';
 import 'package:flutter/material.dart';
 
 class PostImageTwo extends StatefulWidget {
-  const PostImageTwo({super.key});
+  const PostImageTwo({super.key, required this.myPost});
+  final bool myPost;
 
   @override
   State<PostImageTwo> createState() => _PostImageTwoState();
@@ -15,7 +16,6 @@ class _PostImageTwoState extends State<PostImageTwo> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SizedBox(width: 16.5),
         GestureDetector(
           onTap: () {
             showDialog(
@@ -28,8 +28,8 @@ class _PostImageTwoState extends State<PostImageTwo> {
           },
           child: Container(
             clipBehavior: Clip.antiAlias,
-            height: 200,
-            width: 152,
+            height: widget.myPost ? 216 : 200,
+            width: widget.myPost ? 170 : 152,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10),
@@ -53,8 +53,8 @@ class _PostImageTwoState extends State<PostImageTwo> {
           },
           child: Container(
             clipBehavior: Clip.antiAlias,
-            height: 200,
-            width: 152,
+            height: widget.myPost ? 216 : 200,
+            width: widget.myPost ? 170 : 152,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(10),
