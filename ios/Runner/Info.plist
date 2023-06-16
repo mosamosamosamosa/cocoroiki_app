@@ -47,5 +47,12 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<!-- 写真を読み込むための許可設定 -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>写真フォルダへのアクセスを許可しますか？</string>
+	<key>NSCameraUsageDescription</key>
+	<string>カメラへのアクセスを許可しますか？</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>マイクへのアクセスを許可しますか？</string>
 </dict>
 </plist>
