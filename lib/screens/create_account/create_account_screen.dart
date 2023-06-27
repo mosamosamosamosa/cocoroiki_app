@@ -164,7 +164,14 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               ),
             ],
           ),
-          Positioned(bottom: 86, child: AppButton(text: '次へ', pushable: false))
+          Positioned(
+              bottom: 86,
+              child: AppButton(
+                text: '次へ',
+                pushable: false,
+                nopushColor: 0xFF9A9A9A,
+                pushColor: 0xFFFCCC00,
+              ))
         ],
       ),
     );
