@@ -1,3 +1,4 @@
+import 'package:cocoroiki_app/components/app_button.dart';
 import 'package:cocoroiki_app/components/select_button.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/screens/kid/quest/grand_room_screen.dart';
@@ -28,9 +29,9 @@ class _TreeModalState extends State<TreeModal> {
       child: Column(
         children: [
           const Text(
-            '目の前におばあちゃんはいる？？',
+            'いま、おばあちゃんといっしょにいる？？',
             style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                color: Colors.white, fontFamily: 'Zen-B', fontSize: 16),
           ),
           SizedBox(height: 40),
           Row(
@@ -55,24 +56,21 @@ class _TreeModalState extends State<TreeModal> {
             ],
           ),
           SizedBox(height: 50),
-          selectedN || selectedY
-              ? GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => GrandRoomScreen()));
-                  },
-                  child: Container(
-                      alignment: Alignment.center,
-                      child: Text('つぎへ'),
-                      height: 56,
-                      width: 142,
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                      )),
-                )
-              : Container()
+          GestureDetector(
+              onTap: () {
+                if (selectedN || selectedY) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => GrandRoomScreen()));
+                }
+              },
+              child: AppButton(
+                pushable: selectedN || selectedY ? true : false,
+                text: 'つぎへ',
+                nopushColor: 0xFFB0B0B0,
+                pushColor: 0xFFFCCC00,
+              ))
         ],
       ),
     );
