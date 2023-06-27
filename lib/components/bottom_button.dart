@@ -22,19 +22,16 @@ class _BottomButtonState extends State<BottomButton> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Timelinekids()));
             },
-            child:
-                ButtomBar(pushed: false, icon: 'clock.svg', title: 'タイムライン')),
+            child: ButtomBar(icon: 'timeline_icon.svg', title: 'タイムライン')),
         GestureDetector(
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => QuestScreen()));
             },
-            child: const ButtomBar(
-                pushed: false, icon: 'tree_icon.svg', title: 'ひろば')),
+            child: const ButtomBar(icon: 'quest_icon.svg', title: 'クエスト')),
         GestureDetector(
             onTap: () {},
-            child: const ButtomBar(
-                pushed: false, icon: 'book_icon.svg', title: 'クエスト')),
+            child: const ButtomBar(icon: 'albam_icon.svg', title: 'アルバム')),
         const SizedBox(width: 12),
       ],
     );

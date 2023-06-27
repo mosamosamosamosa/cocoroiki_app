@@ -16,9 +16,9 @@ class GrandRoomScreen extends StatefulWidget {
 }
 
 class _GrandRoomScreenState extends State<GrandRoomScreen> {
-  bool visiWatermark = true;
+  bool visiWatermark = false;
   bool visiJouro = false;
-  bool visiQuest = false;
+  bool visiQuest = true;
   var _isChanged = false;
   bool visiButton = false;
 
@@ -56,8 +56,9 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                       children: [
                         SvgPicture.asset('assets/svg/board.svg'),
                         Positioned(
-                          top: 86,
-                          left: 32,
+                          top: 80,
+                          left: 0,
+                          right: 0,
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
@@ -65,15 +66,17 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                                 'よしえおばあちゃん',
                                 style: TextStyle(
                                   fontSize: 24,
+                                  fontFamily: 'Zen-B',
                                   foreground: Paint()
                                     ..style = PaintingStyle.stroke
                                     ..strokeWidth = 5
-                                    ..color = kshadoeColor,
+                                    ..color = Color(0xFF835237),
                                 ),
                               ),
                               Text(
                                 'よしえおばあちゃん',
                                 style: TextStyle(
+                                  fontFamily: 'Zen-B',
                                   fontSize: 24,
                                   color: Colors.white,
                                 ),
@@ -84,14 +87,17 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                       ],
                     ),
                     SizedBox(height: 40),
-                    SvgPicture.asset('assets/svg/mater.svg')
+                    SvgPicture.asset('assets/svg/bar.svg')
                   ],
                 )),
             Positioned(
                 bottom: 217,
                 right: 0,
                 left: 0,
-                child: SvgPicture.asset('assets/svg/room_tree.svg')),
+                child: GestureDetector(
+                    onHorizontalDragUpdate: (details) => print('ふりふり'),
+                    onHorizontalDragEnd: (details) => print('ふりふり終了'),
+                    child: SvgPicture.asset('assets/svg/room_tree.svg'))),
             Visibility(
               visible: visiQuest,
               child: Positioned(
@@ -100,9 +106,10 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                   child: GestureDetector(
                       onTap: () {
                         showDialog(
-                            barrierDismissible: false,
+                            barrierDismissible: true,
                             context: context,
-                            builder: (BuildContext context) => QuestModal());
+                            builder: (BuildContext context) =>
+                                QuestModal(start: true));
                       },
                       child: SvgPicture.asset('assets/svg/questmark.svg'))),
             ),
@@ -167,7 +174,7 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                   });
                   // print('タイムライン: visiButton $visiTimelineButton flag $flag');
                 },
-                left: _isChanged ? deviceW * 0.415 : deviceW * 0.16,
+                left: _isChanged ? deviceW * 0.38 : deviceW * 0.12,
                 bottom: 66,
                 duration: Duration(milliseconds: 100),
                 child: GestureDetector(
@@ -178,13 +185,12 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                             builder: (context) => Timelinekids()));
                   },
                   child: ButtomBar(
-                    icon: 'clock.svg',
-                    pushed: false,
+                    icon: 'timeline_icon.svg',
                     title: 'タイムライン',
                   ),
                 )),
             Positioned(
-                left: deviceW * 0.415,
+                left: deviceW * 0.38,
                 bottom: 66,
                 child: GestureDetector(
                   onTap: () {
@@ -192,9 +198,8 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                         MaterialPageRoute(builder: (context) => QuestScreen()));
                   },
                   child: ButtomBar(
-                    icon: 'tree_icon.svg',
-                    pushed: false,
-                    title: 'ひろば',
+                    icon: 'quest_icon.svg',
+                    title: 'クエスト',
                   ),
                 )),
             AnimatedPositioned(
@@ -211,7 +216,7 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                   });
                   print(visiButton);
                 },
-                right: _isChanged ? deviceW * 0.415 : deviceW * 0.16,
+                right: _isChanged ? deviceW * 0.38 : deviceW * 0.12,
                 bottom: 66,
                 duration: Duration(milliseconds: 100),
                 child: GestureDetector(
@@ -222,9 +227,8 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                             builder: (context) => Timelinekids()));
                   },
                   child: ButtomBar(
-                    icon: 'book_icon.svg',
-                    pushed: false,
-                    title: 'クエスト',
+                    icon: 'albam_icon.svg',
+                    title: 'アルバム',
                   ),
                 )),
             Padding(
@@ -232,35 +236,31 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
               child: Visibility(
                 visible: visiButton,
                 child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      visiJouro = false;
-                      visiButton = false;
-                      _isChanged = false;
-                    });
-                  },
-                  child: Container(
-                      height: 70,
-                      width: 70,
-                      child: SvgPicture.asset('assets/svg/batsu.svg'),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: const [
-                          // ボタン下
-                          BoxShadow(
-                            color: kshadoeColor,
-                            offset: Offset(0, 4),
-                          ),
-
-                          // ボタン上
-                          BoxShadow(
-                            color: kButtomBottonColor,
-                            //blurRadius: 0,
-                            offset: Offset(0, 0),
+                    onTap: () {
+                      setState(() {
+                        visiJouro = false;
+                        visiButton = false;
+                        _isChanged = false;
+                      });
+                    },
+                    child: Positioned(
+                      bottom: 66,
+                      right: deviceW * 0.38,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          SvgPicture.asset('assets/svg/buttom_button.svg'),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(width: 2),
+                              SvgPicture.asset('assets/svg/batsu.svg'),
+                              SizedBox(width: 2)
+                            ],
                           ),
                         ],
-                      )),
-                ),
+                      ),
+                    )),
               ),
             ),
           ])),
