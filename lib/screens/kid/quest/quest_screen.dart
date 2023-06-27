@@ -14,6 +14,7 @@ class QuestScreen extends StatefulWidget {
 
 class _QuestScreenState extends State<QuestScreen> {
   int granCount = 1;
+  bool visible0 = false;
   bool visible1 = false;
   bool visible2 = false;
   bool visible3 = false;
@@ -21,7 +22,9 @@ class _QuestScreenState extends State<QuestScreen> {
 
   @override
   void initState() {
-    if (granCount == 1) {
+    if (granCount == 0) {
+      visible0 = true;
+    } else if (granCount == 1) {
       visible1 = true;
     } else if (granCount == 2) {
       visible2 = true;
@@ -36,6 +39,8 @@ class _QuestScreenState extends State<QuestScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double deviceW = MediaQuery.of(context).size.width;
+    double deviceH = MediaQuery.of(context).size.height;
     return Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -57,9 +62,47 @@ class _QuestScreenState extends State<QuestScreen> {
                     alignment: Alignment.bottomCenter,
                     child: Image.asset('assets/image/back.png')),
                 Visibility(
+                    visible: visible0,
+                    child: Padding(
+                        padding: const EdgeInsets.only(bottom: 260),
+                        child: Stack(
+                          children: [
+                            Image.asset('assets/image/board_first.png'),
+                            Positioned(
+                              top: 50,
+                              left: 0,
+                              right: 0,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Text(
+                                    "おじいちゃんおばあちゃんに\nアプリをいれてもらおう！",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      foreground: Paint()
+                                        ..style = PaintingStyle.stroke
+                                        ..strokeWidth = 5
+                                        ..color = Color(0xFF3E0E0E),
+                                    ),
+                                  ),
+                                  const Text(
+                                    "おじいちゃんおばあちゃんに\nアプリをいれてもらおう！",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ))),
+                Visibility(
                   visible: visible1,
                   child: Positioned(
-                      bottom: 260,
+                      bottom: 293,
+                      right: deviceW * 0.32,
                       child: GestureDetector(
                           onTap: () {
                             showDialog(
@@ -67,7 +110,7 @@ class _QuestScreenState extends State<QuestScreen> {
                                 context: context,
                                 builder: (BuildContext context) => TreeModal());
                           },
-                          child: SvgPicture.asset('assets/svg/green.svg'))),
+                          child: SvgPicture.asset('assets/svg/tree1.svg'))),
                 ),
                 Visibility(
                   visible: visible2,
@@ -76,11 +119,11 @@ class _QuestScreenState extends State<QuestScreen> {
                       Positioned(
                           left: 50,
                           bottom: 220,
-                          child: SvgPicture.asset('assets/svg/green.svg')),
+                          child: SvgPicture.asset('assets/svg/tree1.svg')),
                       Positioned(
                           right: 60,
                           bottom: 300,
-                          child: SvgPicture.asset('assets/svg/green.svg')),
+                          child: SvgPicture.asset('assets/svg/tree1.svg')),
                     ],
                   ),
                 ),
@@ -91,15 +134,15 @@ class _QuestScreenState extends State<QuestScreen> {
                       Positioned(
                           left: 50,
                           bottom: 200,
-                          child: SvgPicture.asset('assets/svg/green.svg')),
+                          child: SvgPicture.asset('assets/svg/tree.svg')),
                       Positioned(
                           right: 40,
                           bottom: 280,
-                          child: SvgPicture.asset('assets/svg/green.svg')),
+                          child: SvgPicture.asset('assets/svg/tree.svg')),
                       Positioned(
                           left: 70,
                           bottom: 370,
-                          child: SvgPicture.asset('assets/svg/green.svg')),
+                          child: SvgPicture.asset('assets/svg/tree.svg')),
                     ],
                   ),
                 ),
@@ -110,19 +153,19 @@ class _QuestScreenState extends State<QuestScreen> {
                       Positioned(
                           left: 50,
                           bottom: 400,
-                          child: SvgPicture.asset('assets/svg/green.svg')),
+                          child: SvgPicture.asset('assets/svg/tree.svg')),
                       Positioned(
                           right: 60,
                           bottom: 330,
-                          child: SvgPicture.asset('assets/svg/green.svg')),
+                          child: SvgPicture.asset('assets/svg/tree.svg')),
                       Positioned(
                           left: 40,
                           bottom: 220,
-                          child: SvgPicture.asset('assets/svg/green.svg')),
+                          child: SvgPicture.asset('assets/svg/tree.svg')),
                       Positioned(
                           right: 20,
                           bottom: 180,
-                          child: SvgPicture.asset('assets/svg/green.svg')),
+                          child: SvgPicture.asset('assets/svg/tree.svg')),
                     ],
                   ),
                 ),
