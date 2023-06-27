@@ -24,15 +24,17 @@ class _SelectedButtonState extends State<SelectedButton> {
               widget.text,
               style: TextStyle(
                 fontSize: 24,
+                fontFamily: 'Zen-B',
                 foreground: Paint()
                   ..style = PaintingStyle.stroke
-                  ..strokeWidth = 5
+                  ..strokeWidth = 4.5
                   ..color = kshadoeColor,
               ),
             ),
             Text(
               widget.text,
               style: TextStyle(
+                fontFamily: 'Zen-B',
                 fontSize: 24,
                 color: Colors.white,
               ),
@@ -42,17 +44,18 @@ class _SelectedButtonState extends State<SelectedButton> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(9),
           border: Border.all(
-              color: widget.pushed ? kBorder2Color : Colors.white, width: 4),
+              color: widget.pushed ? Color(0xFFFF9900) : Colors.transparent,
+              width: 7),
           boxShadow: const [
             // ボタン下
             BoxShadow(
-              color: kshadoeColor,
+              color: Color(0xFF650303),
               offset: Offset(0, 4),
             ),
 
             // ボタン上
             BoxShadow(
-              color: kButtomBottonColor,
+              color: Color(0xFFE8F6DD),
               //blurRadius: 0,
               offset: Offset(0, 0),
             ),
