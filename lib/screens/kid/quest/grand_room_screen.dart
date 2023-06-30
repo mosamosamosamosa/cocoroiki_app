@@ -2,6 +2,7 @@ import 'package:cocoroiki_app/components/bottom_button.dart';
 import 'package:cocoroiki_app/components/buttom_bar.dart';
 
 import 'package:cocoroiki_app/constants.dart';
+import 'package:cocoroiki_app/screens/kid/quest/present_modal.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_modal.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
 import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
@@ -108,8 +109,7 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                         showDialog(
                             barrierDismissible: true,
                             context: context,
-                            builder: (BuildContext context) =>
-                                QuestModal(start: true));
+                            builder: (BuildContext context) => PresentModal());
                       },
                       child: SvgPicture.asset('assets/svg/questmark.svg'))),
             ),
@@ -182,7 +182,7 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Timelinekids()));
+                            builder: (context) => Timelinekids(parent: false)));
                   },
                   child: ButtomBar(
                     icon: 'timeline_icon.svg',
@@ -224,7 +224,7 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Timelinekids()));
+                            builder: (context) => Timelinekids(parent: false)));
                   },
                   child: ButtomBar(
                     icon: 'albam_icon.svg',
