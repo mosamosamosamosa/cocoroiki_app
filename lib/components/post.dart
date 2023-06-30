@@ -12,7 +12,19 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 class Post extends StatefulWidget {
-  const Post({super.key});
+  const Post(
+      {super.key,
+      required this.imageList,
+      required this.kidName,
+      required this.content,
+      required this.postUser,
+      required this.parent});
+
+  final List<String> imageList;
+  final String kidName;
+  final String content;
+  final String postUser;
+  final bool parent;
 
   @override
   State<Post> createState() => _PostState();
@@ -23,7 +35,7 @@ class _PostState extends State<Post> {
   Widget build(BuildContext context) {
     DateFormat outputFormat = DateFormat('yyyy年MM月dd日 H:m');
     Widget post;
-    int imageNum = posts_list[0].image_url.length;
+    int imageNum = widget.imageList.length;
     if (imageNum == 1) {
       post = PostImageOne(myPost: false);
     } else if (imageNum == 2) {
