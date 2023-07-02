@@ -6,6 +6,7 @@ import 'package:cocoroiki_app/components/post.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/data/database.dart';
 import 'package:cocoroiki_app/screens/grandparent/timeline/menu_modal.dart';
+// import 'package:cocoroiki_app/api_client/api.dart';
 
 import 'package:cocoroiki_app/screens/post_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,8 @@ class Timelinekids extends StatefulWidget {
 }
 
 class _TimelinekidsState extends State<Timelinekids> {
+  // AppUserListResponse? fetchedData = AppUserListResponse();
+
   //var posts;
 
   // @override
@@ -40,6 +43,18 @@ class _TimelinekidsState extends State<Timelinekids> {
 
   //   super.initState();
   //   print("入れたもの：$posts");
+  // }
+
+  // Future fetchSomeData() async {
+  //   final apiClient = ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+  //   final apiInstance = AppUserApi(apiClient);
+  //   try {
+  //     final response = await apiInstance.getAppUsers();
+  //     print(response);
+  //     setState(() => fetchedData = response);
+  //   } catch (e) {
+  //     print(e);
+  //   }
   // }
 
   Widget build(BuildContext context) {
