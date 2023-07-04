@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
-class Post extends StatefulWidget {
-  const Post(
+class PostComp extends StatefulWidget {
+  PostComp(
       {super.key,
       required this.imageList,
       required this.kidName,
@@ -27,10 +27,10 @@ class Post extends StatefulWidget {
   final bool parent;
 
   @override
-  State<Post> createState() => _PostState();
+  State<PostComp> createState() => _PostCompState();
 }
 
-class _PostState extends State<Post> {
+class _PostCompState extends State<PostComp> {
   @override
   Widget build(BuildContext context) {
     DateFormat outputFormat = DateFormat('yyyy年MM月dd日 H:m');
