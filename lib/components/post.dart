@@ -18,14 +18,15 @@ class PostComp extends StatefulWidget {
       required this.kidName,
       required this.content,
       required this.postUser,
-      required this.parent});
+      required this.parent,
+      required this.createdTime});
 
   final List<String> imageList;
-  final String kidName;
-  final String content;
-  final String postUser;
+  final String? kidName;
+  final String? content;
+  final String? postUser;
   final bool parent;
-
+  final DateTime? createdTime;
   @override
   State<PostComp> createState() => _PostCompState();
 }
@@ -101,7 +102,7 @@ class _PostCompState extends State<PostComp> {
                       //   ),
                       // ),
                       SizedBox(width: 8),
-                      Text(posts_list[0].username,
+                      Text(widget.postUser!,
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -111,7 +112,7 @@ class _PostCompState extends State<PostComp> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 12, left: 16, right: 20),
-                  child: Text(posts_list[0].content,
+                  child: Text(widget.content!,
                       style: TextStyle(color: kFontColor, fontSize: 16)),
                 ),
                 SizedBox(height: 16),
