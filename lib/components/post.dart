@@ -1,3 +1,4 @@
+import 'package:cocoroiki_app/api_client/api.dart';
 import 'package:cocoroiki_app/components/favorite_button.dart';
 import 'package:cocoroiki_app/components/post_image_four.dart';
 import 'package:cocoroiki_app/components/post_image_one.dart';
@@ -14,42 +15,82 @@ import 'package:intl/intl.dart';
 class PostComp extends StatefulWidget {
   PostComp(
       {super.key,
-      required this.imageList,
+      required this.postId,
+      required this.imageNum,
       required this.kidName,
       required this.content,
       required this.postUser,
-      required this.parent});
+      required this.parent,
+      required this.createdTime});
 
-  final List<String> imageList;
-  final String kidName;
-  final String content;
-  final String postUser;
+  final int imageNum;
+  final String? kidName;
+  final String? content;
+  final String? postUser;
   final bool parent;
-
+  final DateTime? createdTime;
+  final num? postId;
   @override
   State<PostComp> createState() => _PostCompState();
 }
 
 class _PostCompState extends State<PostComp> {
+  PostResponse? postDetail = PostResponse();
+  List<String> imageList = [];
+
+  @override
+  void initState() {
+    fetchSomeData();
+    super.initState();
+  }
+
+  Future fetchSomeData() async {
+    final apiClient =
+        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+    final apiInstance = PostApi(apiClient);
+    try {
+      final response = await apiInstance.getPostsId(widget.postId!);
+      print('帰ってきた値:$response');
+      setState(() {
+        postDetail = response;
+        for (int i = 0; i < widget.imageNum; i++) {
+          imageList.add(
+              'https://cocoroiki-bff.yumekiti.net${(response?.data?.attributes?.images?.data[i].attributes?.url).toString()}');
+        }
+      });
+      //setState(() => {posts = response});
+
+      print('imageList : $imageList');
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     DateFormat outputFormat = DateFormat('yyyy年MM月dd日 H:m');
     Widget post;
-    int imageNum = widget.imageList.length;
-    if (imageNum == 1) {
-      post = PostImageOne(myPost: false);
-    } else if (imageNum == 2) {
-      post = PostImageTwo(myPost: false);
-    } else if (imageNum == 3) {
-      post = PostImageThree(myPost: false);
+    //int imageNum = widget.imageList.length;
+    if (widget.imageNum == 1) {
+      post = PostImageOne(myPost: false, imageList: imageList);
+    } else if (widget.imageNum == 2) {
+      post = PostImageTwo(myPost: false, imageList: imageList);
+    } else if (widget.imageNum == 3) {
+      post = PostImageThree(myPost: false, imageList: imageList);
     } else {
-      post = PostImageFour(myPost: false);
+      post = PostImageFour(myPost: false, imageList: imageList);
     }
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => TimelineDetailScreen()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => TimelineDetailScreen(
+                      postId: widget.postId!,
+                      imageNum: widget.imageNum,
+                      imageList: imageList,
+                    )));
       },
       child: Container(
         width: 354,
@@ -73,7 +114,7 @@ class _PostCompState extends State<PostComp> {
               top: 16,
               right: 16,
               child: Text(
-                outputFormat.format(posts_list[0].created_at),
+                outputFormat.format(widget.createdTime!),
                 style: TextStyle(color: kDateColor),
               ),
             ),
@@ -101,7 +142,7 @@ class _PostCompState extends State<PostComp> {
                       //   ),
                       // ),
                       SizedBox(width: 8),
-                      Text(posts_list[0].username,
+                      Text(widget.postUser!,
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -111,7 +152,7 @@ class _PostCompState extends State<PostComp> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 12, left: 16, right: 20),
-                  child: Text(posts_list[0].content,
+                  child: Text(widget.content!,
                       style: TextStyle(color: kFontColor, fontSize: 16)),
                 ),
                 SizedBox(height: 16),
@@ -126,15 +167,55 @@ class _PostCompState extends State<PostComp> {
                     SizedBox(width: 21),
                     Row(
                       children: [
-                        SvgPicture.asset('assets/svg/favorite.svg'),
-                        Text('1'),
+                        SvgPicture.asset('assets/svg/like.svg'),
+                        //SizedBox(width: 4),
+                        postDetail?.data?.attributes?.like == null
+                            ? Row(
+                                children: [
+                                  SizedBox(width: 10),
+                                  Container(),
+                                ],
+                              )
+                            : Row(
+                                children: [
+                                  SizedBox(width: 4),
+                                  Text(
+                                    (postDetail?.data?.attributes?.like)
+                                        .toString(),
+                                    style: TextStyle(
+                                        color: Color(0xFF949494),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                ],
+                              ),
                       ],
                     ),
-                    SizedBox(width: 32),
+                    SizedBox(width: 28),
                     Row(
                       children: [
                         SvgPicture.asset('assets/svg/comment.svg'),
-                        Text('1')
+                        postDetail?.data?.attributes?.comments?.data.length == 0
+                            ? Row(
+                                children: [
+                                  SizedBox(width: 10),
+                                  Container(),
+                                ],
+                              )
+                            : Row(
+                                children: [
+                                  SizedBox(width: 4),
+                                  Text(
+                                    (postDetail?.data?.attributes?.comments
+                                            ?.data.length)
+                                        .toString(),
+                                    style: TextStyle(
+                                        color: Color(0xFF949494),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                ],
+                              )
                       ],
                     )
                   ],
@@ -149,7 +230,7 @@ class _PostCompState extends State<PostComp> {
                 alignment: Alignment.center,
                 height: 32,
                 width: 70,
-                child: Text('ゆうと',
+                child: Text(widget.kidName!,
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.bold,

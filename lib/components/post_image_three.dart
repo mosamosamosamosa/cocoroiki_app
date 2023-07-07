@@ -4,9 +4,11 @@ import 'package:cocoroiki_app/screens/image_modal.dart';
 import 'package:flutter/material.dart';
 
 class PostImageThree extends StatefulWidget {
-  const PostImageThree({super.key, required this.myPost});
+  const PostImageThree(
+      {super.key, required this.myPost, required this.imageList});
 
   final bool myPost;
+  final List<String> imageList;
   @override
   State<PostImageThree> createState() => _PostImageThreeState();
 }
@@ -24,7 +26,7 @@ class _PostImageThreeState extends State<PostImageThree> {
                 barrierColor: Colors.black.withOpacity(0.8),
                 context: context,
                 builder: (BuildContext context) => ImageModal(
-                      image: posts_list[0].image_url[0],
+                      image: widget.imageList[0],
                       activeIndex: 0,
                     ));
           },
@@ -39,7 +41,9 @@ class _PostImageThreeState extends State<PostImageThree> {
             ),
             child: FittedBox(
                 fit: BoxFit.cover,
-                child: Image.network(posts_list[0].image_url[0])),
+                child: Image.network(
+                  widget.imageList[0],
+                )),
           ),
         ),
         SizedBox(width: 8),
@@ -51,7 +55,7 @@ class _PostImageThreeState extends State<PostImageThree> {
                     barrierColor: Colors.black.withOpacity(0.8),
                     context: context,
                     builder: (BuildContext context) => ImageModal(
-                          image: posts_list[0].image_url[1],
+                          image: widget.imageList[1],
                           activeIndex: 1,
                         ));
               },
@@ -66,7 +70,7 @@ class _PostImageThreeState extends State<PostImageThree> {
                 ),
                 child: FittedBox(
                     fit: BoxFit.cover,
-                    child: Image.network(posts_list[0].image_url[1])),
+                    child: Image.network(widget.imageList[1])),
               ),
             ),
             SizedBox(height: 8),
@@ -76,7 +80,7 @@ class _PostImageThreeState extends State<PostImageThree> {
                     barrierColor: Colors.black.withOpacity(0.8),
                     context: context,
                     builder: (BuildContext context) => ImageModal(
-                          image: posts_list[0].image_url[0],
+                          image: widget.imageList[2],
                           activeIndex: 2,
                         ));
               },
@@ -90,7 +94,7 @@ class _PostImageThreeState extends State<PostImageThree> {
                 ),
                 child: FittedBox(
                     fit: BoxFit.cover,
-                    child: Image.network(posts_list[0].image_url[0])),
+                    child: Image.network(widget.imageList[2])),
               ),
             ),
           ],

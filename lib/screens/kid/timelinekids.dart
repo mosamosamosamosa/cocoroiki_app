@@ -1,17 +1,15 @@
-import 'package:cocoroiki_app/api/posts.dart';
+import 'package:cocoroiki_app/api_client/api.dart';
 import 'package:cocoroiki_app/components/custom_app_bar.dart';
-import 'package:cocoroiki_app/components/custom_appbar.dart';
-import 'package:cocoroiki_app/components/custom_appbar2.dart';
+
 import 'package:cocoroiki_app/components/post.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/data/database.dart';
-import 'package:cocoroiki_app/screens/grandparent/timeline/menu_modal.dart';
+import 'package:cocoroiki_app/screens/grandparent/timeline/menu_screen.dart';
 // import 'package:cocoroiki_app/api_client/api.dart';
 
 import 'package:cocoroiki_app/screens/post_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
@@ -25,37 +23,43 @@ class Timelinekids extends StatefulWidget {
 }
 
 class _TimelinekidsState extends State<Timelinekids> {
-  // AppUserListResponse? fetchedData = AppUserListResponse();
+  PostListResponse? posts = PostListResponse();
+  List<String> imageUrl = [];
 
   //var posts;
 
-  // @override
-  // void initState() {
-  //   Posts().getPosts().then((value) => {
-  //         setState(() {
-  //           if (value == null || value == 0) {
-  //             posts = 0;
-  //           } else {
-  //             posts = value;
-  //           }
-  //         }),
-  //       });
+  @override
+  void initState() {
+    fetchSomeData();
+    super.initState();
+  }
 
-  //   super.initState();
-  //   print("入れたもの：$posts");
-  // }
-
-  // Future fetchSomeData() async {
-  //   final apiClient = ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-  //   final apiInstance = AppUserApi(apiClient);
-  //   try {
-  //     final response = await apiInstance.getAppUsers();
-  //     print(response);
-  //     setState(() => fetchedData = response);
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
+  Future fetchSomeData() async {
+    final apiClient =
+        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+    final apiInstance = PostApi(apiClient);
+    try {
+      final response = await apiInstance.getPosts();
+      print('帰ってきた値:$response');
+      //print('投稿時間: ${response?.data[0].attributes?.createdAt}');
+      //print('dataの中:${response?.data[0].attributes?.content}');
+      //print('ゆうととりたい:${posts?.data[0].attributes?.kids?.data[0].attributes?.name}');
+      //print(
+      //'dataの中:${response?.data[0].attributes!.user?.data?.attributes?.name}');
+      //print(
+      //'ゆうと:${response?.data[0].attributes?.kids?.data[0].attributes.name}');
+      //print('写真${response?.data[0].attributes?.images}');
+      //print(response?.data[0].id);
+      //print((response?.data[0].attributes?.kids?.data[0].attributes
+      //as Map<String, dynamic>)['name']);
+      setState(() {
+        posts = response;
+      });
+      //setState(() => {posts = response});
+    } catch (e) {
+      print(e);
+    }
+  }
 
   Widget build(BuildContext context) {
     DateFormat outputFormat = DateFormat('yyyy年MM月dd日 H:m');
@@ -101,18 +105,26 @@ class _TimelinekidsState extends State<Timelinekids> {
                           child: ListView.builder(
                               padding: EdgeInsets.only(
                                   top: deviceH * 0.18, bottom: deviceH * 0.06),
-                              itemCount: 5,
+                              itemCount: posts?.data.length,
                               //shrinkWrap: true,
                               itemBuilder: ((BuildContext context, index) {
                                 return Column(
                                   children: [
-                                    Post(
-                                      content: 'おばあちゃんとあそんだよ！',
-                                      kidName: 'ゆうと',
-                                      imageList: posts_list[0].image_url,
-                                      postUser: 'ともこ',
-                                      parent: false,
-                                    ),
+                                    PostComp(
+                                        content: posts
+                                            ?.data[index].attributes?.content,
+                                        kidName: (posts?.data[0].attributes
+                                                ?.kids?.data[0].attributes
+                                            as Map<String, dynamic>)['name'],
+                                        imageNum: ((posts?.data[index]
+                                                .attributes?.images?.data)!
+                                            .length),
+                                        postUser: posts?.data[index].attributes!
+                                            .user?.data?.attributes?.name,
+                                        parent: false,
+                                        createdTime: posts
+                                            ?.data[index].attributes!.createdAt,
+                                        postId: posts?.data[index].id),
                                     SizedBox(height: 21)
                                   ],
                                 );
@@ -147,11 +159,10 @@ class _TimelinekidsState extends State<Timelinekids> {
                 child: const Icon(Icons.add, color: Colors.white))
             : GestureDetector(
                 onTap: () {
-                  showDialog(
-                      barrierColor: Colors.black.withOpacity(0.8),
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (BuildContext context) => MenuModal());
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MenuScreen()));
                 },
                 child: Stack(
                   alignment: Alignment.bottomCenter,
