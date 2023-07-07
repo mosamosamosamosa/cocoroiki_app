@@ -4,25 +4,27 @@ import 'package:cocoroiki_app/components/custom_app_bar.dart';
 import 'package:cocoroiki_app/components/post.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/data/database.dart';
+import 'package:cocoroiki_app/provider/provider.dart';
 import 'package:cocoroiki_app/screens/grandparent/timeline/menu_screen.dart';
 // import 'package:cocoroiki_app/api_client/api.dart';
 
 import 'package:cocoroiki_app/screens/post_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
-class Timelinekids extends StatefulWidget {
+class Timelinekids extends ConsumerStatefulWidget {
   const Timelinekids({super.key, required this.parent});
 
   final bool parent;
 
   @override
-  State<Timelinekids> createState() => _TimelinekidsState();
+  _TimelinekidsState createState() => _TimelinekidsState();
 }
 
-class _TimelinekidsState extends State<Timelinekids> {
+class _TimelinekidsState extends ConsumerState<Timelinekids> {
   PostListResponse? posts = PostListResponse();
   List<String> imageUrl = [];
 
@@ -41,17 +43,7 @@ class _TimelinekidsState extends State<Timelinekids> {
     try {
       final response = await apiInstance.getPosts();
       print('帰ってきた値:$response');
-      //print('投稿時間: ${response?.data[0].attributes?.createdAt}');
-      //print('dataの中:${response?.data[0].attributes?.content}');
-      //print('ゆうととりたい:${posts?.data[0].attributes?.kids?.data[0].attributes?.name}');
-      //print(
-      //'dataの中:${response?.data[0].attributes!.user?.data?.attributes?.name}');
-      //print(
-      //'ゆうと:${response?.data[0].attributes?.kids?.data[0].attributes.name}');
-      //print('写真${response?.data[0].attributes?.images}');
-      //print(response?.data[0].id);
-      //print((response?.data[0].attributes?.kids?.data[0].attributes
-      //as Map<String, dynamic>)['name']);
+
       setState(() {
         posts = response;
       });
@@ -61,7 +53,10 @@ class _TimelinekidsState extends State<Timelinekids> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
+    //おばあちゃんかいなか
+    final userRoleState = ref.watch(userRoleProvider);
     DateFormat outputFormat = DateFormat('yyyy年MM月dd日 H:m');
     double deviceW = MediaQuery.of(context).size.width;
     double deviceH = MediaQuery.of(context).size.height;
@@ -104,7 +99,7 @@ class _TimelinekidsState extends State<Timelinekids> {
                           width: deviceW,
                           child: ListView.builder(
                               padding: EdgeInsets.only(
-                                  top: deviceH * 0.18, bottom: deviceH * 0.06),
+                                  top: deviceH * 0.18, bottom: deviceH * 0.12),
                               itemCount: posts?.data.length,
                               //shrinkWrap: true,
                               itemBuilder: ((BuildContext context, index) {
@@ -146,17 +141,24 @@ class _TimelinekidsState extends State<Timelinekids> {
             ],
           ),
         ),
-        floatingActionButton: widget.parent
-            ? FloatingActionButton(
-                elevation: 0,
-                backgroundColor: Color(0xFFFCCC00),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PostScreen()));
-                },
-                child: const Icon(Icons.add, color: Colors.white))
+        floatingActionButton: userRoleState == false
+            // ? FloatingActionButton(
+            //     elevation: 0,
+            //     backgroundColor: Color(0xFFFCCC00),
+            //     onPressed: () {
+            //       Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //               builder: (context) => const PostScreen()));
+            //     },
+            //     child: const Icon(Icons.add, color: Colors.white))
+            ? Stack(
+                alignment: Alignment.center,
+                children: [
+                  SvgPicture.asset('assets/svg/newpost.svg'),
+                  Icon(Icons.add, color: Colors.white, size: 35)
+                ],
+              )
             : GestureDetector(
                 onTap: () {
                   Navigator.push(
