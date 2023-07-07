@@ -24,6 +24,7 @@ class Timelinekids extends StatefulWidget {
 
 class _TimelinekidsState extends State<Timelinekids> {
   PostListResponse? posts = PostListResponse();
+  List<String> imageUrl = [];
 
   //var posts;
 
@@ -40,15 +41,21 @@ class _TimelinekidsState extends State<Timelinekids> {
     try {
       final response = await apiInstance.getPosts();
       print('帰ってきた値:$response');
-      //print('投稿時間: ${posts?.data[0].attributes?.like}');
+      //print('投稿時間: ${response?.data[0].attributes?.createdAt}');
       //print('dataの中:${response?.data[0].attributes?.content}');
       //print('ゆうととりたい:${posts?.data[0].attributes?.kids?.data[0].attributes?.name}');
       //print(
       //'dataの中:${response?.data[0].attributes!.user?.data?.attributes?.name}');
-      // print(
-      //     'ゆうと:${response?.data[0].attributes?.kids?.data[0].attributes.name}');
-      //print('写真${posts?.data[0].attributes?.images}');
-      setState(() => posts = response);
+      //print(
+      //'ゆうと:${response?.data[0].attributes?.kids?.data[0].attributes.name}');
+      //print('写真${response?.data[0].attributes?.images}');
+      //print(response?.data[0].id);
+      //print((response?.data[0].attributes?.kids?.data[0].attributes
+      //as Map<String, dynamic>)['name']);
+      setState(() {
+        posts = response;
+      });
+      //setState(() => {posts = response});
     } catch (e) {
       print(e);
     }
@@ -106,12 +113,18 @@ class _TimelinekidsState extends State<Timelinekids> {
                                     PostComp(
                                         content: posts
                                             ?.data[index].attributes?.content,
-                                        kidName: 'ゆうと',
-                                        imageList: posts_list[0].image_url,
+                                        kidName: (posts?.data[0].attributes
+                                                ?.kids?.data[0].attributes
+                                            as Map<String, dynamic>)['name'],
+                                        imageNum: ((posts?.data[index]
+                                                .attributes?.images?.data)!
+                                            .length),
                                         postUser: posts?.data[index].attributes!
                                             .user?.data?.attributes?.name,
                                         parent: false,
-                                        createdTime: null),
+                                        createdTime: posts
+                                            ?.data[index].attributes!.createdAt,
+                                        postId: posts?.data[index].id),
                                     SizedBox(height: 21)
                                   ],
                                 );
