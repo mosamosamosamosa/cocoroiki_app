@@ -4,9 +4,11 @@ import 'package:cocoroiki_app/screens/image_modal.dart';
 import 'package:flutter/material.dart';
 
 class PostImageOne extends StatefulWidget {
-  const PostImageOne({super.key, required this.myPost});
+  const PostImageOne(
+      {super.key, required this.myPost, required this.imageList});
 
   final bool myPost;
+  final List<String> imageList;
 
   @override
   State<PostImageOne> createState() => _PostImageOneState();
@@ -23,7 +25,7 @@ class _PostImageOneState extends State<PostImageOne> {
               barrierColor: Colors.black.withOpacity(0.8),
               context: context,
               builder: (BuildContext context) => ImageModal(
-                    image: posts_list[0].image_url[0],
+                    image: widget.imageList[0],
                     activeIndex: 0,
                   ));
         },
@@ -37,8 +39,7 @@ class _PostImageOneState extends State<PostImageOne> {
             ),
           ),
           child: FittedBox(
-              fit: BoxFit.cover,
-              child: Image.network(posts_list[0].image_url[0])),
+              fit: BoxFit.cover, child: Image.network(widget.imageList[0])),
         ),
       ),
     );
