@@ -1,3 +1,4 @@
+import 'package:cocoroiki_app/api_client/api.dart';
 import 'package:cocoroiki_app/components/bottom_button.dart';
 import 'package:cocoroiki_app/components/buttom_bar.dart';
 import 'package:cocoroiki_app/constants.dart';
@@ -13,6 +14,8 @@ class QuestScreen extends StatefulWidget {
 }
 
 class _QuestScreenState extends State<QuestScreen> {
+  AppUserListResponse? users = AppUserListResponse();
+
   int granCount = 1;
   bool visible0 = false;
   bool visible1 = false;
@@ -35,6 +38,26 @@ class _QuestScreenState extends State<QuestScreen> {
     }
     setState(() {});
     super.initState();
+  }
+
+  Future fetchSomeData() async {
+    final apiClient =
+        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+    final apiInstance = AppUserApi(apiClient);
+    try {
+      final response = await apiInstance.getAppUsers();
+
+      // if (response != null) {
+      //   for (int i = 0; i < response.data.length; i++) {
+      //     if (response.data[i].attributes?.family?.data？.id == 1 && response.data[i].attributes?.grandparent) {
+
+      //     }
+      //   }
+      // }
+      setState(() => users = response);
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -110,7 +133,7 @@ class _QuestScreenState extends State<QuestScreen> {
                                 context: context,
                                 builder: (BuildContext context) => TreeModal());
                           },
-                          child: SvgPicture.asset('assets/svg/tree1.svg'))),
+                          child: SvgPicture.asset('assets/svg/green.svg'))),
                 ),
                 Visibility(
                   visible: visible2,
@@ -169,9 +192,52 @@ class _QuestScreenState extends State<QuestScreen> {
                     ],
                   ),
                 ),
-                const Padding(
-                    padding: EdgeInsets.only(bottom: 65),
-                    child: BottomButton()),
+                Positioned(
+                    top: 0,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        SvgPicture.asset('assets/svg/board.svg'),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 64),
+                          child: Stack(
+                            children: [
+                              Text(
+                                'ひろば',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontFamily: 'Zen-B',
+                                  foreground: Paint()
+                                    ..style = PaintingStyle.stroke
+                                    ..strokeWidth = 5
+                                    ..color = Color(0xFF835237),
+                                ),
+                              ),
+                              Text(
+                                'ひろば',
+                                style: TextStyle(
+                                  fontFamily: 'Zen-B',
+                                  fontSize: 24,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )),
+                Positioned(
+                    top: 87,
+                    left: 24,
+                    child: SvgPicture.asset('assets/svg/quest_humberger.svg')),
+                Positioned(
+                    top: 70,
+                    right: 8,
+                    child: SvgPicture.asset('assets/svg/qrcode.svg')),
+
+                // const Padding(
+                //     padding: EdgeInsets.only(bottom: 65),
+                //     child: BottomButton()),
               ],
             )));
   }
