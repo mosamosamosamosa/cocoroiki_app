@@ -27,6 +27,7 @@ dependencies:
   timeago: ^3.5.0
   riverpod: ^2.3.6
   flutter_riverpod: ^2.3.6
+  flutter_datetime_picker: ^1.5.1
   
   #flutter_reaction_button: ^0.1.2
 
