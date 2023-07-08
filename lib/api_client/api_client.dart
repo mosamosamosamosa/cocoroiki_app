@@ -11,7 +11,7 @@
 part of openapi.api;
 
 class ApiClient {
-  ApiClient({this.basePath = 'http://localhost:1337/api', this.authentication,});
+  ApiClient({this.basePath = 'https://cocoroiki-strapi.yumekiti.net', this.authentication,});
 
   final String basePath;
   final Authentication? authentication;
@@ -184,36 +184,36 @@ class ApiClient {
           return value is DateTime ? value : DateTime.tryParse(value);
         case 'AppUser':
           return AppUser.fromJson(value);
-        case 'AppUserFamily':
-          return AppUserFamily.fromJson(value);
-        case 'AppUserFamilyData':
-          return AppUserFamilyData.fromJson(value);
-        case 'AppUserFamilyDataAttributes':
-          return AppUserFamilyDataAttributes.fromJson(value);
-        case 'AppUserFamilyDataAttributesCreatedBy':
-          return AppUserFamilyDataAttributesCreatedBy.fromJson(value);
-        case 'AppUserFamilyDataAttributesCreatedByData':
-          return AppUserFamilyDataAttributesCreatedByData.fromJson(value);
-        case 'AppUserFamilyDataAttributesCreatedByDataAttributes':
-          return AppUserFamilyDataAttributesCreatedByDataAttributes.fromJson(value);
-        case 'AppUserFamilyDataAttributesCreatedByDataAttributesRoles':
-          return AppUserFamilyDataAttributesCreatedByDataAttributesRoles.fromJson(value);
-        case 'AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInner':
-          return AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInner.fromJson(value);
-        case 'AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributes':
-          return AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributes.fromJson(value);
-        case 'AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissions':
-          return AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissions.fromJson(value);
-        case 'AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInner':
-          return AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInner.fromJson(value);
-        case 'AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes':
-          return AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes.fromJson(value);
-        case 'AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole':
-          return AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(value);
-        case 'AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesUsers':
-          return AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesUsers.fromJson(value);
-        case 'AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesUsersDataInner':
-          return AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesUsersDataInner.fromJson(value);
+        case 'AppUserFamilies':
+          return AppUserFamilies.fromJson(value);
+        case 'AppUserFamiliesDataInner':
+          return AppUserFamiliesDataInner.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributes':
+          return AppUserFamiliesDataInnerAttributes.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesCreatedBy':
+          return AppUserFamiliesDataInnerAttributesCreatedBy.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesCreatedByData':
+          return AppUserFamiliesDataInnerAttributesCreatedByData.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributes':
+          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributes.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRoles':
+          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRoles.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInner':
+          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInner.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes':
+          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissions':
+          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissions.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInner':
+          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInner.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes':
+          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole':
+          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesUsers':
+          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesUsers.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesUsersDataInner':
+          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesUsersDataInner.fromJson(value);
         case 'AppUserListResponse':
           return AppUserListResponse.fromJson(value);
         case 'AppUserListResponseDataItem':
@@ -226,8 +226,8 @@ class ApiClient {
           return AppUserRequest.fromJson(value);
         case 'AppUserRequestData':
           return AppUserRequestData.fromJson(value);
-        case 'AppUserRequestDataFamily':
-          return AppUserRequestDataFamily.fromJson(value);
+        case 'AppUserRequestDataFamiliesInner':
+          return AppUserRequestDataFamiliesInner.fromJson(value);
         case 'AppUserResponse':
           return AppUserResponse.fromJson(value);
         case 'AppUserResponseDataObject':
@@ -392,12 +392,12 @@ class ApiClient {
           return QuestRewardDataAttributesUserData.fromJson(value);
         case 'QuestRewardDataAttributesUserDataAttributes':
           return QuestRewardDataAttributesUserDataAttributes.fromJson(value);
-        case 'QuestRewardDataAttributesUserDataAttributesFamily':
-          return QuestRewardDataAttributesUserDataAttributesFamily.fromJson(value);
-        case 'QuestRewardDataAttributesUserDataAttributesFamilyData':
-          return QuestRewardDataAttributesUserDataAttributesFamilyData.fromJson(value);
-        case 'QuestRewardDataAttributesUserDataAttributesFamilyDataAttributes':
-          return QuestRewardDataAttributesUserDataAttributesFamilyDataAttributes.fromJson(value);
+        case 'QuestRewardDataAttributesUserDataAttributesFamilies':
+          return QuestRewardDataAttributesUserDataAttributesFamilies.fromJson(value);
+        case 'QuestRewardDataAttributesUserDataAttributesFamiliesDataInner':
+          return QuestRewardDataAttributesUserDataAttributesFamiliesDataInner.fromJson(value);
+        case 'QuestRewardDataAttributesUserDataAttributesFamiliesDataInnerAttributes':
+          return QuestRewardDataAttributesUserDataAttributesFamiliesDataInnerAttributes.fromJson(value);
         case 'Reward':
           return Reward.fromJson(value);
         case 'RewardListResponse':

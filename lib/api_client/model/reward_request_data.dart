@@ -49,7 +49,7 @@ class RewardRequestData {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserRequestDataFamily? user;
+  AppUserRequestDataFamiliesInner? user;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is RewardRequestData &&
@@ -116,7 +116,7 @@ class RewardRequestData {
         content: mapValueOfType<String>(json, r'content'),
         name: mapValueOfType<String>(json, r'name'),
         point: mapValueOfType<int>(json, r'point'),
-        user: AppUserRequestDataFamily.fromJson(json[r'user']),
+        user: AppUserRequestDataFamiliesInner.fromJson(json[r'user']),
       );
     }
     return null;

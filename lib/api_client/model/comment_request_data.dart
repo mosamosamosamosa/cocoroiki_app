@@ -26,7 +26,7 @@ class CommentRequestData {
   ///
   String? content;
 
-  List<AppUserRequestDataFamily> comments;
+  List<AppUserRequestDataFamiliesInner> comments;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -34,7 +34,7 @@ class CommentRequestData {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserRequestDataFamily? user;
+  AppUserRequestDataFamiliesInner? user;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is CommentRequestData &&
@@ -88,8 +88,8 @@ class CommentRequestData {
 
       return CommentRequestData(
         content: mapValueOfType<String>(json, r'content'),
-        comments: AppUserRequestDataFamily.listFromJson(json[r'comments']),
-        user: AppUserRequestDataFamily.fromJson(json[r'user']),
+        comments: AppUserRequestDataFamiliesInner.listFromJson(json[r'comments']),
+        user: AppUserRequestDataFamiliesInner.fromJson(json[r'user']),
       );
     }
     return null;

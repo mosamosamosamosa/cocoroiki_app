@@ -142,7 +142,7 @@ class PostImagesDataInnerAttributesFolderDataAttributesFilesDataInnerAttributes 
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesUsers? related;
+  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesUsers? related;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -150,7 +150,7 @@ class PostImagesDataInnerAttributesFolderDataAttributesFilesDataInnerAttributes 
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? folder;
+  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? folder;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -182,7 +182,7 @@ class PostImagesDataInnerAttributesFolderDataAttributesFilesDataInnerAttributes 
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
+  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -190,7 +190,7 @@ class PostImagesDataInnerAttributesFolderDataAttributesFilesDataInnerAttributes 
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
+  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is PostImagesDataInnerAttributesFolderDataAttributesFilesDataInnerAttributes &&
@@ -387,13 +387,13 @@ class PostImagesDataInnerAttributesFolderDataAttributesFilesDataInnerAttributes 
         previewUrl: mapValueOfType<String>(json, r'previewUrl'),
         provider: mapValueOfType<String>(json, r'provider'),
         providerMetadata: mapValueOfType<Object>(json, r'provider_metadata'),
-        related: AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesUsers.fromJson(json[r'related']),
-        folder: AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'folder']),
+        related: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesUsers.fromJson(json[r'related']),
+        folder: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'folder']),
         folderPath: mapValueOfType<String>(json, r'folderPath'),
         createdAt: mapDateTime(json, r'createdAt', r''),
         updatedAt: mapDateTime(json, r'updatedAt', r''),
-        createdBy: AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
-        updatedBy: AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
+        createdBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
+        updatedBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
       );
     }
     return null;

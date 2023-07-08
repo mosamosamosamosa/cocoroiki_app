@@ -27,7 +27,7 @@ class PostRequestData {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserRequestDataFamily? user;
+  AppUserRequestDataFamiliesInner? user;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -37,9 +37,9 @@ class PostRequestData {
   ///
   String? content;
 
-  List<AppUserRequestDataFamily> kids;
+  List<AppUserRequestDataFamiliesInner> kids;
 
-  List<AppUserRequestDataFamily> images;
+  List<AppUserRequestDataFamiliesInner> images;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -49,7 +49,7 @@ class PostRequestData {
   ///
   int? like;
 
-  List<AppUserRequestDataFamily> comments;
+  List<AppUserRequestDataFamiliesInner> comments;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is PostRequestData &&
@@ -115,12 +115,12 @@ class PostRequestData {
       }());
 
       return PostRequestData(
-        user: AppUserRequestDataFamily.fromJson(json[r'user']),
+        user: AppUserRequestDataFamiliesInner.fromJson(json[r'user']),
         content: mapValueOfType<String>(json, r'content'),
-        kids: AppUserRequestDataFamily.listFromJson(json[r'kids']),
-        images: AppUserRequestDataFamily.listFromJson(json[r'images']),
+        kids: AppUserRequestDataFamiliesInner.listFromJson(json[r'kids']),
+        images: AppUserRequestDataFamiliesInner.listFromJson(json[r'images']),
         like: mapValueOfType<int>(json, r'like'),
-        comments: AppUserRequestDataFamily.listFromJson(json[r'comments']),
+        comments: AppUserRequestDataFamiliesInner.listFromJson(json[r'comments']),
       );
     }
     return null;

@@ -24,7 +24,7 @@ class ProfileRequestData {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserRequestDataFamily? user;
+  AppUserRequestDataFamiliesInner? user;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -32,7 +32,7 @@ class ProfileRequestData {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserRequestDataFamily? image;
+  AppUserRequestDataFamiliesInner? image;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -97,8 +97,8 @@ class ProfileRequestData {
       }());
 
       return ProfileRequestData(
-        user: AppUserRequestDataFamily.fromJson(json[r'user']),
-        image: AppUserRequestDataFamily.fromJson(json[r'image']),
+        user: AppUserRequestDataFamiliesInner.fromJson(json[r'user']),
+        image: AppUserRequestDataFamiliesInner.fromJson(json[r'image']),
         content: mapValueOfType<String>(json, r'content'),
       );
     }

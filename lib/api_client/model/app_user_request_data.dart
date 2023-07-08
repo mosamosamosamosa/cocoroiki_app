@@ -19,9 +19,9 @@ class AppUserRequestData {
     this.birth,
     this.age,
     this.gender,
-    this.questRole,
     this.lastLogin,
-    this.family,
+    this.families = const [],
+    this.grandparent,
   });
 
   ///
@@ -78,23 +78,17 @@ class AppUserRequestData {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  bool? questRole;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
   DateTime? lastLogin;
 
+  List<AppUserRequestDataFamiliesInner> families;
+
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
   /// does not include a default value (using the "default:" property), however, the generated
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserRequestDataFamily? family;
+  bool? grandparent;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is AppUserRequestData &&
@@ -104,9 +98,9 @@ class AppUserRequestData {
      other.birth == birth &&
      other.age == age &&
      other.gender == gender &&
-     other.questRole == questRole &&
      other.lastLogin == lastLogin &&
-     other.family == family;
+     other.families == families &&
+     other.grandparent == grandparent;
 
   @override
   int get hashCode =>
@@ -117,12 +111,12 @@ class AppUserRequestData {
     (birth == null ? 0 : birth!.hashCode) +
     (age == null ? 0 : age!.hashCode) +
     (gender == null ? 0 : gender!.hashCode) +
-    (questRole == null ? 0 : questRole!.hashCode) +
     (lastLogin == null ? 0 : lastLogin!.hashCode) +
-    (family == null ? 0 : family!.hashCode);
+    (families.hashCode) +
+    (grandparent == null ? 0 : grandparent!.hashCode);
 
   @override
-  String toString() => 'AppUserRequestData[name=$name, email=$email, password=$password, birth=$birth, age=$age, gender=$gender, questRole=$questRole, lastLogin=$lastLogin, family=$family]';
+  String toString() => 'AppUserRequestData[name=$name, email=$email, password=$password, birth=$birth, age=$age, gender=$gender, lastLogin=$lastLogin, families=$families, grandparent=$grandparent]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -156,20 +150,16 @@ class AppUserRequestData {
     } else {
       json[r'gender'] = null;
     }
-    if (this.questRole != null) {
-      json[r'quest_role'] = this.questRole;
-    } else {
-      json[r'quest_role'] = null;
-    }
     if (this.lastLogin != null) {
       json[r'last_login'] = this.lastLogin!.toUtc().toIso8601String();
     } else {
       json[r'last_login'] = null;
     }
-    if (this.family != null) {
-      json[r'family'] = this.family;
+      json[r'families'] = this.families;
+    if (this.grandparent != null) {
+      json[r'grandparent'] = this.grandparent;
     } else {
-      json[r'family'] = null;
+      json[r'grandparent'] = null;
     }
     return json;
   }
@@ -199,9 +189,9 @@ class AppUserRequestData {
         birth: mapDateTime(json, r'birth', r''),
         age: mapValueOfType<int>(json, r'age'),
         gender: mapValueOfType<String>(json, r'gender'),
-        questRole: mapValueOfType<bool>(json, r'quest_role'),
         lastLogin: mapDateTime(json, r'last_login', r''),
-        family: AppUserRequestDataFamily.fromJson(json[r'family']),
+        families: AppUserRequestDataFamiliesInner.listFromJson(json[r'families']),
+        grandparent: mapValueOfType<bool>(json, r'grandparent'),
       );
     }
     return null;
