@@ -9,3 +9,8 @@ final StateProvider<int> userIdProvider = StateProvider((ref) {
 final StateProvider<bool> userRoleProvider = StateProvider((ref) {
   return true;
 });
+
+//familyId
+final StateProvider<int> familyIdProvider = StateProvider((ref) {
+  return 1;
+});
