@@ -7,12 +7,14 @@ import 'package:cocoroiki_app/components/post_image_two.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/data/database.dart';
 import 'package:cocoroiki_app/data/database.dart';
+import 'package:cocoroiki_app/provider/provider.dart';
 import 'package:cocoroiki_app/screens/timeline_detail_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
-class PostComp extends StatefulWidget {
+class PostComp extends ConsumerStatefulWidget {
   PostComp(
       {super.key,
       required this.postId,
@@ -31,10 +33,10 @@ class PostComp extends StatefulWidget {
   final DateTime? createdTime;
   final num? postId;
   @override
-  State<PostComp> createState() => _PostCompState();
+  _PostCompState createState() => _PostCompState();
 }
 
-class _PostCompState extends State<PostComp> {
+class _PostCompState extends ConsumerState<PostComp> {
   PostResponse? postDetail = PostResponse();
   List<String> imageList = [];
 
@@ -68,7 +70,8 @@ class _PostCompState extends State<PostComp> {
 
   @override
   Widget build(BuildContext context) {
-    DateFormat outputFormat = DateFormat('yyyy年MM月dd日 H:m');
+    final userRoleState = ref.watch(userRoleProvider);
+    DateFormat outputFormat = DateFormat('yyyy年MM月dd日');
     Widget post;
     //int imageNum = widget.imageList.length;
     if (widget.imageNum == 1) {
@@ -143,18 +146,25 @@ class _PostCompState extends State<PostComp> {
                       // ),
                       SizedBox(width: 8),
                       Text(widget.postUser!,
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: kFontColor))
+                          style: userRoleState
+                              ? TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: kFontColor)
+                              : TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: kFontColor))
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 12, left: 16, right: 20),
-                  child: Text(widget.content!,
-                      style: TextStyle(color: kFontColor, fontSize: 16)),
-                ),
+                    padding:
+                        const EdgeInsets.only(top: 12, left: 16, right: 20),
+                    child: Text(widget.content!,
+                        style: userRoleState
+                            ? TextStyle(color: kFontColor, fontSize: 20)
+                            : TextStyle(color: kFontColor, fontSize: 16))),
                 SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -167,7 +177,9 @@ class _PostCompState extends State<PostComp> {
                     SizedBox(width: 21),
                     Row(
                       children: [
-                        SvgPicture.asset('assets/svg/like.svg'),
+                        userRoleState
+                            ? SvgPicture.asset('assets/svg/like_grand.svg')
+                            : SvgPicture.asset('assets/svg/like.svg'),
                         //SizedBox(width: 4),
                         postDetail?.data?.attributes?.like == null
                             ? Row(
@@ -185,7 +197,7 @@ class _PostCompState extends State<PostComp> {
                                     style: TextStyle(
                                         color: Color(0xFF949494),
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 16),
+                                        fontSize: userRoleState ? 20 : 16),
                                   ),
                                 ],
                               ),
@@ -194,7 +206,9 @@ class _PostCompState extends State<PostComp> {
                     SizedBox(width: 28),
                     Row(
                       children: [
-                        SvgPicture.asset('assets/svg/comment.svg'),
+                        userRoleState
+                            ? SvgPicture.asset('assets/svg/comment_grand.svg')
+                            : SvgPicture.asset('assets/svg/comment.svg'),
                         postDetail?.data?.attributes?.comments?.data.length == 0
                             ? Row(
                                 children: [
@@ -212,7 +226,7 @@ class _PostCompState extends State<PostComp> {
                                     style: TextStyle(
                                         color: Color(0xFF949494),
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 16),
+                                        fontSize: userRoleState ? 20 : 16),
                                   ),
                                 ],
                               )
@@ -231,10 +245,15 @@ class _PostCompState extends State<PostComp> {
                 height: 32,
                 width: 70,
                 child: Text(widget.kidName!,
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: kFontColor)),
+                    style: userRoleState
+                        ? TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: kFontColor)
+                        : TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: kFontColor)),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),

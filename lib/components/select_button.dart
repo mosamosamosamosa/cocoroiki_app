@@ -42,11 +42,11 @@ class _SelectedButtonState extends State<SelectedButton> {
           ],
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(9),
+          borderRadius: BorderRadius.circular(20),
           border: Border.all(
-              color: widget.pushed ? Color(0xFFFF9900) : Colors.transparent,
+              color: widget.pushed ? Color(0xFFFF7020) : Color(0xFFCFCFCF),
               width: 7),
-          boxShadow: const [
+          boxShadow: [
             // ボタン下
             BoxShadow(
               color: Color(0xFF650303),
@@ -55,7 +55,7 @@ class _SelectedButtonState extends State<SelectedButton> {
 
             // ボタン上
             BoxShadow(
-              color: Color(0xFFE8F6DD),
+              color: widget.pushed ? Color(0xFFFFB72B) : Colors.white,
               //blurRadius: 0,
               offset: Offset(0, 0),
             ),

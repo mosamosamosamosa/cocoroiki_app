@@ -11,10 +11,21 @@ class CreateAccountScreen extends StatefulWidget {
 }
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
+  String userName = '';
+  bool userFlag = true;
+  bool motherFlag = false;
+  bool fatherFlag = false;
+  bool grandmotherFlag = false;
+  bool grandfatherFlag = false;
+
   @override
   Widget build(BuildContext context) {
     List<String> relational = ['ママ', 'パパ', 'おばあちゃん', 'おじいちゃん'];
+    //bool isNull = true;
+    final controllerN = TextEditingController();
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
         toolbarHeight: 115,
@@ -114,9 +125,53 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               Container(
                 width: 310,
                 height: 50,
+                //color: isNull ? Color(0x90C659) : Colors.transparent,
                 decoration: BoxDecoration(
-                  color: Color(0xFFE9E9E9),
+                  color: userFlag ? Color(0xFFE9E9E9) : Colors.white,
                   borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                      color: userFlag ? Colors.transparent : Color(0xFF90C659),
+                      width: 2),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 16),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: TextField(
+                      onTap: () {
+                        print('タップは検知できたよ');
+                        setState(() {
+                          userFlag = false;
+                        });
+                        print(userFlag);
+                      },
+                      //controller:
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          setState(() {
+                            userName = value;
+                          });
+                        } else {
+                          setState(() {
+                            userName = '';
+                          });
+                        }
+                      },
+                      style: TextStyle(
+                        color: userFlag ? Color(0xFF747474) : Color(0xFF511C0B),
+                        fontSize: 15,
+                        fontFamily: 'Zen-B',
+                        fontStyle: FontStyle.normal,
+                        fontWeight: FontWeight.w500,
+                        height: 1.25,
+                        letterSpacing: -0.5,
+                      ),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'お名前',
+                      ),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 16),
@@ -126,6 +181,24 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 decoration: BoxDecoration(
                   color: Color(0xFFE9E9E9),
                   borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 16),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '生年月日',
+                      style: TextStyle(
+                        color: true ? Color(0xFF511C0B) : Color(0xFF747474),
+                        fontSize: 15,
+                        fontFamily: true ? 'Zen-B' : 'Zen-m',
+                        fontStyle: FontStyle.normal,
+                        fontWeight: FontWeight.w500,
+                        height: 1.25,
+                        letterSpacing: -0.5,
+                      ),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 24),
@@ -140,25 +213,155 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       )),
                 ],
               ),
-              Flexible(
-                child: SizedBox(
-                  height: 60,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: relational.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 40, top: 16),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            motherFlag = true;
+                            fatherFlag = false;
+                            grandmotherFlag = false;
+                            grandfatherFlag = false;
+                          });
+                        },
                         child: Container(
+                          alignment: Alignment.center,
                           width: 105,
                           height: 50,
                           decoration: BoxDecoration(
-                            color: Color(0xFFE9E9E9),
+                            color:
+                                motherFlag ? Colors.white : Color(0xFFE9E9E9),
                             borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                color: motherFlag
+                                    ? Color(0xFF90C659)
+                                    : Colors.transparent,
+                                width: 2),
+                          ),
+                          child: Text(
+                            'ママ',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: motherFlag
+                                  ? Color(0xFF511C0B)
+                                  : Color(0xFF747474),
+                              fontFamily: 'Zen-B',
+                            ),
                           ),
                         ),
-                      );
-                    },
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            motherFlag = false;
+                            fatherFlag = true;
+                            grandmotherFlag = false;
+                            grandfatherFlag = false;
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: 105,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color:
+                                fatherFlag ? Colors.white : Color(0xFFE9E9E9),
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                color: fatherFlag
+                                    ? Color(0xFF90C659)
+                                    : Colors.transparent,
+                                width: 2),
+                          ),
+                          child: Text(
+                            'パパ',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: fatherFlag
+                                  ? Color(0xFF511C0B)
+                                  : Color(0xFF747474),
+                              fontFamily: 'Zen-B',
+                            ),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            motherFlag = false;
+                            fatherFlag = false;
+                            grandmotherFlag = true;
+                            grandfatherFlag = false;
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: 105,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: grandmotherFlag
+                                ? Colors.white
+                                : Color(0xFFE9E9E9),
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                color: grandmotherFlag
+                                    ? Color(0xFF90C659)
+                                    : Colors.transparent,
+                                width: 2),
+                          ),
+                          child: Text(
+                            'おばあちゃん',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: grandmotherFlag
+                                  ? Color(0xFF511C0B)
+                                  : Color(0xFF747474),
+                              fontFamily: 'Zen-B',
+                            ),
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            motherFlag = false;
+                            fatherFlag = false;
+                            grandmotherFlag = false;
+                            grandfatherFlag = true;
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: 105,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: grandfatherFlag
+                                ? Colors.white
+                                : Color(0xFFE9E9E9),
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                color: grandfatherFlag
+                                    ? Color(0xFF90C659)
+                                    : Colors.transparent,
+                                width: 2),
+                          ),
+                          child: Text(
+                            'おじいちゃん',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: grandfatherFlag
+                                  ? Color(0xFF511C0B)
+                                  : Color(0xFF747474),
+                              fontFamily: 'Zen-B',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

@@ -7,14 +7,16 @@ import 'package:cocoroiki_app/components/post_image_three.dart';
 import 'package:cocoroiki_app/components/post_image_two.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/data/database.dart';
+import 'package:cocoroiki_app/provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 
-class TimelineDetailScreen extends StatefulWidget {
+class TimelineDetailScreen extends ConsumerStatefulWidget {
   const TimelineDetailScreen(
       {super.key,
       required this.postId,
@@ -26,10 +28,10 @@ class TimelineDetailScreen extends StatefulWidget {
   final List<String> imageList;
 
   @override
-  State<TimelineDetailScreen> createState() => _TimelineDetailScreenState();
+  _TimelineDetailScreenState createState() => _TimelineDetailScreenState();
 }
 
-class _TimelineDetailScreenState extends State<TimelineDetailScreen> {
+class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
   PostResponse? postDetail = PostResponse();
   CommentListResponse? comDetail = CommentListResponse();
   List<int> commentList = [];
@@ -108,8 +110,9 @@ class _TimelineDetailScreenState extends State<TimelineDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final userRoleState = ref.watch(userRoleProvider);
     timeAgo.setLocaleMessages("ja", timeAgo.JaMessages());
-    DateFormat outputFormat = DateFormat('yyyy年MM月dd日');
+    DateFormat outputFormat = DateFormat('yyyy年MM月dd日 H時m分');
     double deviceW = MediaQuery.of(context).size.width;
     double deviceH = MediaQuery.of(context).size.height;
     Widget post;
@@ -144,7 +147,7 @@ class _TimelineDetailScreenState extends State<TimelineDetailScreen> {
                         style: TextStyle(
                             color: Color(0xFF919191),
                             fontWeight: FontWeight.bold,
-                            fontSize: 14),
+                            fontSize: userRoleState ? 18 : 14),
                       ),
                     ),
                     Padding(
@@ -153,8 +156,9 @@ class _TimelineDetailScreenState extends State<TimelineDetailScreen> {
                             ? Text(
                                 (postDetail?.data?.attributes?.content)
                                     .toString(),
-                                style:
-                                    TextStyle(color: kFontColor, fontSize: 16))
+                                style: TextStyle(
+                                    color: kFontColor,
+                                    fontSize: userRoleState ? 20 : 16))
                             : Text('')),
                     SizedBox(height: 24),
                     Row(
@@ -173,7 +177,9 @@ class _TimelineDetailScreenState extends State<TimelineDetailScreen> {
                         Row(
                           children: [
                             //FavoriteButton(),
-                            SvgPicture.asset('assets/svg/like.svg'),
+                            userRoleState
+                                ? SvgPicture.asset('assets/svg/like_grand.svg')
+                                : SvgPicture.asset('assets/svg/like.svg'),
                             postDetail?.data?.attributes?.like == null
                                 ? Row(
                                     children: [
@@ -190,7 +196,7 @@ class _TimelineDetailScreenState extends State<TimelineDetailScreen> {
                                         style: TextStyle(
                                             color: Color(0xFF949494),
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 16),
+                                            fontSize: userRoleState ? 20 : 16),
                                       ),
                                     ],
                                   ),
@@ -199,7 +205,10 @@ class _TimelineDetailScreenState extends State<TimelineDetailScreen> {
                         SizedBox(width: 32),
                         Row(
                           children: [
-                            SvgPicture.asset('assets/svg/comment.svg'),
+                            userRoleState
+                                ? SvgPicture.asset(
+                                    'assets/svg/comment_grand.svg')
+                                : SvgPicture.asset('assets/svg/comment.svg'),
                             postDetail?.data?.attributes?.comments?.data
                                         .length ==
                                     0
@@ -226,7 +235,7 @@ class _TimelineDetailScreenState extends State<TimelineDetailScreen> {
                           ],
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 178),
+                          padding: EdgeInsets.only(left: deviceW * 0.35),
                           child: Container(
                             alignment: Alignment.center,
                             height: 32,
@@ -234,7 +243,7 @@ class _TimelineDetailScreenState extends State<TimelineDetailScreen> {
                             child: Text(
                                 '${(postDetail?.data?.attributes?.kids?.data[0].attributes as Map<String, dynamic>)['name']}',
                                 style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: userRoleState ? 16 : 14,
                                     fontWeight: FontWeight.bold,
                                     color: kFontColor)),
                             decoration: BoxDecoration(
@@ -300,7 +309,9 @@ class _TimelineDetailScreenState extends State<TimelineDetailScreen> {
                                               children: [
                                                 Text('よしえ',
                                                     style: TextStyle(
-                                                        fontSize: 16,
+                                                        fontSize: userRoleState
+                                                            ? 20
+                                                            : 16,
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         color: kFontColor)),
@@ -317,9 +328,12 @@ class _TimelineDetailScreenState extends State<TimelineDetailScreen> {
                                                     style: TextStyle(
                                                         color:
                                                             Color(0xFF919191),
-                                                        fontSize: 14)),
+                                                        fontSize: userRoleState
+                                                            ? 18
+                                                            : 14)),
                                               ],
                                             ),
+                                            SizedBox(height: 4),
                                             SizedBox(
                                               width: 294,
                                               child: Text(
@@ -332,7 +346,9 @@ class _TimelineDetailScreenState extends State<TimelineDetailScreen> {
                                                         ?.content)
                                                     .toString(),
                                                 style: TextStyle(
-                                                    fontSize: 14,
+                                                    fontFamily: 'Zen-B',
+                                                    fontSize:
+                                                        userRoleState ? 18 : 14,
                                                     color: kFontColor),
                                               ),
                                             )
