@@ -18,9 +18,9 @@ class AppUser {
     this.birth,
     this.age,
     this.gender,
-    this.questRole,
     this.lastLogin,
-    this.family,
+    this.families,
+    this.grandparent,
     this.createdAt,
     this.updatedAt,
     this.publishedAt,
@@ -74,14 +74,6 @@ class AppUser {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  bool? questRole;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
   DateTime? lastLogin;
 
   ///
@@ -90,7 +82,15 @@ class AppUser {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamily? family;
+  AppUserFamilies? families;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  bool? grandparent;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -122,7 +122,7 @@ class AppUser {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
+  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -130,7 +130,7 @@ class AppUser {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
+  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is AppUser &&
@@ -139,9 +139,9 @@ class AppUser {
      other.birth == birth &&
      other.age == age &&
      other.gender == gender &&
-     other.questRole == questRole &&
      other.lastLogin == lastLogin &&
-     other.family == family &&
+     other.families == families &&
+     other.grandparent == grandparent &&
      other.createdAt == createdAt &&
      other.updatedAt == updatedAt &&
      other.publishedAt == publishedAt &&
@@ -156,9 +156,9 @@ class AppUser {
     (birth == null ? 0 : birth!.hashCode) +
     (age == null ? 0 : age!.hashCode) +
     (gender == null ? 0 : gender!.hashCode) +
-    (questRole == null ? 0 : questRole!.hashCode) +
     (lastLogin == null ? 0 : lastLogin!.hashCode) +
-    (family == null ? 0 : family!.hashCode) +
+    (families == null ? 0 : families!.hashCode) +
+    (grandparent == null ? 0 : grandparent!.hashCode) +
     (createdAt == null ? 0 : createdAt!.hashCode) +
     (updatedAt == null ? 0 : updatedAt!.hashCode) +
     (publishedAt == null ? 0 : publishedAt!.hashCode) +
@@ -166,7 +166,7 @@ class AppUser {
     (updatedBy == null ? 0 : updatedBy!.hashCode);
 
   @override
-  String toString() => 'AppUser[name=$name, email=$email, birth=$birth, age=$age, gender=$gender, questRole=$questRole, lastLogin=$lastLogin, family=$family, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
+  String toString() => 'AppUser[name=$name, email=$email, birth=$birth, age=$age, gender=$gender, lastLogin=$lastLogin, families=$families, grandparent=$grandparent, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -195,20 +195,20 @@ class AppUser {
     } else {
       json[r'gender'] = null;
     }
-    if (this.questRole != null) {
-      json[r'quest_role'] = this.questRole;
-    } else {
-      json[r'quest_role'] = null;
-    }
     if (this.lastLogin != null) {
       json[r'last_login'] = this.lastLogin!.toUtc().toIso8601String();
     } else {
       json[r'last_login'] = null;
     }
-    if (this.family != null) {
-      json[r'family'] = this.family;
+    if (this.families != null) {
+      json[r'families'] = this.families;
     } else {
-      json[r'family'] = null;
+      json[r'families'] = null;
+    }
+    if (this.grandparent != null) {
+      json[r'grandparent'] = this.grandparent;
+    } else {
+      json[r'grandparent'] = null;
     }
     if (this.createdAt != null) {
       json[r'createdAt'] = this.createdAt!.toUtc().toIso8601String();
@@ -262,14 +262,14 @@ class AppUser {
         birth: mapDateTime(json, r'birth', r''),
         age: mapValueOfType<int>(json, r'age'),
         gender: mapValueOfType<String>(json, r'gender'),
-        questRole: mapValueOfType<bool>(json, r'quest_role'),
         lastLogin: mapDateTime(json, r'last_login', r''),
-        family: AppUserFamily.fromJson(json[r'family']),
+        families: AppUserFamilies.fromJson(json[r'families']),
+        grandparent: mapValueOfType<bool>(json, r'grandparent'),
         createdAt: mapDateTime(json, r'createdAt', r''),
         updatedAt: mapDateTime(json, r'updatedAt', r''),
         publishedAt: mapDateTime(json, r'publishedAt', r''),
-        createdBy: AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
-        updatedBy: AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
+        createdBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
+        updatedBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
       );
     }
     return null;

@@ -10,9 +10,9 @@
 
 part of openapi.api;
 
-class AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes {
-  /// Returns a new [AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes] instance.
-  AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes({
+class AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes {
+  /// Returns a new [AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes] instance.
+  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes({
     this.action,
     this.subject,
     this.properties,
@@ -50,7 +50,7 @@ class AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributes
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? role;
+  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? role;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -74,7 +74,7 @@ class AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributes
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
+  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -82,10 +82,10 @@ class AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributes
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
+  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes &&
+  bool operator ==(Object other) => identical(this, other) || other is AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes &&
      other.action == action &&
      other.subject == subject &&
      other.properties == properties &&
@@ -110,7 +110,7 @@ class AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributes
     (updatedBy == null ? 0 : updatedBy!.hashCode);
 
   @override
-  String toString() => 'AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes[action=$action, subject=$subject, properties=$properties, conditions=$conditions, role=$role, createdAt=$createdAt, updatedAt=$updatedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
+  String toString() => 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes[action=$action, subject=$subject, properties=$properties, conditions=$conditions, role=$role, createdAt=$createdAt, updatedAt=$updatedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -162,10 +162,10 @@ class AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributes
     return json;
   }
 
-  /// Returns a new [AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes] instance and imports its values from
+  /// Returns a new [AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes? fromJson(dynamic value) {
+  static AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -174,32 +174,32 @@ class AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributes
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes(
+      return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes(
         action: mapValueOfType<String>(json, r'action'),
         subject: mapValueOfType<String>(json, r'subject'),
         properties: mapValueOfType<Object>(json, r'properties'),
         conditions: mapValueOfType<Object>(json, r'conditions'),
-        role: AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'role']),
+        role: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'role']),
         createdAt: mapDateTime(json, r'createdAt', r''),
         updatedAt: mapDateTime(json, r'updatedAt', r''),
-        createdBy: AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
-        updatedBy: AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
+        createdBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
+        updatedBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
       );
     }
     return null;
   }
 
-  static List<AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes>[];
+  static List<AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes.fromJson(row);
+        final value = AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -208,12 +208,12 @@ class AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributes
     return result.toList(growable: growable);
   }
 
-  static Map<String, AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes> mapFromJson(dynamic json) {
-    final map = <String, AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes>{};
+  static Map<String, AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes> mapFromJson(dynamic json) {
+    final map = <String, AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes.fromJson(entry.value);
+        final value = AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -222,14 +222,14 @@ class AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributes
     return map;
   }
 
-  // maps a json object with a list of AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes-objects as value to a dart map
-  static Map<String, List<AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes>>{};
+  // maps a json object with a list of AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes-objects as value to a dart map
+  static Map<String, List<AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

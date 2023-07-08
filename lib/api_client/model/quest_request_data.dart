@@ -36,7 +36,7 @@ class QuestRequestData {
   ///
   bool? completed;
 
-  List<AppUserRequestDataFamily> questKinds;
+  List<AppUserRequestDataFamiliesInner> questKinds;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -44,7 +44,7 @@ class QuestRequestData {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserRequestDataFamily? reward;
+  AppUserRequestDataFamiliesInner? reward;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -121,8 +121,8 @@ class QuestRequestData {
       return QuestRequestData(
         content: mapValueOfType<String>(json, r'content'),
         completed: mapValueOfType<bool>(json, r'completed'),
-        questKinds: AppUserRequestDataFamily.listFromJson(json[r'quest_kinds']),
-        reward: AppUserRequestDataFamily.fromJson(json[r'reward']),
+        questKinds: AppUserRequestDataFamiliesInner.listFromJson(json[r'quest_kinds']),
+        reward: AppUserRequestDataFamiliesInner.fromJson(json[r'reward']),
         completedAt: mapDateTime(json, r'completedAt', r''),
       );
     }

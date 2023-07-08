@@ -10,22 +10,22 @@
 
 part of openapi.api;
 
-class AppUserRequestDataFamily {
-  /// Returns a new [AppUserRequestDataFamily] instance.
-  AppUserRequestDataFamily();
+class AppUserRequestDataFamiliesInner {
+  /// Returns a new [AppUserRequestDataFamiliesInner] instance.
+  AppUserRequestDataFamiliesInner();
 
   @override
-  String toString() => 'AppUserRequestDataFamily[]';
+  String toString() => 'AppUserRequestDataFamiliesInner[]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
     return json;
   }
 
-  /// Returns a new [AppUserRequestDataFamily] instance and imports its values from
+  /// Returns a new [AppUserRequestDataFamiliesInner] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static AppUserRequestDataFamily? fromJson(dynamic value) {
+  static AppUserRequestDataFamiliesInner? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -34,23 +34,23 @@ class AppUserRequestDataFamily {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "AppUserRequestDataFamily[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "AppUserRequestDataFamily[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "AppUserRequestDataFamiliesInner[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "AppUserRequestDataFamiliesInner[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return AppUserRequestDataFamily(
+      return AppUserRequestDataFamiliesInner(
       );
     }
     return null;
   }
 
-  static List<AppUserRequestDataFamily> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <AppUserRequestDataFamily>[];
+  static List<AppUserRequestDataFamiliesInner> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <AppUserRequestDataFamiliesInner>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = AppUserRequestDataFamily.fromJson(row);
+        final value = AppUserRequestDataFamiliesInner.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -59,12 +59,12 @@ class AppUserRequestDataFamily {
     return result.toList(growable: growable);
   }
 
-  static Map<String, AppUserRequestDataFamily> mapFromJson(dynamic json) {
-    final map = <String, AppUserRequestDataFamily>{};
+  static Map<String, AppUserRequestDataFamiliesInner> mapFromJson(dynamic json) {
+    final map = <String, AppUserRequestDataFamiliesInner>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = AppUserRequestDataFamily.fromJson(entry.value);
+        final value = AppUserRequestDataFamiliesInner.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -73,14 +73,14 @@ class AppUserRequestDataFamily {
     return map;
   }
 
-  // maps a json object with a list of AppUserRequestDataFamily-objects as value to a dart map
-  static Map<String, List<AppUserRequestDataFamily>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<AppUserRequestDataFamily>>{};
+  // maps a json object with a list of AppUserRequestDataFamiliesInner-objects as value to a dart map
+  static Map<String, List<AppUserRequestDataFamiliesInner>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<AppUserRequestDataFamiliesInner>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = AppUserRequestDataFamily.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = AppUserRequestDataFamiliesInner.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

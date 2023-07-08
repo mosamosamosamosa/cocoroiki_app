@@ -47,7 +47,7 @@ class PostImagesDataInnerAttributesFolderDataAttributes {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? parent;
+  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? parent;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -55,7 +55,7 @@ class PostImagesDataInnerAttributesFolderDataAttributes {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesUsers? children;
+  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesUsers? children;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -95,7 +95,7 @@ class PostImagesDataInnerAttributesFolderDataAttributes {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
+  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -103,7 +103,7 @@ class PostImagesDataInnerAttributesFolderDataAttributes {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
+  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is PostImagesDataInnerAttributesFolderDataAttributes &&
@@ -211,14 +211,14 @@ class PostImagesDataInnerAttributesFolderDataAttributes {
       return PostImagesDataInnerAttributesFolderDataAttributes(
         name: mapValueOfType<String>(json, r'name'),
         pathId: mapValueOfType<int>(json, r'pathId'),
-        parent: AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'parent']),
-        children: AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesUsers.fromJson(json[r'children']),
+        parent: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'parent']),
+        children: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesUsers.fromJson(json[r'children']),
         files: PostImagesDataInnerAttributesFolderDataAttributesFiles.fromJson(json[r'files']),
         path: mapValueOfType<String>(json, r'path'),
         createdAt: mapDateTime(json, r'createdAt', r''),
         updatedAt: mapDateTime(json, r'updatedAt', r''),
-        createdBy: AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
-        updatedBy: AppUserFamilyDataAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
+        createdBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
+        updatedBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
       );
     }
     return null;

@@ -18,7 +18,7 @@ class TreeRequestData {
     this.wateredAt,
   });
 
-  List<AppUserRequestDataFamily> users;
+  List<AppUserRequestDataFamiliesInner> users;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -87,7 +87,7 @@ class TreeRequestData {
       }());
 
       return TreeRequestData(
-        users: AppUserRequestDataFamily.listFromJson(json[r'users']),
+        users: AppUserRequestDataFamiliesInner.listFromJson(json[r'users']),
         state: mapValueOfType<int>(json, r'state'),
         wateredAt: mapDateTime(json, r'wateredAt', r''),
       );

@@ -168,16 +168,16 @@ class UploadFileApi {
   ///
   /// Parameters:
   ///
-  /// * [String] id (required):
-  ///   File id
+  /// * [num] id (required):
+  ///   
   ///
   /// * [UploadIdPostRequestFileInfo] fileInfo:
   ///
   /// * [MultipartFile] files:
-  Future<Response> uploadIdPostWithHttpInfo(String id, { fileInfo, MultipartFile? files, }) async {
+  Future<Response> uploadIdPostWithHttpInfo(num id, { fileInfo, MultipartFile? files, }) async {
     // ignore: prefer_const_declarations
     final path = r'/upload/{id}'
-      .replaceAll('{id}', id);
+      .replaceAll('{id}', id.toString());
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -220,13 +220,13 @@ class UploadFileApi {
   ///
   /// Parameters:
   ///
-  /// * [String] id (required):
-  ///   File id
+  /// * [num] id (required):
+  ///   
   ///
   /// * [UploadIdPostRequestFileInfo] fileInfo:
   ///
   /// * [MultipartFile] files:
-  Future<List<UploadFile>?> uploadIdPost(String id, { fileInfo, MultipartFile? files, }) async {
+  Future<List<UploadFile>?> uploadIdPost(num id, { fileInfo, MultipartFile? files, }) async {
     final response = await uploadIdPostWithHttpInfo(id,  fileInfo: fileInfo, files: files, );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
