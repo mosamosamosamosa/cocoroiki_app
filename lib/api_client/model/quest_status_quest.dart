@@ -10,11 +10,10 @@
 
 part of openapi.api;
 
-class FamilyRequestData {
-  /// Returns a new [FamilyRequestData] instance.
-  FamilyRequestData({
-    this.name,
-    this.kids = const [],
+class QuestStatusQuest {
+  /// Returns a new [QuestStatusQuest] instance.
+  QuestStatusQuest({
+    this.data,
   });
 
   ///
@@ -23,39 +22,34 @@ class FamilyRequestData {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? name;
-
-  List<AppUserRequestDataFamiliesInner> kids;
+  QuestStatusQuestData? data;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is FamilyRequestData &&
-     other.name == name &&
-     other.kids == kids;
+  bool operator ==(Object other) => identical(this, other) || other is QuestStatusQuest &&
+     other.data == data;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (name == null ? 0 : name!.hashCode) +
-    (kids.hashCode);
+    (data == null ? 0 : data!.hashCode);
 
   @override
-  String toString() => 'FamilyRequestData[name=$name, kids=$kids]';
+  String toString() => 'QuestStatusQuest[data=$data]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.name != null) {
-      json[r'name'] = this.name;
+    if (this.data != null) {
+      json[r'data'] = this.data;
     } else {
-      json[r'name'] = null;
+      json[r'data'] = null;
     }
-      json[r'kids'] = this.kids;
     return json;
   }
 
-  /// Returns a new [FamilyRequestData] instance and imports its values from
+  /// Returns a new [QuestStatusQuest] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static FamilyRequestData? fromJson(dynamic value) {
+  static QuestStatusQuest? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -64,25 +58,24 @@ class FamilyRequestData {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "FamilyRequestData[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "FamilyRequestData[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "QuestStatusQuest[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "QuestStatusQuest[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return FamilyRequestData(
-        name: mapValueOfType<String>(json, r'name'),
-        kids: AppUserRequestDataFamiliesInner.listFromJson(json[r'kids']),
+      return QuestStatusQuest(
+        data: QuestStatusQuestData.fromJson(json[r'data']),
       );
     }
     return null;
   }
 
-  static List<FamilyRequestData> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <FamilyRequestData>[];
+  static List<QuestStatusQuest> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <QuestStatusQuest>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = FamilyRequestData.fromJson(row);
+        final value = QuestStatusQuest.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -91,12 +84,12 @@ class FamilyRequestData {
     return result.toList(growable: growable);
   }
 
-  static Map<String, FamilyRequestData> mapFromJson(dynamic json) {
-    final map = <String, FamilyRequestData>{};
+  static Map<String, QuestStatusQuest> mapFromJson(dynamic json) {
+    final map = <String, QuestStatusQuest>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = FamilyRequestData.fromJson(entry.value);
+        final value = QuestStatusQuest.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -105,14 +98,14 @@ class FamilyRequestData {
     return map;
   }
 
-  // maps a json object with a list of FamilyRequestData-objects as value to a dart map
-  static Map<String, List<FamilyRequestData>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<FamilyRequestData>>{};
+  // maps a json object with a list of QuestStatusQuest-objects as value to a dart map
+  static Map<String, List<QuestStatusQuest>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<QuestStatusQuest>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = FamilyRequestData.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = QuestStatusQuest.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

@@ -10,14 +10,14 @@
 
 part of openapi.api;
 
-class RewardRequestData {
-  /// Returns a new [RewardRequestData] instance.
-  RewardRequestData({
-    this.content,
-    this.name,
-    this.point,
-    this.user,
-    this.kinds,
+class QuestStatusRequestData {
+  /// Returns a new [QuestStatusRequestData] instance.
+  QuestStatusRequestData({
+    this.quest,
+    this.kid,
+    this.completedAt,
+    this.doing,
+    this.grandparent,
   });
 
   ///
@@ -26,7 +26,7 @@ class RewardRequestData {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? content;
+  AppUserRequestDataFamiliesInner? quest;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -34,7 +34,7 @@ class RewardRequestData {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? name;
+  AppUserRequestDataFamiliesInner? kid;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -42,7 +42,7 @@ class RewardRequestData {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  int? point;
+  DateTime? completedAt;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -50,7 +50,7 @@ class RewardRequestData {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserRequestDataFamiliesInner? user;
+  bool? doing;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -58,62 +58,62 @@ class RewardRequestData {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? kinds;
+  AppUserRequestDataFamiliesInner? grandparent;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is RewardRequestData &&
-     other.content == content &&
-     other.name == name &&
-     other.point == point &&
-     other.user == user &&
-     other.kinds == kinds;
+  bool operator ==(Object other) => identical(this, other) || other is QuestStatusRequestData &&
+     other.quest == quest &&
+     other.kid == kid &&
+     other.completedAt == completedAt &&
+     other.doing == doing &&
+     other.grandparent == grandparent;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (content == null ? 0 : content!.hashCode) +
-    (name == null ? 0 : name!.hashCode) +
-    (point == null ? 0 : point!.hashCode) +
-    (user == null ? 0 : user!.hashCode) +
-    (kinds == null ? 0 : kinds!.hashCode);
+    (quest == null ? 0 : quest!.hashCode) +
+    (kid == null ? 0 : kid!.hashCode) +
+    (completedAt == null ? 0 : completedAt!.hashCode) +
+    (doing == null ? 0 : doing!.hashCode) +
+    (grandparent == null ? 0 : grandparent!.hashCode);
 
   @override
-  String toString() => 'RewardRequestData[content=$content, name=$name, point=$point, user=$user, kinds=$kinds]';
+  String toString() => 'QuestStatusRequestData[quest=$quest, kid=$kid, completedAt=$completedAt, doing=$doing, grandparent=$grandparent]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.content != null) {
-      json[r'content'] = this.content;
+    if (this.quest != null) {
+      json[r'quest'] = this.quest;
     } else {
-      json[r'content'] = null;
+      json[r'quest'] = null;
     }
-    if (this.name != null) {
-      json[r'name'] = this.name;
+    if (this.kid != null) {
+      json[r'kid'] = this.kid;
     } else {
-      json[r'name'] = null;
+      json[r'kid'] = null;
     }
-    if (this.point != null) {
-      json[r'point'] = this.point;
+    if (this.completedAt != null) {
+      json[r'completedAt'] = this.completedAt!.toUtc().toIso8601String();
     } else {
-      json[r'point'] = null;
+      json[r'completedAt'] = null;
     }
-    if (this.user != null) {
-      json[r'user'] = this.user;
+    if (this.doing != null) {
+      json[r'doing'] = this.doing;
     } else {
-      json[r'user'] = null;
+      json[r'doing'] = null;
     }
-    if (this.kinds != null) {
-      json[r'Kinds'] = this.kinds;
+    if (this.grandparent != null) {
+      json[r'grandparent'] = this.grandparent;
     } else {
-      json[r'Kinds'] = null;
+      json[r'grandparent'] = null;
     }
     return json;
   }
 
-  /// Returns a new [RewardRequestData] instance and imports its values from
+  /// Returns a new [QuestStatusRequestData] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static RewardRequestData? fromJson(dynamic value) {
+  static QuestStatusRequestData? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -122,28 +122,28 @@ class RewardRequestData {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "RewardRequestData[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "RewardRequestData[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "QuestStatusRequestData[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "QuestStatusRequestData[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return RewardRequestData(
-        content: mapValueOfType<String>(json, r'content'),
-        name: mapValueOfType<String>(json, r'name'),
-        point: mapValueOfType<int>(json, r'point'),
-        user: AppUserRequestDataFamiliesInner.fromJson(json[r'user']),
-        kinds: mapValueOfType<String>(json, r'Kinds'),
+      return QuestStatusRequestData(
+        quest: AppUserRequestDataFamiliesInner.fromJson(json[r'quest']),
+        kid: AppUserRequestDataFamiliesInner.fromJson(json[r'kid']),
+        completedAt: mapDateTime(json, r'completedAt', r''),
+        doing: mapValueOfType<bool>(json, r'doing'),
+        grandparent: AppUserRequestDataFamiliesInner.fromJson(json[r'grandparent']),
       );
     }
     return null;
   }
 
-  static List<RewardRequestData> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <RewardRequestData>[];
+  static List<QuestStatusRequestData> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <QuestStatusRequestData>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = RewardRequestData.fromJson(row);
+        final value = QuestStatusRequestData.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -152,12 +152,12 @@ class RewardRequestData {
     return result.toList(growable: growable);
   }
 
-  static Map<String, RewardRequestData> mapFromJson(dynamic json) {
-    final map = <String, RewardRequestData>{};
+  static Map<String, QuestStatusRequestData> mapFromJson(dynamic json) {
+    final map = <String, QuestStatusRequestData>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = RewardRequestData.fromJson(entry.value);
+        final value = QuestStatusRequestData.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -166,14 +166,14 @@ class RewardRequestData {
     return map;
   }
 
-  // maps a json object with a list of RewardRequestData-objects as value to a dart map
-  static Map<String, List<RewardRequestData>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<RewardRequestData>>{};
+  // maps a json object with a list of QuestStatusRequestData-objects as value to a dart map
+  static Map<String, List<QuestStatusRequestData>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<QuestStatusRequestData>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = RewardRequestData.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = QuestStatusRequestData.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

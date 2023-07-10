@@ -68,7 +68,7 @@ class QuestKind {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesCreatedBy? createdBy;
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedBy? createdBy;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -76,7 +76,7 @@ class QuestKind {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is QuestKind &&
@@ -166,8 +166,8 @@ class QuestKind {
         createdAt: mapDateTime(json, r'createdAt', r''),
         updatedAt: mapDateTime(json, r'updatedAt', r''),
         publishedAt: mapDateTime(json, r'publishedAt', r''),
-        createdBy: AppUserFamiliesDataInnerAttributesCreatedBy.fromJson(json[r'createdBy']),
-        updatedBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
+        createdBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedBy.fromJson(json[r'createdBy']),
+        updatedBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
       );
     }
     return null;

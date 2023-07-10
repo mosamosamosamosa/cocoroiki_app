@@ -190,30 +190,36 @@ class ApiClient {
           return AppUserFamiliesDataInner.fromJson(value);
         case 'AppUserFamiliesDataInnerAttributes':
           return AppUserFamiliesDataInnerAttributes.fromJson(value);
-        case 'AppUserFamiliesDataInnerAttributesCreatedBy':
-          return AppUserFamiliesDataInnerAttributesCreatedBy.fromJson(value);
-        case 'AppUserFamiliesDataInnerAttributesCreatedByData':
-          return AppUserFamiliesDataInnerAttributesCreatedByData.fromJson(value);
-        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributes':
-          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributes.fromJson(value);
-        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRoles':
-          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRoles.fromJson(value);
-        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInner':
-          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInner.fromJson(value);
-        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes':
-          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes.fromJson(value);
-        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissions':
-          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissions.fromJson(value);
-        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInner':
-          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInner.fromJson(value);
-        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes':
-          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes.fromJson(value);
-        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole':
-          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(value);
-        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesUsers':
-          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesUsers.fromJson(value);
-        case 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesUsersDataInner':
-          return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesUsersDataInner.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesKids':
+          return AppUserFamiliesDataInnerAttributesKids.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesKidsDataInner':
+          return AppUserFamiliesDataInnerAttributesKidsDataInner.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes':
+          return AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedBy':
+          return AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedBy.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByData':
+          return AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByData.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributes':
+          return AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributes.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRoles':
+          return AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRoles.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInner':
+          return AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInner.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes':
+          return AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissions':
+          return AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissions.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInner':
+          return AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInner.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes':
+          return AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributes.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole':
+          return AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesFamilies':
+          return AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesFamilies.fromJson(value);
+        case 'AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesFamiliesDataInner':
+          return AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesFamiliesDataInner.fromJson(value);
         case 'AppUserListResponse':
           return AppUserListResponse.fromJson(value);
         case 'AppUserListResponseDataItem':
@@ -260,6 +266,12 @@ class ApiClient {
           return CommentCommentsDataInnerAttributesUserData.fromJson(value);
         case 'CommentCommentsDataInnerAttributesUserDataAttributes':
           return CommentCommentsDataInnerAttributesUserDataAttributes.fromJson(value);
+        case 'CommentCommentsDataInnerAttributesUserDataAttributesFamilies':
+          return CommentCommentsDataInnerAttributesUserDataAttributesFamilies.fromJson(value);
+        case 'CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInner':
+          return CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInner.fromJson(value);
+        case 'CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes':
+          return CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes.fromJson(value);
         case 'CommentListResponse':
           return CommentListResponse.fromJson(value);
         case 'CommentListResponseDataItem':
@@ -280,6 +292,8 @@ class ApiClient {
           return ErrorError.fromJson(value);
         case 'Family':
           return Family.fromJson(value);
+        case 'FamilyKids':
+          return FamilyKids.fromJson(value);
         case 'FamilyListResponse':
           return FamilyListResponse.fromJson(value);
         case 'FamilyListResponseDataItem':
@@ -380,24 +394,38 @@ class ApiClient {
           return QuestResponse.fromJson(value);
         case 'QuestResponseDataObject':
           return QuestResponseDataObject.fromJson(value);
-        case 'QuestReward':
-          return QuestReward.fromJson(value);
-        case 'QuestRewardData':
-          return QuestRewardData.fromJson(value);
-        case 'QuestRewardDataAttributes':
-          return QuestRewardDataAttributes.fromJson(value);
-        case 'QuestRewardDataAttributesUser':
-          return QuestRewardDataAttributesUser.fromJson(value);
-        case 'QuestRewardDataAttributesUserData':
-          return QuestRewardDataAttributesUserData.fromJson(value);
-        case 'QuestRewardDataAttributesUserDataAttributes':
-          return QuestRewardDataAttributesUserDataAttributes.fromJson(value);
-        case 'QuestRewardDataAttributesUserDataAttributesFamilies':
-          return QuestRewardDataAttributesUserDataAttributesFamilies.fromJson(value);
-        case 'QuestRewardDataAttributesUserDataAttributesFamiliesDataInner':
-          return QuestRewardDataAttributesUserDataAttributesFamiliesDataInner.fromJson(value);
-        case 'QuestRewardDataAttributesUserDataAttributesFamiliesDataInnerAttributes':
-          return QuestRewardDataAttributesUserDataAttributesFamiliesDataInnerAttributes.fromJson(value);
+        case 'QuestStatus':
+          return QuestStatus.fromJson(value);
+        case 'QuestStatusKid':
+          return QuestStatusKid.fromJson(value);
+        case 'QuestStatusKidData':
+          return QuestStatusKidData.fromJson(value);
+        case 'QuestStatusKidDataAttributes':
+          return QuestStatusKidDataAttributes.fromJson(value);
+        case 'QuestStatusKidDataAttributesFamilies':
+          return QuestStatusKidDataAttributesFamilies.fromJson(value);
+        case 'QuestStatusKidDataAttributesFamiliesDataInner':
+          return QuestStatusKidDataAttributesFamiliesDataInner.fromJson(value);
+        case 'QuestStatusKidDataAttributesFamiliesDataInnerAttributes':
+          return QuestStatusKidDataAttributesFamiliesDataInnerAttributes.fromJson(value);
+        case 'QuestStatusListResponse':
+          return QuestStatusListResponse.fromJson(value);
+        case 'QuestStatusListResponseDataItem':
+          return QuestStatusListResponseDataItem.fromJson(value);
+        case 'QuestStatusQuest':
+          return QuestStatusQuest.fromJson(value);
+        case 'QuestStatusQuestData':
+          return QuestStatusQuestData.fromJson(value);
+        case 'QuestStatusQuestDataAttributes':
+          return QuestStatusQuestDataAttributes.fromJson(value);
+        case 'QuestStatusRequest':
+          return QuestStatusRequest.fromJson(value);
+        case 'QuestStatusRequestData':
+          return QuestStatusRequestData.fromJson(value);
+        case 'QuestStatusResponse':
+          return QuestStatusResponse.fromJson(value);
+        case 'QuestStatusResponseDataObject':
+          return QuestStatusResponseDataObject.fromJson(value);
         case 'Reward':
           return Reward.fromJson(value);
         case 'RewardListResponse':
@@ -426,8 +454,6 @@ class ApiClient {
           return TreeResponse.fromJson(value);
         case 'TreeResponseDataObject':
           return TreeResponseDataObject.fromJson(value);
-        case 'TreeUsers':
-          return TreeUsers.fromJson(value);
         case 'UploadFile':
           return UploadFile.fromJson(value);
         case 'UsersIdDelete200Response':

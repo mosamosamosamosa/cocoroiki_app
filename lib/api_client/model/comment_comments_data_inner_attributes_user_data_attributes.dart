@@ -82,7 +82,7 @@ class CommentCommentsDataInnerAttributesUserDataAttributes {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamilies? families;
+  CommentCommentsDataInnerAttributesUserDataAttributesFamilies? families;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -122,7 +122,7 @@ class CommentCommentsDataInnerAttributesUserDataAttributes {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -130,7 +130,7 @@ class CommentCommentsDataInnerAttributesUserDataAttributes {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is CommentCommentsDataInnerAttributesUserDataAttributes &&
@@ -263,13 +263,13 @@ class CommentCommentsDataInnerAttributesUserDataAttributes {
         age: mapValueOfType<int>(json, r'age'),
         gender: mapValueOfType<String>(json, r'gender'),
         lastLogin: mapDateTime(json, r'last_login', r''),
-        families: AppUserFamilies.fromJson(json[r'families']),
+        families: CommentCommentsDataInnerAttributesUserDataAttributesFamilies.fromJson(json[r'families']),
         grandparent: mapValueOfType<bool>(json, r'grandparent'),
         createdAt: mapDateTime(json, r'createdAt', r''),
         updatedAt: mapDateTime(json, r'updatedAt', r''),
         publishedAt: mapDateTime(json, r'publishedAt', r''),
-        createdBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
-        updatedBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
+        createdBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
+        updatedBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
       );
     }
     return null;

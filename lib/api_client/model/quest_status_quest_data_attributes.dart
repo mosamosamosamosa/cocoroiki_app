@@ -10,12 +10,11 @@
 
 part of openapi.api;
 
-class Comment {
-  /// Returns a new [Comment] instance.
-  Comment({
+class QuestStatusQuestDataAttributes {
+  /// Returns a new [QuestStatusQuestDataAttributes] instance.
+  QuestStatusQuestDataAttributes({
     this.content,
-    this.comments,
-    this.user,
+    this.questKinds,
     this.createdAt,
     this.updatedAt,
     this.publishedAt,
@@ -37,15 +36,7 @@ class Comment {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  CommentComments? comments;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? user;
+  QuestQuestKinds? questKinds;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -88,10 +79,9 @@ class Comment {
   AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is Comment &&
+  bool operator ==(Object other) => identical(this, other) || other is QuestStatusQuestDataAttributes &&
      other.content == content &&
-     other.comments == comments &&
-     other.user == user &&
+     other.questKinds == questKinds &&
      other.createdAt == createdAt &&
      other.updatedAt == updatedAt &&
      other.publishedAt == publishedAt &&
@@ -102,8 +92,7 @@ class Comment {
   int get hashCode =>
     // ignore: unnecessary_parenthesis
     (content == null ? 0 : content!.hashCode) +
-    (comments == null ? 0 : comments!.hashCode) +
-    (user == null ? 0 : user!.hashCode) +
+    (questKinds == null ? 0 : questKinds!.hashCode) +
     (createdAt == null ? 0 : createdAt!.hashCode) +
     (updatedAt == null ? 0 : updatedAt!.hashCode) +
     (publishedAt == null ? 0 : publishedAt!.hashCode) +
@@ -111,7 +100,7 @@ class Comment {
     (updatedBy == null ? 0 : updatedBy!.hashCode);
 
   @override
-  String toString() => 'Comment[content=$content, comments=$comments, user=$user, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
+  String toString() => 'QuestStatusQuestDataAttributes[content=$content, questKinds=$questKinds, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -120,15 +109,10 @@ class Comment {
     } else {
       json[r'content'] = null;
     }
-    if (this.comments != null) {
-      json[r'comments'] = this.comments;
+    if (this.questKinds != null) {
+      json[r'quest_kinds'] = this.questKinds;
     } else {
-      json[r'comments'] = null;
-    }
-    if (this.user != null) {
-      json[r'user'] = this.user;
-    } else {
-      json[r'user'] = null;
+      json[r'quest_kinds'] = null;
     }
     if (this.createdAt != null) {
       json[r'createdAt'] = this.createdAt!.toUtc().toIso8601String();
@@ -158,10 +142,10 @@ class Comment {
     return json;
   }
 
-  /// Returns a new [Comment] instance and imports its values from
+  /// Returns a new [QuestStatusQuestDataAttributes] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static Comment? fromJson(dynamic value) {
+  static QuestStatusQuestDataAttributes? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -170,16 +154,15 @@ class Comment {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "Comment[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "Comment[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "QuestStatusQuestDataAttributes[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "QuestStatusQuestDataAttributes[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return Comment(
+      return QuestStatusQuestDataAttributes(
         content: mapValueOfType<String>(json, r'content'),
-        comments: CommentComments.fromJson(json[r'comments']),
-        user: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'user']),
+        questKinds: QuestQuestKinds.fromJson(json[r'quest_kinds']),
         createdAt: mapDateTime(json, r'createdAt', r''),
         updatedAt: mapDateTime(json, r'updatedAt', r''),
         publishedAt: mapDateTime(json, r'publishedAt', r''),
@@ -190,11 +173,11 @@ class Comment {
     return null;
   }
 
-  static List<Comment> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <Comment>[];
+  static List<QuestStatusQuestDataAttributes> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <QuestStatusQuestDataAttributes>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = Comment.fromJson(row);
+        final value = QuestStatusQuestDataAttributes.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -203,12 +186,12 @@ class Comment {
     return result.toList(growable: growable);
   }
 
-  static Map<String, Comment> mapFromJson(dynamic json) {
-    final map = <String, Comment>{};
+  static Map<String, QuestStatusQuestDataAttributes> mapFromJson(dynamic json) {
+    final map = <String, QuestStatusQuestDataAttributes>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = Comment.fromJson(entry.value);
+        final value = QuestStatusQuestDataAttributes.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -217,14 +200,14 @@ class Comment {
     return map;
   }
 
-  // maps a json object with a list of Comment-objects as value to a dart map
-  static Map<String, List<Comment>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<Comment>>{};
+  // maps a json object with a list of QuestStatusQuestDataAttributes-objects as value to a dart map
+  static Map<String, List<QuestStatusQuestDataAttributes>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<QuestStatusQuestDataAttributes>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = Comment.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = QuestStatusQuestDataAttributes.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

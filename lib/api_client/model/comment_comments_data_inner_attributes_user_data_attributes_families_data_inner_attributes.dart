@@ -10,27 +10,17 @@
 
 part of openapi.api;
 
-class QuestRewardDataAttributes {
-  /// Returns a new [QuestRewardDataAttributes] instance.
-  QuestRewardDataAttributes({
-    this.content,
+class CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes {
+  /// Returns a new [CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes] instance.
+  CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes({
     this.name,
-    this.point,
-    this.user,
+    this.kids,
     this.createdAt,
     this.updatedAt,
     this.publishedAt,
     this.createdBy,
     this.updatedBy,
   });
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? content;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -46,15 +36,7 @@ class QuestRewardDataAttributes {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  int? point;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  QuestRewardDataAttributesUser? user;
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesFamilies? kids;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -86,7 +68,7 @@ class QuestRewardDataAttributes {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedBy? createdBy;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -94,14 +76,12 @@ class QuestRewardDataAttributes {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is QuestRewardDataAttributes &&
-     other.content == content &&
+  bool operator ==(Object other) => identical(this, other) || other is CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes &&
      other.name == name &&
-     other.point == point &&
-     other.user == user &&
+     other.kids == kids &&
      other.createdAt == createdAt &&
      other.updatedAt == updatedAt &&
      other.publishedAt == publishedAt &&
@@ -111,10 +91,8 @@ class QuestRewardDataAttributes {
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (content == null ? 0 : content!.hashCode) +
     (name == null ? 0 : name!.hashCode) +
-    (point == null ? 0 : point!.hashCode) +
-    (user == null ? 0 : user!.hashCode) +
+    (kids == null ? 0 : kids!.hashCode) +
     (createdAt == null ? 0 : createdAt!.hashCode) +
     (updatedAt == null ? 0 : updatedAt!.hashCode) +
     (publishedAt == null ? 0 : publishedAt!.hashCode) +
@@ -122,29 +100,19 @@ class QuestRewardDataAttributes {
     (updatedBy == null ? 0 : updatedBy!.hashCode);
 
   @override
-  String toString() => 'QuestRewardDataAttributes[content=$content, name=$name, point=$point, user=$user, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
+  String toString() => 'CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes[name=$name, kids=$kids, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.content != null) {
-      json[r'content'] = this.content;
-    } else {
-      json[r'content'] = null;
-    }
     if (this.name != null) {
       json[r'name'] = this.name;
     } else {
       json[r'name'] = null;
     }
-    if (this.point != null) {
-      json[r'point'] = this.point;
+    if (this.kids != null) {
+      json[r'kids'] = this.kids;
     } else {
-      json[r'point'] = null;
-    }
-    if (this.user != null) {
-      json[r'user'] = this.user;
-    } else {
-      json[r'user'] = null;
+      json[r'kids'] = null;
     }
     if (this.createdAt != null) {
       json[r'createdAt'] = this.createdAt!.toUtc().toIso8601String();
@@ -174,10 +142,10 @@ class QuestRewardDataAttributes {
     return json;
   }
 
-  /// Returns a new [QuestRewardDataAttributes] instance and imports its values from
+  /// Returns a new [CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static QuestRewardDataAttributes? fromJson(dynamic value) {
+  static CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -186,32 +154,30 @@ class QuestRewardDataAttributes {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "QuestRewardDataAttributes[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "QuestRewardDataAttributes[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return QuestRewardDataAttributes(
-        content: mapValueOfType<String>(json, r'content'),
+      return CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes(
         name: mapValueOfType<String>(json, r'name'),
-        point: mapValueOfType<int>(json, r'point'),
-        user: QuestRewardDataAttributesUser.fromJson(json[r'user']),
+        kids: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesFamilies.fromJson(json[r'kids']),
         createdAt: mapDateTime(json, r'createdAt', r''),
         updatedAt: mapDateTime(json, r'updatedAt', r''),
         publishedAt: mapDateTime(json, r'publishedAt', r''),
-        createdBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
-        updatedBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
+        createdBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedBy.fromJson(json[r'createdBy']),
+        updatedBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
       );
     }
     return null;
   }
 
-  static List<QuestRewardDataAttributes> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <QuestRewardDataAttributes>[];
+  static List<CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = QuestRewardDataAttributes.fromJson(row);
+        final value = CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -220,12 +186,12 @@ class QuestRewardDataAttributes {
     return result.toList(growable: growable);
   }
 
-  static Map<String, QuestRewardDataAttributes> mapFromJson(dynamic json) {
-    final map = <String, QuestRewardDataAttributes>{};
+  static Map<String, CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes> mapFromJson(dynamic json) {
+    final map = <String, CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = QuestRewardDataAttributes.fromJson(entry.value);
+        final value = CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -234,14 +200,14 @@ class QuestRewardDataAttributes {
     return map;
   }
 
-  // maps a json object with a list of QuestRewardDataAttributes-objects as value to a dart map
-  static Map<String, List<QuestRewardDataAttributes>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<QuestRewardDataAttributes>>{};
+  // maps a json object with a list of CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes-objects as value to a dart map
+  static Map<String, List<CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = QuestRewardDataAttributes.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = CommentCommentsDataInnerAttributesUserDataAttributesFamiliesDataInnerAttributes.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

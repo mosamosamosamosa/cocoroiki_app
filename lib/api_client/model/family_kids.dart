@@ -10,46 +10,36 @@
 
 part of openapi.api;
 
-class QuestReward {
-  /// Returns a new [QuestReward] instance.
-  QuestReward({
-    this.data,
+class FamilyKids {
+  /// Returns a new [FamilyKids] instance.
+  FamilyKids({
+    this.data = const [],
   });
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  QuestRewardData? data;
+  List<CommentCommentsDataInnerAttributesUserData> data;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is QuestReward &&
+  bool operator ==(Object other) => identical(this, other) || other is FamilyKids &&
      other.data == data;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (data == null ? 0 : data!.hashCode);
+    (data.hashCode);
 
   @override
-  String toString() => 'QuestReward[data=$data]';
+  String toString() => 'FamilyKids[data=$data]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.data != null) {
       json[r'data'] = this.data;
-    } else {
-      json[r'data'] = null;
-    }
     return json;
   }
 
-  /// Returns a new [QuestReward] instance and imports its values from
+  /// Returns a new [FamilyKids] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static QuestReward? fromJson(dynamic value) {
+  static FamilyKids? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -58,24 +48,24 @@ class QuestReward {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "QuestReward[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "QuestReward[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "FamilyKids[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "FamilyKids[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return QuestReward(
-        data: QuestRewardData.fromJson(json[r'data']),
+      return FamilyKids(
+        data: CommentCommentsDataInnerAttributesUserData.listFromJson(json[r'data']),
       );
     }
     return null;
   }
 
-  static List<QuestReward> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <QuestReward>[];
+  static List<FamilyKids> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <FamilyKids>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = QuestReward.fromJson(row);
+        final value = FamilyKids.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -84,12 +74,12 @@ class QuestReward {
     return result.toList(growable: growable);
   }
 
-  static Map<String, QuestReward> mapFromJson(dynamic json) {
-    final map = <String, QuestReward>{};
+  static Map<String, FamilyKids> mapFromJson(dynamic json) {
+    final map = <String, FamilyKids>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = QuestReward.fromJson(entry.value);
+        final value = FamilyKids.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -98,14 +88,14 @@ class QuestReward {
     return map;
   }
 
-  // maps a json object with a list of QuestReward-objects as value to a dart map
-  static Map<String, List<QuestReward>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<QuestReward>>{};
+  // maps a json object with a list of FamilyKids-objects as value to a dart map
+  static Map<String, List<FamilyKids>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<FamilyKids>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = QuestReward.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = FamilyKids.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

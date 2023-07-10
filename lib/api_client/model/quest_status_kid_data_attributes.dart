@@ -10,9 +10,9 @@
 
 part of openapi.api;
 
-class QuestRewardDataAttributesUserDataAttributes {
-  /// Returns a new [QuestRewardDataAttributesUserDataAttributes] instance.
-  QuestRewardDataAttributesUserDataAttributes({
+class QuestStatusKidDataAttributes {
+  /// Returns a new [QuestStatusKidDataAttributes] instance.
+  QuestStatusKidDataAttributes({
     this.name,
     this.email,
     this.birth,
@@ -82,7 +82,7 @@ class QuestRewardDataAttributesUserDataAttributes {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  QuestRewardDataAttributesUserDataAttributesFamilies? families;
+  QuestStatusKidDataAttributesFamilies? families;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -122,7 +122,7 @@ class QuestRewardDataAttributesUserDataAttributes {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -130,10 +130,10 @@ class QuestRewardDataAttributesUserDataAttributes {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is QuestRewardDataAttributesUserDataAttributes &&
+  bool operator ==(Object other) => identical(this, other) || other is QuestStatusKidDataAttributes &&
      other.name == name &&
      other.email == email &&
      other.birth == birth &&
@@ -166,7 +166,7 @@ class QuestRewardDataAttributesUserDataAttributes {
     (updatedBy == null ? 0 : updatedBy!.hashCode);
 
   @override
-  String toString() => 'QuestRewardDataAttributesUserDataAttributes[name=$name, email=$email, birth=$birth, age=$age, gender=$gender, lastLogin=$lastLogin, families=$families, grandparent=$grandparent, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
+  String toString() => 'QuestStatusKidDataAttributes[name=$name, email=$email, birth=$birth, age=$age, gender=$gender, lastLogin=$lastLogin, families=$families, grandparent=$grandparent, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -238,10 +238,10 @@ class QuestRewardDataAttributesUserDataAttributes {
     return json;
   }
 
-  /// Returns a new [QuestRewardDataAttributesUserDataAttributes] instance and imports its values from
+  /// Returns a new [QuestStatusKidDataAttributes] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static QuestRewardDataAttributesUserDataAttributes? fromJson(dynamic value) {
+  static QuestStatusKidDataAttributes? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -250,36 +250,36 @@ class QuestRewardDataAttributesUserDataAttributes {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "QuestRewardDataAttributesUserDataAttributes[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "QuestRewardDataAttributesUserDataAttributes[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "QuestStatusKidDataAttributes[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "QuestStatusKidDataAttributes[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return QuestRewardDataAttributesUserDataAttributes(
+      return QuestStatusKidDataAttributes(
         name: mapValueOfType<String>(json, r'name'),
         email: mapValueOfType<String>(json, r'email'),
         birth: mapDateTime(json, r'birth', r''),
         age: mapValueOfType<int>(json, r'age'),
         gender: mapValueOfType<String>(json, r'gender'),
         lastLogin: mapDateTime(json, r'last_login', r''),
-        families: QuestRewardDataAttributesUserDataAttributesFamilies.fromJson(json[r'families']),
+        families: QuestStatusKidDataAttributesFamilies.fromJson(json[r'families']),
         grandparent: mapValueOfType<bool>(json, r'grandparent'),
         createdAt: mapDateTime(json, r'createdAt', r''),
         updatedAt: mapDateTime(json, r'updatedAt', r''),
         publishedAt: mapDateTime(json, r'publishedAt', r''),
-        createdBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
-        updatedBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
+        createdBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
+        updatedBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
       );
     }
     return null;
   }
 
-  static List<QuestRewardDataAttributesUserDataAttributes> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <QuestRewardDataAttributesUserDataAttributes>[];
+  static List<QuestStatusKidDataAttributes> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <QuestStatusKidDataAttributes>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = QuestRewardDataAttributesUserDataAttributes.fromJson(row);
+        final value = QuestStatusKidDataAttributes.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -288,12 +288,12 @@ class QuestRewardDataAttributesUserDataAttributes {
     return result.toList(growable: growable);
   }
 
-  static Map<String, QuestRewardDataAttributesUserDataAttributes> mapFromJson(dynamic json) {
-    final map = <String, QuestRewardDataAttributesUserDataAttributes>{};
+  static Map<String, QuestStatusKidDataAttributes> mapFromJson(dynamic json) {
+    final map = <String, QuestStatusKidDataAttributes>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = QuestRewardDataAttributesUserDataAttributes.fromJson(entry.value);
+        final value = QuestStatusKidDataAttributes.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -302,14 +302,14 @@ class QuestRewardDataAttributesUserDataAttributes {
     return map;
   }
 
-  // maps a json object with a list of QuestRewardDataAttributesUserDataAttributes-objects as value to a dart map
-  static Map<String, List<QuestRewardDataAttributesUserDataAttributes>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<QuestRewardDataAttributesUserDataAttributes>>{};
+  // maps a json object with a list of QuestStatusKidDataAttributes-objects as value to a dart map
+  static Map<String, List<QuestStatusKidDataAttributes>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<QuestStatusKidDataAttributes>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = QuestRewardDataAttributesUserDataAttributes.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = QuestStatusKidDataAttributes.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

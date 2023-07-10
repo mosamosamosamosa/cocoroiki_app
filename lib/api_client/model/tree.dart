@@ -13,9 +13,10 @@ part of openapi.api;
 class Tree {
   /// Returns a new [Tree] instance.
   Tree({
-    this.users,
+    this.parent,
     this.state,
     this.wateredAt,
+    this.grandparent,
     this.createdAt,
     this.updatedAt,
     this.publishedAt,
@@ -29,7 +30,7 @@ class Tree {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  TreeUsers? users;
+  FamilyKids? parent;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -46,6 +47,14 @@ class Tree {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   DateTime? wateredAt;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesFamilies? grandparent;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -77,7 +86,7 @@ class Tree {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -85,13 +94,14 @@ class Tree {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Tree &&
-     other.users == users &&
+     other.parent == parent &&
      other.state == state &&
      other.wateredAt == wateredAt &&
+     other.grandparent == grandparent &&
      other.createdAt == createdAt &&
      other.updatedAt == updatedAt &&
      other.publishedAt == publishedAt &&
@@ -101,9 +111,10 @@ class Tree {
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (users == null ? 0 : users!.hashCode) +
+    (parent == null ? 0 : parent!.hashCode) +
     (state == null ? 0 : state!.hashCode) +
     (wateredAt == null ? 0 : wateredAt!.hashCode) +
+    (grandparent == null ? 0 : grandparent!.hashCode) +
     (createdAt == null ? 0 : createdAt!.hashCode) +
     (updatedAt == null ? 0 : updatedAt!.hashCode) +
     (publishedAt == null ? 0 : publishedAt!.hashCode) +
@@ -111,14 +122,14 @@ class Tree {
     (updatedBy == null ? 0 : updatedBy!.hashCode);
 
   @override
-  String toString() => 'Tree[users=$users, state=$state, wateredAt=$wateredAt, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
+  String toString() => 'Tree[parent=$parent, state=$state, wateredAt=$wateredAt, grandparent=$grandparent, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.users != null) {
-      json[r'users'] = this.users;
+    if (this.parent != null) {
+      json[r'parent'] = this.parent;
     } else {
-      json[r'users'] = null;
+      json[r'parent'] = null;
     }
     if (this.state != null) {
       json[r'state'] = this.state;
@@ -129,6 +140,11 @@ class Tree {
       json[r'wateredAt'] = this.wateredAt!.toUtc().toIso8601String();
     } else {
       json[r'wateredAt'] = null;
+    }
+    if (this.grandparent != null) {
+      json[r'grandparent'] = this.grandparent;
+    } else {
+      json[r'grandparent'] = null;
     }
     if (this.createdAt != null) {
       json[r'createdAt'] = this.createdAt!.toUtc().toIso8601String();
@@ -177,14 +193,15 @@ class Tree {
       }());
 
       return Tree(
-        users: TreeUsers.fromJson(json[r'users']),
+        parent: FamilyKids.fromJson(json[r'parent']),
         state: mapValueOfType<int>(json, r'state'),
         wateredAt: mapDateTime(json, r'wateredAt', r''),
+        grandparent: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesFamilies.fromJson(json[r'grandparent']),
         createdAt: mapDateTime(json, r'createdAt', r''),
         updatedAt: mapDateTime(json, r'updatedAt', r''),
         publishedAt: mapDateTime(json, r'publishedAt', r''),
-        createdBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
-        updatedBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
+        createdBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
+        updatedBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
       );
     }
     return null;
