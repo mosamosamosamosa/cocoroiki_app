@@ -10,28 +10,23 @@
 
 part of openapi.api;
 
-class Reward {
-  /// Returns a new [Reward] instance.
-  Reward({
-    this.content,
+class AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes {
+  /// Returns a new [AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes] instance.
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes({
     this.name,
-    this.point,
-    this.user,
-    this.kinds,
+    this.email,
+    this.birth,
+    this.age,
+    this.gender,
+    this.lastLogin,
+    this.families,
+    this.grandparent,
     this.createdAt,
     this.updatedAt,
     this.publishedAt,
     this.createdBy,
     this.updatedBy,
   });
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  String? content;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -47,7 +42,7 @@ class Reward {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  int? point;
+  String? email;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -55,7 +50,7 @@ class Reward {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  CommentCommentsDataInnerAttributesUser? user;
+  DateTime? birth;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -63,7 +58,39 @@ class Reward {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? kinds;
+  int? age;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  String? gender;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  DateTime? lastLogin;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesFamilies? families;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  bool? grandparent;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -95,7 +122,7 @@ class Reward {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedBy? createdBy;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -106,12 +133,15 @@ class Reward {
   AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is Reward &&
-     other.content == content &&
+  bool operator ==(Object other) => identical(this, other) || other is AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes &&
      other.name == name &&
-     other.point == point &&
-     other.user == user &&
-     other.kinds == kinds &&
+     other.email == email &&
+     other.birth == birth &&
+     other.age == age &&
+     other.gender == gender &&
+     other.lastLogin == lastLogin &&
+     other.families == families &&
+     other.grandparent == grandparent &&
      other.createdAt == createdAt &&
      other.updatedAt == updatedAt &&
      other.publishedAt == publishedAt &&
@@ -121,11 +151,14 @@ class Reward {
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (content == null ? 0 : content!.hashCode) +
     (name == null ? 0 : name!.hashCode) +
-    (point == null ? 0 : point!.hashCode) +
-    (user == null ? 0 : user!.hashCode) +
-    (kinds == null ? 0 : kinds!.hashCode) +
+    (email == null ? 0 : email!.hashCode) +
+    (birth == null ? 0 : birth!.hashCode) +
+    (age == null ? 0 : age!.hashCode) +
+    (gender == null ? 0 : gender!.hashCode) +
+    (lastLogin == null ? 0 : lastLogin!.hashCode) +
+    (families == null ? 0 : families!.hashCode) +
+    (grandparent == null ? 0 : grandparent!.hashCode) +
     (createdAt == null ? 0 : createdAt!.hashCode) +
     (updatedAt == null ? 0 : updatedAt!.hashCode) +
     (publishedAt == null ? 0 : publishedAt!.hashCode) +
@@ -133,34 +166,49 @@ class Reward {
     (updatedBy == null ? 0 : updatedBy!.hashCode);
 
   @override
-  String toString() => 'Reward[content=$content, name=$name, point=$point, user=$user, kinds=$kinds, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
+  String toString() => 'AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes[name=$name, email=$email, birth=$birth, age=$age, gender=$gender, lastLogin=$lastLogin, families=$families, grandparent=$grandparent, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.content != null) {
-      json[r'content'] = this.content;
-    } else {
-      json[r'content'] = null;
-    }
     if (this.name != null) {
       json[r'name'] = this.name;
     } else {
       json[r'name'] = null;
     }
-    if (this.point != null) {
-      json[r'point'] = this.point;
+    if (this.email != null) {
+      json[r'email'] = this.email;
     } else {
-      json[r'point'] = null;
+      json[r'email'] = null;
     }
-    if (this.user != null) {
-      json[r'user'] = this.user;
+    if (this.birth != null) {
+      json[r'birth'] = _dateFormatter.format(this.birth!.toUtc());
     } else {
-      json[r'user'] = null;
+      json[r'birth'] = null;
     }
-    if (this.kinds != null) {
-      json[r'Kinds'] = this.kinds;
+    if (this.age != null) {
+      json[r'age'] = this.age;
     } else {
-      json[r'Kinds'] = null;
+      json[r'age'] = null;
+    }
+    if (this.gender != null) {
+      json[r'gender'] = this.gender;
+    } else {
+      json[r'gender'] = null;
+    }
+    if (this.lastLogin != null) {
+      json[r'last_login'] = this.lastLogin!.toUtc().toIso8601String();
+    } else {
+      json[r'last_login'] = null;
+    }
+    if (this.families != null) {
+      json[r'families'] = this.families;
+    } else {
+      json[r'families'] = null;
+    }
+    if (this.grandparent != null) {
+      json[r'grandparent'] = this.grandparent;
+    } else {
+      json[r'grandparent'] = null;
     }
     if (this.createdAt != null) {
       json[r'createdAt'] = this.createdAt!.toUtc().toIso8601String();
@@ -190,10 +238,10 @@ class Reward {
     return json;
   }
 
-  /// Returns a new [Reward] instance and imports its values from
+  /// Returns a new [AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static Reward? fromJson(dynamic value) {
+  static AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -202,33 +250,36 @@ class Reward {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "Reward[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "Reward[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return Reward(
-        content: mapValueOfType<String>(json, r'content'),
+      return AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes(
         name: mapValueOfType<String>(json, r'name'),
-        point: mapValueOfType<int>(json, r'point'),
-        user: CommentCommentsDataInnerAttributesUser.fromJson(json[r'user']),
-        kinds: mapValueOfType<String>(json, r'Kinds'),
+        email: mapValueOfType<String>(json, r'email'),
+        birth: mapDateTime(json, r'birth', r''),
+        age: mapValueOfType<int>(json, r'age'),
+        gender: mapValueOfType<String>(json, r'gender'),
+        lastLogin: mapDateTime(json, r'last_login', r''),
+        families: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesFamilies.fromJson(json[r'families']),
+        grandparent: mapValueOfType<bool>(json, r'grandparent'),
         createdAt: mapDateTime(json, r'createdAt', r''),
         updatedAt: mapDateTime(json, r'updatedAt', r''),
         publishedAt: mapDateTime(json, r'publishedAt', r''),
-        createdBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
+        createdBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedBy.fromJson(json[r'createdBy']),
         updatedBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
       );
     }
     return null;
   }
 
-  static List<Reward> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <Reward>[];
+  static List<AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = Reward.fromJson(row);
+        final value = AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -237,12 +288,12 @@ class Reward {
     return result.toList(growable: growable);
   }
 
-  static Map<String, Reward> mapFromJson(dynamic json) {
-    final map = <String, Reward>{};
+  static Map<String, AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes> mapFromJson(dynamic json) {
+    final map = <String, AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = Reward.fromJson(entry.value);
+        final value = AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -251,14 +302,14 @@ class Reward {
     return map;
   }
 
-  // maps a json object with a list of Reward-objects as value to a dart map
-  static Map<String, List<Reward>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<Reward>>{};
+  // maps a json object with a list of AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes-objects as value to a dart map
+  static Map<String, List<AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = Reward.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = AppUserFamiliesDataInnerAttributesKidsDataInnerAttributes.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

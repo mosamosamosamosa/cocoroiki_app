@@ -14,10 +14,7 @@ class Quest {
   /// Returns a new [Quest] instance.
   Quest({
     this.content,
-    this.completed,
     this.questKinds,
-    this.reward,
-    this.completedAt,
     this.createdAt,
     this.updatedAt,
     this.publishedAt,
@@ -39,31 +36,7 @@ class Quest {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  bool? completed;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
   QuestQuestKinds? questKinds;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  QuestReward? reward;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  DateTime? completedAt;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -95,7 +68,7 @@ class Quest {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -103,15 +76,12 @@ class Quest {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Quest &&
      other.content == content &&
-     other.completed == completed &&
      other.questKinds == questKinds &&
-     other.reward == reward &&
-     other.completedAt == completedAt &&
      other.createdAt == createdAt &&
      other.updatedAt == updatedAt &&
      other.publishedAt == publishedAt &&
@@ -122,10 +92,7 @@ class Quest {
   int get hashCode =>
     // ignore: unnecessary_parenthesis
     (content == null ? 0 : content!.hashCode) +
-    (completed == null ? 0 : completed!.hashCode) +
     (questKinds == null ? 0 : questKinds!.hashCode) +
-    (reward == null ? 0 : reward!.hashCode) +
-    (completedAt == null ? 0 : completedAt!.hashCode) +
     (createdAt == null ? 0 : createdAt!.hashCode) +
     (updatedAt == null ? 0 : updatedAt!.hashCode) +
     (publishedAt == null ? 0 : publishedAt!.hashCode) +
@@ -133,7 +100,7 @@ class Quest {
     (updatedBy == null ? 0 : updatedBy!.hashCode);
 
   @override
-  String toString() => 'Quest[content=$content, completed=$completed, questKinds=$questKinds, reward=$reward, completedAt=$completedAt, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
+  String toString() => 'Quest[content=$content, questKinds=$questKinds, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -142,25 +109,10 @@ class Quest {
     } else {
       json[r'content'] = null;
     }
-    if (this.completed != null) {
-      json[r'completed'] = this.completed;
-    } else {
-      json[r'completed'] = null;
-    }
     if (this.questKinds != null) {
       json[r'quest_kinds'] = this.questKinds;
     } else {
       json[r'quest_kinds'] = null;
-    }
-    if (this.reward != null) {
-      json[r'reward'] = this.reward;
-    } else {
-      json[r'reward'] = null;
-    }
-    if (this.completedAt != null) {
-      json[r'completedAt'] = this.completedAt!.toUtc().toIso8601String();
-    } else {
-      json[r'completedAt'] = null;
     }
     if (this.createdAt != null) {
       json[r'createdAt'] = this.createdAt!.toUtc().toIso8601String();
@@ -210,15 +162,12 @@ class Quest {
 
       return Quest(
         content: mapValueOfType<String>(json, r'content'),
-        completed: mapValueOfType<bool>(json, r'completed'),
         questKinds: QuestQuestKinds.fromJson(json[r'quest_kinds']),
-        reward: QuestReward.fromJson(json[r'reward']),
-        completedAt: mapDateTime(json, r'completedAt', r''),
         createdAt: mapDateTime(json, r'createdAt', r''),
         updatedAt: mapDateTime(json, r'updatedAt', r''),
         publishedAt: mapDateTime(json, r'publishedAt', r''),
-        createdBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
-        updatedBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
+        createdBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
+        updatedBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
       );
     }
     return null;

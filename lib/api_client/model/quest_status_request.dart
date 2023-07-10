@@ -10,16 +10,16 @@
 
 part of openapi.api;
 
-class TreeUsers {
-  /// Returns a new [TreeUsers] instance.
-  TreeUsers({
-    this.data = const [],
+class QuestStatusRequest {
+  /// Returns a new [QuestStatusRequest] instance.
+  QuestStatusRequest({
+    required this.data,
   });
 
-  List<CommentCommentsDataInnerAttributesUserData> data;
+  QuestStatusRequestData data;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is TreeUsers &&
+  bool operator ==(Object other) => identical(this, other) || other is QuestStatusRequest &&
      other.data == data;
 
   @override
@@ -28,7 +28,7 @@ class TreeUsers {
     (data.hashCode);
 
   @override
-  String toString() => 'TreeUsers[data=$data]';
+  String toString() => 'QuestStatusRequest[data=$data]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -36,10 +36,10 @@ class TreeUsers {
     return json;
   }
 
-  /// Returns a new [TreeUsers] instance and imports its values from
+  /// Returns a new [QuestStatusRequest] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static TreeUsers? fromJson(dynamic value) {
+  static QuestStatusRequest? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -48,24 +48,24 @@ class TreeUsers {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "TreeUsers[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "TreeUsers[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "QuestStatusRequest[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "QuestStatusRequest[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return TreeUsers(
-        data: CommentCommentsDataInnerAttributesUserData.listFromJson(json[r'data']),
+      return QuestStatusRequest(
+        data: QuestStatusRequestData.fromJson(json[r'data'])!,
       );
     }
     return null;
   }
 
-  static List<TreeUsers> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <TreeUsers>[];
+  static List<QuestStatusRequest> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <QuestStatusRequest>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = TreeUsers.fromJson(row);
+        final value = QuestStatusRequest.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -74,12 +74,12 @@ class TreeUsers {
     return result.toList(growable: growable);
   }
 
-  static Map<String, TreeUsers> mapFromJson(dynamic json) {
-    final map = <String, TreeUsers>{};
+  static Map<String, QuestStatusRequest> mapFromJson(dynamic json) {
+    final map = <String, QuestStatusRequest>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = TreeUsers.fromJson(entry.value);
+        final value = QuestStatusRequest.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -88,14 +88,14 @@ class TreeUsers {
     return map;
   }
 
-  // maps a json object with a list of TreeUsers-objects as value to a dart map
-  static Map<String, List<TreeUsers>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<TreeUsers>>{};
+  // maps a json object with a list of QuestStatusRequest-objects as value to a dart map
+  static Map<String, List<QuestStatusRequest>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<QuestStatusRequest>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = TreeUsers.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = QuestStatusRequest.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;
@@ -103,6 +103,7 @@ class TreeUsers {
 
   /// The list of required keys that must be present in a JSON.
   static const requiredKeys = <String>{
+    'data',
   };
 }
 

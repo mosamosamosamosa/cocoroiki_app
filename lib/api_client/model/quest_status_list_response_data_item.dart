@@ -10,16 +10,20 @@
 
 part of openapi.api;
 
-class TreeRequestData {
-  /// Returns a new [TreeRequestData] instance.
-  TreeRequestData({
-    this.parent = const [],
-    this.state,
-    this.wateredAt,
-    this.grandparent = const [],
+class QuestStatusListResponseDataItem {
+  /// Returns a new [QuestStatusListResponseDataItem] instance.
+  QuestStatusListResponseDataItem({
+    this.id,
+    this.attributes,
   });
 
-  List<AppUserRequestDataFamiliesInner> parent;
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  num? id;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -27,57 +31,41 @@ class TreeRequestData {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  int? state;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  DateTime? wateredAt;
-
-  List<AppUserRequestDataFamiliesInner> grandparent;
+  QuestStatus? attributes;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is TreeRequestData &&
-     other.parent == parent &&
-     other.state == state &&
-     other.wateredAt == wateredAt &&
-     other.grandparent == grandparent;
+  bool operator ==(Object other) => identical(this, other) || other is QuestStatusListResponseDataItem &&
+     other.id == id &&
+     other.attributes == attributes;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (parent.hashCode) +
-    (state == null ? 0 : state!.hashCode) +
-    (wateredAt == null ? 0 : wateredAt!.hashCode) +
-    (grandparent.hashCode);
+    (id == null ? 0 : id!.hashCode) +
+    (attributes == null ? 0 : attributes!.hashCode);
 
   @override
-  String toString() => 'TreeRequestData[parent=$parent, state=$state, wateredAt=$wateredAt, grandparent=$grandparent]';
+  String toString() => 'QuestStatusListResponseDataItem[id=$id, attributes=$attributes]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-      json[r'parent'] = this.parent;
-    if (this.state != null) {
-      json[r'state'] = this.state;
+    if (this.id != null) {
+      json[r'id'] = this.id;
     } else {
-      json[r'state'] = null;
+      json[r'id'] = null;
     }
-    if (this.wateredAt != null) {
-      json[r'wateredAt'] = this.wateredAt!.toUtc().toIso8601String();
+    if (this.attributes != null) {
+      json[r'attributes'] = this.attributes;
     } else {
-      json[r'wateredAt'] = null;
+      json[r'attributes'] = null;
     }
-      json[r'grandparent'] = this.grandparent;
     return json;
   }
 
-  /// Returns a new [TreeRequestData] instance and imports its values from
+  /// Returns a new [QuestStatusListResponseDataItem] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static TreeRequestData? fromJson(dynamic value) {
+  static QuestStatusListResponseDataItem? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -86,27 +74,25 @@ class TreeRequestData {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "TreeRequestData[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "TreeRequestData[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "QuestStatusListResponseDataItem[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "QuestStatusListResponseDataItem[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return TreeRequestData(
-        parent: AppUserRequestDataFamiliesInner.listFromJson(json[r'parent']),
-        state: mapValueOfType<int>(json, r'state'),
-        wateredAt: mapDateTime(json, r'wateredAt', r''),
-        grandparent: AppUserRequestDataFamiliesInner.listFromJson(json[r'grandparent']),
+      return QuestStatusListResponseDataItem(
+        id: num.parse('${json[r'id']}'),
+        attributes: QuestStatus.fromJson(json[r'attributes']),
       );
     }
     return null;
   }
 
-  static List<TreeRequestData> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <TreeRequestData>[];
+  static List<QuestStatusListResponseDataItem> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <QuestStatusListResponseDataItem>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = TreeRequestData.fromJson(row);
+        final value = QuestStatusListResponseDataItem.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -115,12 +101,12 @@ class TreeRequestData {
     return result.toList(growable: growable);
   }
 
-  static Map<String, TreeRequestData> mapFromJson(dynamic json) {
-    final map = <String, TreeRequestData>{};
+  static Map<String, QuestStatusListResponseDataItem> mapFromJson(dynamic json) {
+    final map = <String, QuestStatusListResponseDataItem>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = TreeRequestData.fromJson(entry.value);
+        final value = QuestStatusListResponseDataItem.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -129,14 +115,14 @@ class TreeRequestData {
     return map;
   }
 
-  // maps a json object with a list of TreeRequestData-objects as value to a dart map
-  static Map<String, List<TreeRequestData>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<TreeRequestData>>{};
+  // maps a json object with a list of QuestStatusListResponseDataItem-objects as value to a dart map
+  static Map<String, List<QuestStatusListResponseDataItem>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<QuestStatusListResponseDataItem>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = TreeRequestData.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = QuestStatusListResponseDataItem.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

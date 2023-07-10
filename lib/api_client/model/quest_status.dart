@@ -10,16 +10,17 @@
 
 part of openapi.api;
 
-class AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes {
-  /// Returns a new [AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes] instance.
-  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes({
-    this.name,
-    this.code,
-    this.description,
-    this.users,
-    this.permissions,
+class QuestStatus {
+  /// Returns a new [QuestStatus] instance.
+  QuestStatus({
+    this.quest,
+    this.kid,
+    this.completedAt,
+    this.doing,
+    this.grandparent,
     this.createdAt,
     this.updatedAt,
+    this.publishedAt,
     this.createdBy,
     this.updatedBy,
   });
@@ -30,7 +31,7 @@ class AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAtt
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? name;
+  QuestStatusQuest? quest;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -38,7 +39,7 @@ class AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAtt
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? code;
+  QuestStatusKid? kid;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -46,7 +47,7 @@ class AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAtt
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? description;
+  DateTime? completedAt;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -54,7 +55,7 @@ class AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAtt
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesUsers? users;
+  bool? doing;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -62,7 +63,7 @@ class AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAtt
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissions? permissions;
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? grandparent;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -86,7 +87,7 @@ class AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAtt
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
+  DateTime? publishedAt;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -94,62 +95,72 @@ class AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAtt
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes &&
-     other.name == name &&
-     other.code == code &&
-     other.description == description &&
-     other.users == users &&
-     other.permissions == permissions &&
+  bool operator ==(Object other) => identical(this, other) || other is QuestStatus &&
+     other.quest == quest &&
+     other.kid == kid &&
+     other.completedAt == completedAt &&
+     other.doing == doing &&
+     other.grandparent == grandparent &&
      other.createdAt == createdAt &&
      other.updatedAt == updatedAt &&
+     other.publishedAt == publishedAt &&
      other.createdBy == createdBy &&
      other.updatedBy == updatedBy;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (name == null ? 0 : name!.hashCode) +
-    (code == null ? 0 : code!.hashCode) +
-    (description == null ? 0 : description!.hashCode) +
-    (users == null ? 0 : users!.hashCode) +
-    (permissions == null ? 0 : permissions!.hashCode) +
+    (quest == null ? 0 : quest!.hashCode) +
+    (kid == null ? 0 : kid!.hashCode) +
+    (completedAt == null ? 0 : completedAt!.hashCode) +
+    (doing == null ? 0 : doing!.hashCode) +
+    (grandparent == null ? 0 : grandparent!.hashCode) +
     (createdAt == null ? 0 : createdAt!.hashCode) +
     (updatedAt == null ? 0 : updatedAt!.hashCode) +
+    (publishedAt == null ? 0 : publishedAt!.hashCode) +
     (createdBy == null ? 0 : createdBy!.hashCode) +
     (updatedBy == null ? 0 : updatedBy!.hashCode);
 
   @override
-  String toString() => 'AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes[name=$name, code=$code, description=$description, users=$users, permissions=$permissions, createdAt=$createdAt, updatedAt=$updatedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
+  String toString() => 'QuestStatus[quest=$quest, kid=$kid, completedAt=$completedAt, doing=$doing, grandparent=$grandparent, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.name != null) {
-      json[r'name'] = this.name;
+    if (this.quest != null) {
+      json[r'quest'] = this.quest;
     } else {
-      json[r'name'] = null;
+      json[r'quest'] = null;
     }
-    if (this.code != null) {
-      json[r'code'] = this.code;
+    if (this.kid != null) {
+      json[r'kid'] = this.kid;
     } else {
-      json[r'code'] = null;
+      json[r'kid'] = null;
     }
-    if (this.description != null) {
-      json[r'description'] = this.description;
+    if (this.completedAt != null) {
+      json[r'completedAt'] = this.completedAt!.toUtc().toIso8601String();
     } else {
-      json[r'description'] = null;
+      json[r'completedAt'] = null;
     }
-    if (this.users != null) {
-      json[r'users'] = this.users;
+    if (this.doing != null) {
+      json[r'doing'] = this.doing;
     } else {
-      json[r'users'] = null;
+      json[r'doing'] = null;
     }
-    if (this.permissions != null) {
-      json[r'permissions'] = this.permissions;
+    if (this.grandparent != null) {
+      json[r'grandparent'] = this.grandparent;
     } else {
-      json[r'permissions'] = null;
+      json[r'grandparent'] = null;
     }
     if (this.createdAt != null) {
       json[r'createdAt'] = this.createdAt!.toUtc().toIso8601String();
@@ -160,6 +171,11 @@ class AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAtt
       json[r'updatedAt'] = this.updatedAt!.toUtc().toIso8601String();
     } else {
       json[r'updatedAt'] = null;
+    }
+    if (this.publishedAt != null) {
+      json[r'publishedAt'] = this.publishedAt!.toUtc().toIso8601String();
+    } else {
+      json[r'publishedAt'] = null;
     }
     if (this.createdBy != null) {
       json[r'createdBy'] = this.createdBy;
@@ -174,10 +190,10 @@ class AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAtt
     return json;
   }
 
-  /// Returns a new [AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes] instance and imports its values from
+  /// Returns a new [QuestStatus] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes? fromJson(dynamic value) {
+  static QuestStatus? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -186,32 +202,33 @@ class AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAtt
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "QuestStatus[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "QuestStatus[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes(
-        name: mapValueOfType<String>(json, r'name'),
-        code: mapValueOfType<String>(json, r'code'),
-        description: mapValueOfType<String>(json, r'description'),
-        users: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesUsers.fromJson(json[r'users']),
-        permissions: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissions.fromJson(json[r'permissions']),
+      return QuestStatus(
+        quest: QuestStatusQuest.fromJson(json[r'quest']),
+        kid: QuestStatusKid.fromJson(json[r'kid']),
+        completedAt: mapDateTime(json, r'completedAt', r''),
+        doing: mapValueOfType<bool>(json, r'doing'),
+        grandparent: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'grandparent']),
         createdAt: mapDateTime(json, r'createdAt', r''),
         updatedAt: mapDateTime(json, r'updatedAt', r''),
-        createdBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
-        updatedBy: AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
+        publishedAt: mapDateTime(json, r'publishedAt', r''),
+        createdBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
+        updatedBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
       );
     }
     return null;
   }
 
-  static List<AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes>[];
+  static List<QuestStatus> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <QuestStatus>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes.fromJson(row);
+        final value = QuestStatus.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -220,12 +237,12 @@ class AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAtt
     return result.toList(growable: growable);
   }
 
-  static Map<String, AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes> mapFromJson(dynamic json) {
-    final map = <String, AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes>{};
+  static Map<String, QuestStatus> mapFromJson(dynamic json) {
+    final map = <String, QuestStatus>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes.fromJson(entry.value);
+        final value = QuestStatus.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -234,14 +251,14 @@ class AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAtt
     return map;
   }
 
-  // maps a json object with a list of AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes-objects as value to a dart map
-  static Map<String, List<AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes>>{};
+  // maps a json object with a list of QuestStatus-objects as value to a dart map
+  static Map<String, List<QuestStatus>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<QuestStatus>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = AppUserFamiliesDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = QuestStatus.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

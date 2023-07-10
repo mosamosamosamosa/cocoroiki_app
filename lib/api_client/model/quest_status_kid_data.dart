@@ -10,9 +10,9 @@
 
 part of openapi.api;
 
-class AppUserFamiliesDataInnerAttributesCreatedByData {
-  /// Returns a new [AppUserFamiliesDataInnerAttributesCreatedByData] instance.
-  AppUserFamiliesDataInnerAttributesCreatedByData({
+class QuestStatusKidData {
+  /// Returns a new [QuestStatusKidData] instance.
+  QuestStatusKidData({
     this.id,
     this.attributes,
   });
@@ -31,10 +31,10 @@ class AppUserFamiliesDataInnerAttributesCreatedByData {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesCreatedByDataAttributes? attributes;
+  QuestStatusKidDataAttributes? attributes;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is AppUserFamiliesDataInnerAttributesCreatedByData &&
+  bool operator ==(Object other) => identical(this, other) || other is QuestStatusKidData &&
      other.id == id &&
      other.attributes == attributes;
 
@@ -45,7 +45,7 @@ class AppUserFamiliesDataInnerAttributesCreatedByData {
     (attributes == null ? 0 : attributes!.hashCode);
 
   @override
-  String toString() => 'AppUserFamiliesDataInnerAttributesCreatedByData[id=$id, attributes=$attributes]';
+  String toString() => 'QuestStatusKidData[id=$id, attributes=$attributes]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -62,10 +62,10 @@ class AppUserFamiliesDataInnerAttributesCreatedByData {
     return json;
   }
 
-  /// Returns a new [AppUserFamiliesDataInnerAttributesCreatedByData] instance and imports its values from
+  /// Returns a new [QuestStatusKidData] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static AppUserFamiliesDataInnerAttributesCreatedByData? fromJson(dynamic value) {
+  static QuestStatusKidData? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -74,25 +74,25 @@ class AppUserFamiliesDataInnerAttributesCreatedByData {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "AppUserFamiliesDataInnerAttributesCreatedByData[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "AppUserFamiliesDataInnerAttributesCreatedByData[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "QuestStatusKidData[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "QuestStatusKidData[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return AppUserFamiliesDataInnerAttributesCreatedByData(
+      return QuestStatusKidData(
         id: num.parse('${json[r'id']}'),
-        attributes: AppUserFamiliesDataInnerAttributesCreatedByDataAttributes.fromJson(json[r'attributes']),
+        attributes: QuestStatusKidDataAttributes.fromJson(json[r'attributes']),
       );
     }
     return null;
   }
 
-  static List<AppUserFamiliesDataInnerAttributesCreatedByData> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <AppUserFamiliesDataInnerAttributesCreatedByData>[];
+  static List<QuestStatusKidData> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <QuestStatusKidData>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = AppUserFamiliesDataInnerAttributesCreatedByData.fromJson(row);
+        final value = QuestStatusKidData.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -101,12 +101,12 @@ class AppUserFamiliesDataInnerAttributesCreatedByData {
     return result.toList(growable: growable);
   }
 
-  static Map<String, AppUserFamiliesDataInnerAttributesCreatedByData> mapFromJson(dynamic json) {
-    final map = <String, AppUserFamiliesDataInnerAttributesCreatedByData>{};
+  static Map<String, QuestStatusKidData> mapFromJson(dynamic json) {
+    final map = <String, QuestStatusKidData>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = AppUserFamiliesDataInnerAttributesCreatedByData.fromJson(entry.value);
+        final value = QuestStatusKidData.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -115,14 +115,14 @@ class AppUserFamiliesDataInnerAttributesCreatedByData {
     return map;
   }
 
-  // maps a json object with a list of AppUserFamiliesDataInnerAttributesCreatedByData-objects as value to a dart map
-  static Map<String, List<AppUserFamiliesDataInnerAttributesCreatedByData>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<AppUserFamiliesDataInnerAttributesCreatedByData>>{};
+  // maps a json object with a list of QuestStatusKidData-objects as value to a dart map
+  static Map<String, List<QuestStatusKidData>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<QuestStatusKidData>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = AppUserFamiliesDataInnerAttributesCreatedByData.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = QuestStatusKidData.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

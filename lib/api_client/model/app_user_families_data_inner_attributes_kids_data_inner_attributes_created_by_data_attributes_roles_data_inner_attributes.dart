@@ -10,15 +10,16 @@
 
 part of openapi.api;
 
-class Comment {
-  /// Returns a new [Comment] instance.
-  Comment({
-    this.content,
-    this.comments,
-    this.user,
+class AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes {
+  /// Returns a new [AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes] instance.
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes({
+    this.name,
+    this.code,
+    this.description,
+    this.users,
+    this.permissions,
     this.createdAt,
     this.updatedAt,
-    this.publishedAt,
     this.createdBy,
     this.updatedBy,
   });
@@ -29,7 +30,7 @@ class Comment {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  String? content;
+  String? name;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -37,7 +38,7 @@ class Comment {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  CommentComments? comments;
+  String? code;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -45,7 +46,23 @@ class Comment {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? user;
+  String? description;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesFamilies? users;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissions? permissions;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -69,14 +86,6 @@ class Comment {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  DateTime? publishedAt;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
   AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? createdBy;
 
   ///
@@ -88,47 +97,59 @@ class Comment {
   AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? updatedBy;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is Comment &&
-     other.content == content &&
-     other.comments == comments &&
-     other.user == user &&
+  bool operator ==(Object other) => identical(this, other) || other is AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes &&
+     other.name == name &&
+     other.code == code &&
+     other.description == description &&
+     other.users == users &&
+     other.permissions == permissions &&
      other.createdAt == createdAt &&
      other.updatedAt == updatedAt &&
-     other.publishedAt == publishedAt &&
      other.createdBy == createdBy &&
      other.updatedBy == updatedBy;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (content == null ? 0 : content!.hashCode) +
-    (comments == null ? 0 : comments!.hashCode) +
-    (user == null ? 0 : user!.hashCode) +
+    (name == null ? 0 : name!.hashCode) +
+    (code == null ? 0 : code!.hashCode) +
+    (description == null ? 0 : description!.hashCode) +
+    (users == null ? 0 : users!.hashCode) +
+    (permissions == null ? 0 : permissions!.hashCode) +
     (createdAt == null ? 0 : createdAt!.hashCode) +
     (updatedAt == null ? 0 : updatedAt!.hashCode) +
-    (publishedAt == null ? 0 : publishedAt!.hashCode) +
     (createdBy == null ? 0 : createdBy!.hashCode) +
     (updatedBy == null ? 0 : updatedBy!.hashCode);
 
   @override
-  String toString() => 'Comment[content=$content, comments=$comments, user=$user, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
+  String toString() => 'AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes[name=$name, code=$code, description=$description, users=$users, permissions=$permissions, createdAt=$createdAt, updatedAt=$updatedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.content != null) {
-      json[r'content'] = this.content;
+    if (this.name != null) {
+      json[r'name'] = this.name;
     } else {
-      json[r'content'] = null;
+      json[r'name'] = null;
     }
-    if (this.comments != null) {
-      json[r'comments'] = this.comments;
+    if (this.code != null) {
+      json[r'code'] = this.code;
     } else {
-      json[r'comments'] = null;
+      json[r'code'] = null;
     }
-    if (this.user != null) {
-      json[r'user'] = this.user;
+    if (this.description != null) {
+      json[r'description'] = this.description;
     } else {
-      json[r'user'] = null;
+      json[r'description'] = null;
+    }
+    if (this.users != null) {
+      json[r'users'] = this.users;
+    } else {
+      json[r'users'] = null;
+    }
+    if (this.permissions != null) {
+      json[r'permissions'] = this.permissions;
+    } else {
+      json[r'permissions'] = null;
     }
     if (this.createdAt != null) {
       json[r'createdAt'] = this.createdAt!.toUtc().toIso8601String();
@@ -139,11 +160,6 @@ class Comment {
       json[r'updatedAt'] = this.updatedAt!.toUtc().toIso8601String();
     } else {
       json[r'updatedAt'] = null;
-    }
-    if (this.publishedAt != null) {
-      json[r'publishedAt'] = this.publishedAt!.toUtc().toIso8601String();
-    } else {
-      json[r'publishedAt'] = null;
     }
     if (this.createdBy != null) {
       json[r'createdBy'] = this.createdBy;
@@ -158,10 +174,10 @@ class Comment {
     return json;
   }
 
-  /// Returns a new [Comment] instance and imports its values from
+  /// Returns a new [AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static Comment? fromJson(dynamic value) {
+  static AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -170,19 +186,20 @@ class Comment {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "Comment[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "Comment[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return Comment(
-        content: mapValueOfType<String>(json, r'content'),
-        comments: CommentComments.fromJson(json[r'comments']),
-        user: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'user']),
+      return AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes(
+        name: mapValueOfType<String>(json, r'name'),
+        code: mapValueOfType<String>(json, r'code'),
+        description: mapValueOfType<String>(json, r'description'),
+        users: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesFamilies.fromJson(json[r'users']),
+        permissions: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissions.fromJson(json[r'permissions']),
         createdAt: mapDateTime(json, r'createdAt', r''),
         updatedAt: mapDateTime(json, r'updatedAt', r''),
-        publishedAt: mapDateTime(json, r'publishedAt', r''),
         createdBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'createdBy']),
         updatedBy: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'updatedBy']),
       );
@@ -190,11 +207,11 @@ class Comment {
     return null;
   }
 
-  static List<Comment> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <Comment>[];
+  static List<AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = Comment.fromJson(row);
+        final value = AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -203,12 +220,12 @@ class Comment {
     return result.toList(growable: growable);
   }
 
-  static Map<String, Comment> mapFromJson(dynamic json) {
-    final map = <String, Comment>{};
+  static Map<String, AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes> mapFromJson(dynamic json) {
+    final map = <String, AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = Comment.fromJson(entry.value);
+        final value = AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -217,14 +234,14 @@ class Comment {
     return map;
   }
 
-  // maps a json object with a list of Comment-objects as value to a dart map
-  static Map<String, List<Comment>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<Comment>>{};
+  // maps a json object with a list of AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes-objects as value to a dart map
+  static Map<String, List<AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = Comment.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributes.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

@@ -14,10 +14,7 @@ class QuestRequestData {
   /// Returns a new [QuestRequestData] instance.
   QuestRequestData({
     this.content,
-    this.completed,
     this.questKinds = const [],
-    this.reward,
-    this.completedAt,
   });
 
   ///
@@ -28,51 +25,21 @@ class QuestRequestData {
   ///
   String? content;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  bool? completed;
-
   List<AppUserRequestDataFamiliesInner> questKinds;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  AppUserRequestDataFamiliesInner? reward;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  DateTime? completedAt;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is QuestRequestData &&
      other.content == content &&
-     other.completed == completed &&
-     other.questKinds == questKinds &&
-     other.reward == reward &&
-     other.completedAt == completedAt;
+     other.questKinds == questKinds;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
     (content == null ? 0 : content!.hashCode) +
-    (completed == null ? 0 : completed!.hashCode) +
-    (questKinds.hashCode) +
-    (reward == null ? 0 : reward!.hashCode) +
-    (completedAt == null ? 0 : completedAt!.hashCode);
+    (questKinds.hashCode);
 
   @override
-  String toString() => 'QuestRequestData[content=$content, completed=$completed, questKinds=$questKinds, reward=$reward, completedAt=$completedAt]';
+  String toString() => 'QuestRequestData[content=$content, questKinds=$questKinds]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -81,22 +48,7 @@ class QuestRequestData {
     } else {
       json[r'content'] = null;
     }
-    if (this.completed != null) {
-      json[r'completed'] = this.completed;
-    } else {
-      json[r'completed'] = null;
-    }
       json[r'quest_kinds'] = this.questKinds;
-    if (this.reward != null) {
-      json[r'reward'] = this.reward;
-    } else {
-      json[r'reward'] = null;
-    }
-    if (this.completedAt != null) {
-      json[r'completedAt'] = this.completedAt!.toUtc().toIso8601String();
-    } else {
-      json[r'completedAt'] = null;
-    }
     return json;
   }
 
@@ -120,10 +72,7 @@ class QuestRequestData {
 
       return QuestRequestData(
         content: mapValueOfType<String>(json, r'content'),
-        completed: mapValueOfType<bool>(json, r'completed'),
         questKinds: AppUserRequestDataFamiliesInner.listFromJson(json[r'quest_kinds']),
-        reward: AppUserRequestDataFamiliesInner.fromJson(json[r'reward']),
-        completedAt: mapDateTime(json, r'completedAt', r''),
       );
     }
     return null;
