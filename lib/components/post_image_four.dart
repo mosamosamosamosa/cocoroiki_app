@@ -29,6 +29,7 @@ class _PostImageFourState extends State<PostImageFour> {
                     builder: (BuildContext context) => ImageModal(
                           image: widget.imageList[0],
                           activeIndex: 0,
+                          imageList: widget.imageList,
                         ));
               },
               child: Container(
@@ -51,8 +52,11 @@ class _PostImageFourState extends State<PostImageFour> {
                 showDialog(
                     barrierColor: Colors.black.withOpacity(0.8),
                     context: context,
-                    builder: (BuildContext context) =>
-                        ImageModal(image: widget.imageList[1], activeIndex: 1));
+                    builder: (BuildContext context) => ImageModal(
+                          image: widget.imageList[1],
+                          activeIndex: 1,
+                          imageList: widget.imageList,
+                        ));
               },
               child: Container(
                 clipBehavior: Clip.antiAlias,
@@ -81,6 +85,7 @@ class _PostImageFourState extends State<PostImageFour> {
                     builder: (BuildContext context) => ImageModal(
                           image: widget.imageList[2],
                           activeIndex: 2,
+                          imageList: widget.imageList,
                         ));
               },
               child: Container(
@@ -106,6 +111,7 @@ class _PostImageFourState extends State<PostImageFour> {
                     builder: (BuildContext context) => ImageModal(
                           image: widget.imageList[3],
                           activeIndex: 3,
+                          imageList: widget.imageList,
                         ));
               },
               child: Container(

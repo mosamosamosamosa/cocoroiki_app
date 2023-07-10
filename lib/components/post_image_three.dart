@@ -28,6 +28,7 @@ class _PostImageThreeState extends State<PostImageThree> {
                 builder: (BuildContext context) => ImageModal(
                       image: widget.imageList[0],
                       activeIndex: 0,
+                      imageList: widget.imageList,
                     ));
           },
           child: Container(
@@ -57,6 +58,7 @@ class _PostImageThreeState extends State<PostImageThree> {
                     builder: (BuildContext context) => ImageModal(
                           image: widget.imageList[1],
                           activeIndex: 1,
+                          imageList: widget.imageList,
                         ));
               },
               child: Container(
@@ -82,6 +84,7 @@ class _PostImageThreeState extends State<PostImageThree> {
                     builder: (BuildContext context) => ImageModal(
                           image: widget.imageList[2],
                           activeIndex: 2,
+                          imageList: widget.imageList,
                         ));
               },
               child: Container(

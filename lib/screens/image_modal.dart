@@ -5,10 +5,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ImageModal extends StatefulWidget {
-  const ImageModal({super.key, required this.image, required this.activeIndex});
+  const ImageModal(
+      {super.key,
+      required this.image,
+      required this.activeIndex,
+      required this.imageList});
 
   final String image;
   final int activeIndex;
+  final List<String> imageList;
 
   @override
   State<ImageModal> createState() => _ImageModalState();
@@ -19,7 +24,10 @@ class _ImageModalState extends State<ImageModal> {
 
   @override
   void initState() {
-    activeIndex = widget.activeIndex;
+    setState(() {
+      activeIndex = widget.activeIndex;
+    });
+
     super.initState();
   }
 
@@ -53,9 +61,9 @@ class _ImageModalState extends State<ImageModal> {
                       activeIndex = index;
                     }),
                   ),
-                  itemCount: posts_list[0].image_url.length,
+                  itemCount: widget.imageList.length,
                   itemBuilder: (context, index, realIndex) {
-                    final path = posts_list[0].image_url[activeIndex];
+                    final path = widget.imageList[activeIndex];
                     return buildImage(path, activeIndex);
                   },
                 ),
@@ -89,7 +97,7 @@ class _ImageModalState extends State<ImageModal> {
 
   Widget buildIndicator() => AnimatedSmoothIndicator(
         activeIndex: activeIndex,
-        count: posts_list[0].image_url.length,
+        count: widget.imageList.length,
         //エフェクトはドキュメントを見た方がわかりやすい
         effect: JumpingDotEffect(
             dotHeight: 10,

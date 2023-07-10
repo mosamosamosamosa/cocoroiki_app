@@ -3,6 +3,7 @@ import 'package:cocoroiki_app/components/bottom_button.dart';
 import 'package:cocoroiki_app/components/buttom_bar.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/screens/kid/quest/tree_modal.dart';
+import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -244,7 +245,15 @@ class _QuestScreenState extends State<QuestScreen> {
                 Positioned(
                     top: 87,
                     left: 24,
-                    child: SvgPicture.asset('assets/svg/quest_humberger.svg')),
+                    child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Timelinekids()));
+                        },
+                        child: SvgPicture.asset(
+                            'assets/svg/quest_humberger.svg'))),
                 Positioned(
                     top: 70,
                     right: 8,

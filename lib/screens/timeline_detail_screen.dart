@@ -32,13 +32,28 @@ class TimelineDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
-  PostResponse? postDetail = PostResponse();
-  CommentListResponse? comDetail = CommentListResponse();
+  PostResponse postDetail = PostResponse();
+  CommentListResponse comDetail = CommentListResponse();
   List<int> commentList = [];
+  Widget post = Container();
 
   @override
   void initState() {
-    fetchSomeData();
+    fetchSomeData().then(
+      (value) {
+        setState(() {
+          if (widget.imageNum == 1) {
+            post = PostImageOne(myPost: true, imageList: widget.imageList);
+          } else if (widget.imageNum == 2) {
+            post = PostImageTwo(myPost: true, imageList: widget.imageList);
+          } else if (widget.imageNum == 3) {
+            post = PostImageThree(myPost: true, imageList: widget.imageList);
+          } else {
+            post = PostImageFour(myPost: true, imageList: widget.imageList);
+          }
+        });
+      },
+    );
     //fetchSomeDataComment(1);
     print(widget.imageList.length);
     super.initState();
@@ -54,18 +69,20 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
       // print('content:${response?.data?.attributes?.content}');
 
       //print('コメント：${postDetail?.data?.attributes?.comments?.data.length}');
-      if (response?.data?.attributes?.comments?.data != null) {
-        for (int i = 0;
-            i < (response?.data?.attributes?.comments?.data)!.length;
-            i++) {
-          //print('for文まできてる');
-          commentList
-              .add((response?.data?.attributes?.comments?.data[i].id)!.toInt());
-        }
-      } else {}
-      //print((postDetail?.data?.attributes?.comments?.data[0].id)!.toInt());
-      print('commentList : $commentList');
-      setState(() => postDetail = response);
+      if (response != null) {
+        if (response.data?.attributes?.comments?.data != null) {
+          for (int i = 0;
+              i < (response.data?.attributes?.comments?.data)!.length;
+              i++) {
+            //print('for文まできてる');
+            commentList.add(
+                (response.data?.attributes?.comments?.data[i].id)!.toInt());
+          }
+          setState(() => postDetail = response);
+        } else {}
+        //print((postDetail?.data?.attributes?.comments?.data[0].id)!.toInt());
+        print('commentList : $commentList');
+      }
     } catch (e) {
       print(e);
     }
@@ -115,262 +132,264 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
     DateFormat outputFormat = DateFormat('yyyy年MM月dd日 H時m分');
     double deviceW = MediaQuery.of(context).size.width;
     double deviceH = MediaQuery.of(context).size.height;
-    Widget post;
 
-    int imageNum = (widget.imageList).length;
-    if (imageNum == 1) {
-      post = PostImageOne(myPost: false, imageList: widget.imageList);
-    } else if (imageNum == 2) {
-      post = PostImageTwo(myPost: false, imageList: widget.imageList);
-    } else if (imageNum == 3) {
-      post = PostImageThree(myPost: false, imageList: widget.imageList);
+    if (postDetail == null) {
+      return Container(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
     } else {
-      post = PostImageFour(myPost: false, imageList: widget.imageList);
-    }
-
-    return Scaffold(
-        backgroundColor: kBackgroundColor,
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.only(
-                    top: deviceH * 0.16, bottom: deviceH * 0.001),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 28, top: 23),
-                      child: Text(
-                        outputFormat.format(
-                            ((postDetail?.data?.attributes?.createdAt)!)),
-                        style: TextStyle(
-                            color: Color(0xFF919191),
-                            fontWeight: FontWeight.bold,
-                            fontSize: userRoleState ? 18 : 14),
+      return Scaffold(
+          backgroundColor: kBackgroundColor,
+          body: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      top: deviceH * 0.16, bottom: deviceH * 0.001),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 28, top: 23),
+                        child: Text(
+                          outputFormat.format(
+                              ((postDetail.data?.attributes?.createdAt)!)),
+                          style: TextStyle(
+                              color: Color(0xFF919191),
+                              fontWeight: FontWeight.bold,
+                              fontSize: userRoleState ? 18 : 14),
+                        ),
                       ),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 28, top: 16),
-                        child: (postDetail?.data?.attributes?.content) != null
-                            ? Text(
-                                (postDetail?.data?.attributes?.content)
-                                    .toString(),
-                                style: TextStyle(
-                                    color: kFontColor,
-                                    fontSize: userRoleState ? 20 : 16))
-                            : Text('')),
-                    SizedBox(height: 24),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(width: 10),
-                        post,
-                        SizedBox(width: 10)
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(width: 21),
-                        Row(
-                          children: [
-                            //FavoriteButton(),
-                            userRoleState
-                                ? SvgPicture.asset('assets/svg/like_grand.svg')
-                                : SvgPicture.asset('assets/svg/like.svg'),
-                            postDetail?.data?.attributes?.like == null
-                                ? Row(
-                                    children: [
-                                      SizedBox(width: 10),
-                                      Container(),
-                                    ],
-                                  )
-                                : Row(
-                                    children: [
-                                      SizedBox(width: 4),
-                                      Text(
-                                        (postDetail?.data?.attributes?.like)
-                                            .toString(),
-                                        style: TextStyle(
-                                            color: Color(0xFF949494),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: userRoleState ? 20 : 16),
-                                      ),
-                                    ],
-                                  ),
-                          ],
-                        ),
-                        SizedBox(width: 32),
-                        Row(
-                          children: [
-                            userRoleState
-                                ? SvgPicture.asset(
-                                    'assets/svg/comment_grand.svg')
-                                : SvgPicture.asset('assets/svg/comment.svg'),
-                            postDetail?.data?.attributes?.comments?.data
-                                        .length ==
-                                    0
-                                ? Row(
-                                    children: [
-                                      SizedBox(width: 10),
-                                      Container(),
-                                    ],
-                                  )
-                                : Row(
-                                    children: [
-                                      SizedBox(width: 4),
-                                      Text(
-                                        (postDetail?.data?.attributes?.comments
-                                                ?.data.length)
-                                            .toString(),
-                                        style: TextStyle(
-                                            color: Color(0xFF949494),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
-                                      ),
-                                    ],
-                                  )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: deviceW * 0.35),
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 32,
-                            width: 70,
-                            child: Text(
-                                '${(postDetail?.data?.attributes?.kids?.data[0].attributes as Map<String, dynamic>)['name']}',
-                                style: TextStyle(
-                                    fontSize: userRoleState ? 16 : 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: kFontColor)),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.grey, //色
-                                  spreadRadius: 0.1,
-                                  blurRadius: 5,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15, bottom: 0),
-                      child: Divider(
-                          color: kBorderColor,
-                          thickness: 0.5,
-                          indent: 18,
-                          endIndent: 18),
-                    ),
-                    postDetail?.data?.attributes?.comments?.data.length == 0
-                        ? Container()
-                        : SizedBox(
-                            child: Container(
-                              height: deviceH,
-                              width: deviceW,
-                              child: ListView.builder(
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: postDetail
-                                    ?.data?.attributes?.comments?.data.length,
-                                padding: EdgeInsets.only(
-                                    top: deviceH * 0.012,
-                                    bottom: deviceH * 0.2),
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 24, bottom: 16),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                      Padding(
+                          padding: const EdgeInsets.only(left: 28, top: 16),
+                          child: (postDetail.data?.attributes?.content) != null
+                              ? Text(
+                                  (postDetail.data?.attributes?.content)
+                                      .toString(),
+                                  style: TextStyle(
+                                      color: kFontColor,
+                                      fontSize: userRoleState ? 20 : 16))
+                              : Text('')),
+                      SizedBox(height: 24),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(width: 10),
+                          post,
+                          SizedBox(width: 10)
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(width: 21),
+                          Row(
+                            children: [
+                              //FavoriteButton(),
+                              userRoleState
+                                  ? SvgPicture.asset(
+                                      'assets/svg/like_grand.svg')
+                                  : SvgPicture.asset('assets/svg/like.svg'),
+                              postDetail.data?.attributes?.like == null
+                                  ? Row(
                                       children: [
-                                        SizedBox(
-                                            height: 40,
-                                            width: 40,
-                                            child: CircleAvatar(
-                                                radius: 32,
-                                                foregroundImage: NetworkImage(
-                                                    users_list[0].image))),
-                                        SizedBox(width: 8),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Text('よしえ',
-                                                    style: TextStyle(
-                                                        fontSize: userRoleState
-                                                            ? 20
-                                                            : 16,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: kFontColor)),
-                                                SizedBox(width: 16),
-                                                Text(
-                                                    createTimeAgoString(
-                                                        (postDetail
-                                                            ?.data
-                                                            ?.attributes
-                                                            ?.comments
-                                                            ?.data[0]
-                                                            .attributes
-                                                            ?.createdAt)!),
-                                                    style: TextStyle(
-                                                        color:
-                                                            Color(0xFF919191),
-                                                        fontSize: userRoleState
-                                                            ? 18
-                                                            : 14)),
-                                              ],
-                                            ),
-                                            SizedBox(height: 4),
-                                            SizedBox(
-                                              width: 294,
-                                              child: Text(
-                                                (postDetail
-                                                        ?.data
-                                                        ?.attributes
-                                                        ?.comments
-                                                        ?.data[0]
-                                                        .attributes
-                                                        ?.content)
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    fontFamily: 'Zen-B',
-                                                    fontSize:
-                                                        userRoleState ? 18 : 14,
-                                                    color: kFontColor),
-                                              ),
-                                            )
-                                          ],
-                                        )
+                                        SizedBox(width: 10),
+                                        Container(),
+                                      ],
+                                    )
+                                  : Row(
+                                      children: [
+                                        SizedBox(width: 4),
+                                        Text(
+                                          (postDetail.data?.attributes?.like)
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: Color(0xFF949494),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize:
+                                                  userRoleState ? 20 : 16),
+                                        ),
                                       ],
                                     ),
-                                  );
-                                },
+                            ],
+                          ),
+                          SizedBox(width: 32),
+                          Row(
+                            children: [
+                              userRoleState
+                                  ? SvgPicture.asset(
+                                      'assets/svg/comment_grand.svg')
+                                  : SvgPicture.asset('assets/svg/comment.svg'),
+                              postDetail.data?.attributes?.comments?.data
+                                          .length ==
+                                      0
+                                  ? Row(
+                                      children: [
+                                        SizedBox(width: 10),
+                                        Container(),
+                                      ],
+                                    )
+                                  : Row(
+                                      children: [
+                                        SizedBox(width: 4),
+                                        Text(
+                                          (postDetail.data?.attributes?.comments
+                                                  ?.data.length)
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: Color(0xFF949494),
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                        ),
+                                      ],
+                                    )
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: deviceW * 0.35),
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 32,
+                              width: 70,
+                              child: Text(
+                                  '${(postDetail.data?.attributes?.kids?.data[0].attributes as Map<String, dynamic>)['name']}',
+                                  style: TextStyle(
+                                      fontSize: userRoleState ? 16 : 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: kFontColor)),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.grey, //色
+                                    spreadRadius: 0.1,
+                                    blurRadius: 5,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
-                  ],
+                          )
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15, bottom: 0),
+                        child: Divider(
+                            color: kBorderColor,
+                            thickness: 0.5,
+                            indent: 18,
+                            endIndent: 18),
+                      ),
+                      postDetail.data?.attributes?.comments?.data.length == 0
+                          ? Container()
+                          : SizedBox(
+                              child: Container(
+                                height: deviceH,
+                                width: deviceW,
+                                child: ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: postDetail
+                                      .data?.attributes?.comments?.data.length,
+                                  padding: EdgeInsets.only(
+                                      top: deviceH * 0.012,
+                                      bottom: deviceH * 0.2),
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 24, bottom: 16),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                              height: 40,
+                                              width: 40,
+                                              child: CircleAvatar(
+                                                  radius: 32,
+                                                  foregroundImage: NetworkImage(
+                                                      users_list[0].image))),
+                                          SizedBox(width: 8),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Text('よしえ',
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              userRoleState
+                                                                  ? 20
+                                                                  : 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: kFontColor)),
+                                                  SizedBox(width: 16),
+                                                  Text(
+                                                      createTimeAgoString(
+                                                          (postDetail
+                                                              .data
+                                                              ?.attributes
+                                                              ?.comments
+                                                              ?.data[0]
+                                                              .attributes
+                                                              ?.createdAt)!),
+                                                      style: TextStyle(
+                                                          color:
+                                                              Color(0xFF919191),
+                                                          fontSize:
+                                                              userRoleState
+                                                                  ? 18
+                                                                  : 14)),
+                                                ],
+                                              ),
+                                              SizedBox(height: 4),
+                                              SizedBox(
+                                                width: 294,
+                                                child: Text(
+                                                  (postDetail
+                                                          .data
+                                                          ?.attributes
+                                                          ?.comments
+                                                          ?.data[0]
+                                                          .attributes
+                                                          ?.content)
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                      fontFamily: 'Zen-B',
+                                                      fontSize: userRoleState
+                                                          ? 18
+                                                          : 14,
+                                                      color: kFontColor),
+                                                ),
+                                              )
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            CustomAppBar(
-              title:
-                  '${postDetail?.data?.attributes?.user?.data?.attributes?.name}の投稿',
-              reading: 'back_button.svg',
-            ),
-          ],
-        ));
+              CustomAppBar(
+                title:
+                    '${postDetail.data?.attributes?.user?.data?.attributes?.name}の投稿',
+                reading: 'back_button.svg',
+              ),
+            ],
+          ));
+    }
   }
 }
