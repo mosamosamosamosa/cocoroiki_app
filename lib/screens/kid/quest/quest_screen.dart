@@ -15,8 +15,10 @@ class QuestScreen extends StatefulWidget {
 
 class _QuestScreenState extends State<QuestScreen> {
   AppUserListResponse? users = AppUserListResponse();
+  List<int> grandList = [];
+  List<String> grandNameList = [];
+  List<String> grandGenderList = [];
 
-  int granCount = 1;
   bool visible0 = false;
   bool visible1 = false;
   bool visible2 = false;
@@ -25,17 +27,20 @@ class _QuestScreenState extends State<QuestScreen> {
 
   @override
   void initState() {
-    if (granCount == 0) {
-      visible0 = true;
-    } else if (granCount == 1) {
-      visible1 = true;
-    } else if (granCount == 2) {
-      visible2 = true;
-    } else if (granCount == 3) {
-      visible3 = true;
-    } else {
-      visible4 = true;
-    }
+    fetchSomeData().then((value) {
+      if (grandList.length == 0) {
+        visible0 = true;
+      } else if (grandList.length == 1) {
+        visible1 = true;
+      } else if (grandList.length == 2) {
+        visible2 = true;
+      } else if (grandList.length == 3) {
+        visible3 = true;
+      } else {
+        visible4 = true;
+      }
+    });
+
     setState(() {});
     super.initState();
   }
@@ -47,14 +52,22 @@ class _QuestScreenState extends State<QuestScreen> {
     try {
       final response = await apiInstance.getAppUsers();
 
-      // if (response != null) {
-      //   for (int i = 0; i < response.data.length; i++) {
-      //     if (response.data[i].attributes?.family?.data？.id == 1 && response.data[i].attributes?.grandparent) {
-
-      //     }
-      //   }
-      // }
-      setState(() => users = response);
+      if (response != null) {
+        for (int i = 0; i < response.data.length; i++) {
+          if (response.data[i].attributes?.families?.data[0].id == 1 &&
+              response.data[i].attributes?.grandparent == true) {
+            setState(() {
+              grandList.add((response.data[i].id!).toInt());
+              grandNameList.add((response.data[i].attributes?.name).toString());
+              grandGenderList
+                  .add((response.data[i].attributes?.gender).toString());
+            });
+            print('おばあちゃん:$grandList');
+            print(grandNameList);
+            print(grandGenderList);
+          }
+        }
+      }
     } catch (e) {
       print(e);
     }
@@ -131,7 +144,9 @@ class _QuestScreenState extends State<QuestScreen> {
                             showDialog(
                                 barrierDismissible: false,
                                 context: context,
-                                builder: (BuildContext context) => TreeModal());
+                                builder: (BuildContext context) => TreeModal(
+                                    grandName: grandNameList[0],
+                                    gender: grandGenderList[0]));
                           },
                           child: SvgPicture.asset('assets/svg/green.svg'))),
                 ),
@@ -142,11 +157,11 @@ class _QuestScreenState extends State<QuestScreen> {
                       Positioned(
                           left: 50,
                           bottom: 220,
-                          child: SvgPicture.asset('assets/svg/tree1.svg')),
+                          child: SvgPicture.asset('assets/svg/green.svg')),
                       Positioned(
                           right: 60,
                           bottom: 300,
-                          child: SvgPicture.asset('assets/svg/tree1.svg')),
+                          child: SvgPicture.asset('assets/svg/green.svg')),
                     ],
                   ),
                 ),
@@ -157,15 +172,15 @@ class _QuestScreenState extends State<QuestScreen> {
                       Positioned(
                           left: 50,
                           bottom: 200,
-                          child: SvgPicture.asset('assets/svg/tree.svg')),
+                          child: SvgPicture.asset('assets/svg/green.svg')),
                       Positioned(
                           right: 40,
                           bottom: 280,
-                          child: SvgPicture.asset('assets/svg/tree.svg')),
+                          child: SvgPicture.asset('assets/svg/green.svg')),
                       Positioned(
                           left: 70,
                           bottom: 370,
-                          child: SvgPicture.asset('assets/svg/tree.svg')),
+                          child: SvgPicture.asset('assets/svg/green.svg')),
                     ],
                   ),
                 ),
@@ -176,19 +191,19 @@ class _QuestScreenState extends State<QuestScreen> {
                       Positioned(
                           left: 50,
                           bottom: 400,
-                          child: SvgPicture.asset('assets/svg/tree.svg')),
+                          child: SvgPicture.asset('assets/svg/green.svg')),
                       Positioned(
                           right: 60,
                           bottom: 330,
-                          child: SvgPicture.asset('assets/svg/tree.svg')),
+                          child: SvgPicture.asset('assets/svg/green.svg')),
                       Positioned(
                           left: 40,
                           bottom: 220,
-                          child: SvgPicture.asset('assets/svg/tree.svg')),
+                          child: SvgPicture.asset('assets/svg/green.svg')),
                       Positioned(
                           right: 20,
                           bottom: 180,
-                          child: SvgPicture.asset('assets/svg/tree.svg')),
+                          child: SvgPicture.asset('assets/svg/green.svg')),
                     ],
                   ),
                 ),
