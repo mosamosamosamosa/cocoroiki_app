@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class TreeModal extends StatefulWidget {
-  const TreeModal({super.key});
+  const TreeModal({super.key, required this.grandName, required this.gender});
 
+  final String grandName;
+  final String gender;
   @override
   State<TreeModal> createState() => _TreeModalState();
 }
@@ -63,7 +65,9 @@ class _TreeModalState extends State<TreeModal> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => GrandRoomScreen()));
+                          builder: (context) => GrandRoomScreen(
+                              grandName: widget.grandName,
+                              gender: widget.gender)));
                 }
               },
               child: selectedN || selectedY
