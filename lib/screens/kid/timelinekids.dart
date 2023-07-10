@@ -16,9 +16,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 class Timelinekids extends ConsumerStatefulWidget {
-  const Timelinekids({super.key, required this.parent});
-
-  final bool parent;
+  const Timelinekids({super.key});
 
   @override
   _TimelinekidsState createState() => _TimelinekidsState();
@@ -43,10 +41,11 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
     try {
       final response = await apiInstance.getPosts();
       print('帰ってきた値:$response');
-
-      setState(() {
-        posts = response;
-      });
+      if (response != null) {
+        setState(() {
+          posts = response;
+        });
+      }
       //setState(() => {posts = response});
     } catch (e) {
       print(e);
@@ -94,36 +93,44 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
                   ),
                   Column(
                     children: [
-                      SizedBox(
-                          height: deviceH,
-                          width: deviceW,
-                          child: ListView.builder(
-                              padding: EdgeInsets.only(
-                                  top: deviceH * 0.18, bottom: deviceH * 0.12),
-                              itemCount: posts?.data.length,
-                              //shrinkWrap: true,
-                              itemBuilder: ((BuildContext context, index) {
-                                return Column(
-                                  children: [
-                                    PostComp(
-                                        content: posts
-                                            ?.data[index].attributes?.content,
-                                        kidName: (posts?.data[0].attributes
-                                                ?.kids?.data[0].attributes
-                                            as Map<String, dynamic>)['name'],
-                                        imageNum: ((posts?.data[index]
-                                                .attributes?.images?.data)!
-                                            .length),
-                                        postUser: posts?.data[index].attributes!
-                                            .user?.data?.attributes?.name,
-                                        parent: false,
-                                        createdTime: posts
-                                            ?.data[index].attributes!.createdAt,
-                                        postId: posts?.data[index].id),
-                                    SizedBox(height: 21)
-                                  ],
-                                );
-                              }))),
+                      posts != null
+                          ? SizedBox(
+                              height: deviceH,
+                              width: deviceW,
+                              child: ListView.builder(
+                                  padding: EdgeInsets.only(
+                                      top: deviceH * 0.18,
+                                      bottom: deviceH * 0.12),
+                                  itemCount: posts?.data.length,
+                                  //shrinkWrap: true,
+                                  itemBuilder: ((BuildContext context, index) {
+                                    return Column(
+                                      children: [
+                                        PostComp(
+                                            content: posts?.data[index]
+                                                .attributes?.content,
+                                            kidName: (posts?.data[0].attributes
+                                                    ?.kids?.data[0].attributes
+                                                as Map<String,
+                                                    dynamic>)['name'],
+                                            imageNum: ((posts?.data[index]
+                                                    .attributes?.images?.data)!
+                                                .length),
+                                            postUser: posts
+                                                ?.data[index]
+                                                .attributes!
+                                                .user
+                                                ?.data
+                                                ?.attributes
+                                                ?.name,
+                                            parent: false,
+                                            createdTime: posts?.data[index].attributes!.createdAt,
+                                            postId: posts?.data[index].id),
+                                        SizedBox(height: 21)
+                                      ],
+                                    );
+                                  })))
+                          : Container()
                     ],
                   ),
                   // Positioned(

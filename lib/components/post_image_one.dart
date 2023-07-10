@@ -27,6 +27,7 @@ class _PostImageOneState extends State<PostImageOne> {
               builder: (BuildContext context) => ImageModal(
                     image: widget.imageList[0],
                     activeIndex: 0,
+                    imageList: widget.imageList,
                   ));
         },
         child: Container(

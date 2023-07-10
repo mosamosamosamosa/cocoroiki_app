@@ -23,7 +23,8 @@ class GrandRoomScreen extends StatefulWidget {
   State<GrandRoomScreen> createState() => _GrandRoomScreenState();
 }
 
-class _GrandRoomScreenState extends State<GrandRoomScreen> {
+class _GrandRoomScreenState extends State<GrandRoomScreen>
+    with TickerProviderStateMixin {
   bool visiWatermark = true;
   bool visiJouro = false;
   bool visiYellowmark = false;
@@ -34,11 +35,13 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
   bool flagTimeline = false;
   bool flagHome = false;
   bool flagQuest = false;
-  bool questClose = false;
+  bool questClose = true;
 
   int chatComment = 0;
   bool plazaButton = true;
   bool visiWater = false;
+  bool visiKirakira = false;
+  late final AnimationController _controller;
 
   @override
   void initState() {
@@ -57,7 +60,7 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
 
                     print("5秒毎に実行:chatComment$chatComment");
                   });
-                  Timer.periodic(const Duration(seconds: 5), (_) {
+                  Timer.periodic(const Duration(seconds: 1200), (_) {
                     setState(() {
                       visiWatermark = true;
                     });
@@ -85,7 +88,16 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
       //   print("秒毎に実行:chatComment$chatComment");
       // });
     }
+    _controller =
+        AnimationController(duration: Duration(seconds: 30), vsync: this);
     //super.initState();
+  }
+
+  @override
+  void dispose() {
+    print('消すとこ来たよ');
+    super.dispose();
+    _controller.dispose();
   }
 
   @override
@@ -258,8 +270,7 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                             visiYellowmark = false;
                             //_isChanged = false;
                             visiButton = false;
-                            visiQuest = true;
-                            plazaButton = true;
+
                             visiWater = true;
                           });
                           print('ドラッグ完了:$visiButton');
@@ -316,6 +327,7 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                         visiButton = false;
                         visiQuest = true;
                         plazaButton = true;
+                        visiWater = false;
                         //visiWater = true;
                       });
                     }
@@ -375,7 +387,31 @@ class _GrandRoomScreenState extends State<GrandRoomScreen> {
                 child: Positioned(
                     bottom: 200,
                     right: 36,
-                    child: LottieBuilder.asset('assets/json/water.json')),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          visiWater = false;
+                          visiQuest = true;
+                          plazaButton = true;
+                          visiKirakira = true;
+                        });
+                        Future.delayed(Duration(seconds: 30), () {
+                          setState(() {
+                            visiKirakira = false;
+                          });
+                        });
+                      },
+                      child: LottieBuilder.asset(
+                        'assets/json/water.json',
+                        //controller: _controller,
+                      ),
+                    )),
+              ),
+              Visibility(
+                visible: visiKirakira,
+                child: Positioned(
+                    bottom: 190,
+                    child: Lottie.asset('assets/json/kirakira.json')),
               )
             ])));
   }

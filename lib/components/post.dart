@@ -39,10 +39,25 @@ class PostComp extends ConsumerStatefulWidget {
 class _PostCompState extends ConsumerState<PostComp> {
   PostResponse? postDetail = PostResponse();
   List<String> imageList = [];
+  Widget post = Container();
+  //bool visible = false;
 
   @override
   void initState() {
-    fetchSomeData();
+    fetchSomeData().then((value) {
+      setState(() {
+        if (widget.imageNum == 1) {
+          post = PostImageOne(myPost: false, imageList: imageList);
+        } else if (widget.imageNum == 2) {
+          post = PostImageTwo(myPost: false, imageList: imageList);
+        } else if (widget.imageNum == 3) {
+          post = PostImageThree(myPost: false, imageList: imageList);
+        } else {
+          post = PostImageFour(myPost: false, imageList: imageList);
+        }
+      });
+    });
+
     super.initState();
   }
 
@@ -52,14 +67,17 @@ class _PostCompState extends ConsumerState<PostComp> {
     final apiInstance = PostApi(apiClient);
     try {
       final response = await apiInstance.getPostsId(widget.postId!);
+
       print('帰ってきた値:$response');
-      setState(() {
-        postDetail = response;
-        for (int i = 0; i < widget.imageNum; i++) {
-          imageList.add(
-              'https://cocoroiki-bff.yumekiti.net${(response?.data?.attributes?.images?.data[i].attributes?.url).toString()}');
-        }
-      });
+      if (response != null) {
+        setState(() {
+          postDetail = response;
+          for (int i = 0; i < widget.imageNum; i++) {
+            imageList.add(
+                'https://cocoroiki-bff.yumekiti.net${(response.data?.attributes?.images?.data[i].attributes?.url).toString()}');
+          }
+        });
+      }
       //setState(() => {posts = response});
 
       print('imageList : $imageList');
@@ -72,17 +90,6 @@ class _PostCompState extends ConsumerState<PostComp> {
   Widget build(BuildContext context) {
     final userRoleState = ref.watch(userRoleProvider);
     DateFormat outputFormat = DateFormat('yyyy年MM月dd日');
-    Widget post;
-    //int imageNum = widget.imageList.length;
-    if (widget.imageNum == 1) {
-      post = PostImageOne(myPost: false, imageList: imageList);
-    } else if (widget.imageNum == 2) {
-      post = PostImageTwo(myPost: false, imageList: imageList);
-    } else if (widget.imageNum == 3) {
-      post = PostImageThree(myPost: false, imageList: imageList);
-    } else {
-      post = PostImageFour(myPost: false, imageList: imageList);
-    }
 
     return GestureDetector(
       onTap: () {

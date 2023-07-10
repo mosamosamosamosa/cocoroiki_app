@@ -19,10 +19,8 @@ class _BottomButtonState extends State<BottomButton> {
         SizedBox(width: 12),
         GestureDetector(
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Timelinekids(parent: false)));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Timelinekids()));
             },
             child: ButtomBar(icon: 'timeline_icon.svg', title: 'タイムライン')),
         GestureDetector(
