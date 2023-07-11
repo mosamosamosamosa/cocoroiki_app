@@ -107,12 +107,15 @@ class _PostScreenState extends State<PostScreen> {
                   CustomAppBar(reading: 'back_button.svg', title: '新規投稿'),
                   Padding(
                     padding: const EdgeInsets.only(right: 20, top: 52),
-                    child: Text(
-                      'シェア',
-                      style: TextStyle(
-                          color: Color(0xFF234FE9),
-                          fontFamily: 'Zen-Bl',
-                          fontSize: 16),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: const Text(
+                        'シェア',
+                        style: TextStyle(
+                            color: Color(0xFF234FE9),
+                            fontFamily: 'Zen-Bl',
+                            fontSize: 16),
+                      ),
                     ),
                   )
                 ],
