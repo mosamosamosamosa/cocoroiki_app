@@ -14,3 +14,8 @@ final StateProvider<bool> userRoleProvider = StateProvider((ref) {
 final StateProvider<int> familyIdProvider = StateProvider((ref) {
   return 1;
 });
+
+//grandList
+final StateProvider<List<int>> grandListProvider = StateProvider((ref) {
+  return [];
+});
