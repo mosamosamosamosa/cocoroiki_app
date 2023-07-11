@@ -47,6 +47,8 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
   late final AnimationController _controller;
   TreeListResponse posts = TreeListResponse();
 
+  var _isChanged = false;
+
   //木の状態
   int? treeStatus = 0;
 
@@ -358,6 +360,15 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
                       },
                     )),
               ),
+              // Visibility(
+              //   visible: visiYellowmark,
+              //   child: AnimatedPositioned(
+              //     bottom: _isChanged ? 300 : 400,
+              //     right: _isChanged ? 120 : 19,
+              //     duration: Duration(/*アニメーションの時間*/),
+              //     child: SvgPicture.asset('assets/svg/touch.svg'),
+              //   ),
+              // ),
               Visibility(
                 visible: visiYellowmark,
                 child: Padding(
@@ -502,6 +513,12 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
                             visiKirakira = false;
                           });
                         });
+                        // Future.delayed(Duration(seconds: 5), () {
+                        //   print('指いくぞ！');
+                        //   setState(() {
+                        //     _isChanged = true;
+                        //   });
+                        // });
                       },
                       child: LottieBuilder.asset(
                         'assets/json/water.json',
