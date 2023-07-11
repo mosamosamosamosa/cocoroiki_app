@@ -56,6 +56,10 @@ flutter:
      fonts:
         - asset: assets/font/ZenKakuGothicNew-Regular.ttf  
 
+   - family: Zen-Bl
+     fonts:
+        - asset: assets/font/ZenKakuGothicNew-Black.ttf  
+
 
 
   assets:
