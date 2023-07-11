@@ -17,7 +17,7 @@ class PostScreen extends StatefulWidget {
 }
 
 class _PostScreenState extends State<PostScreen> {
-  final tags = ['まもる', 'かおり', 'ゆうた'];
+  final tags = ['ゆうと'];
   final List<File> images = [];
   var selectedTags = <String>[];
 
