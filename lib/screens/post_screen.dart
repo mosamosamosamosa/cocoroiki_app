@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cocoroiki_app/api_client/api.dart';
 import 'package:cocoroiki_app/components/custom_app_bar.dart';
 
 import 'package:cocoroiki_app/constants.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key});
@@ -24,6 +26,8 @@ class _PostScreenState extends State<PostScreen> {
   File? image;
   ImagePicker picker = ImagePicker();
 
+  PostResponse post = PostResponse();
+  //PostRequest postPost = PostRequest(data: );
   //IOSのみ許可の記述がいる
   //フォルダから選んだ画像を読みとる
   Future pickImage() async {
@@ -63,6 +67,8 @@ class _PostScreenState extends State<PostScreen> {
     double deviceW = MediaQuery.of(context).size.width;
     double deviceH = MediaQuery.of(context).size.height;
 
+    DateFormat outputFormat = DateFormat('yyyy年MM月dd日');
+
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: Stack(
@@ -95,16 +101,31 @@ class _PostScreenState extends State<PostScreen> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomAppBar(reading: 'back_button.svg', title: '新規投稿'),
+              Stack(
+                alignment: Alignment.centerRight,
+                children: [
+                  CustomAppBar(reading: 'back_button.svg', title: '新規投稿'),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20, top: 52),
+                    child: Text(
+                      'シェア',
+                      style: TextStyle(
+                          color: Color(0xFF234FE9),
+                          fontFamily: 'Zen-Bl',
+                          fontSize: 16),
+                    ),
+                  )
+                ],
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(
                       left: 24,
                       top: 24,
                     ),
-                    child: Text("2023年5月23日",
+                    child: Text(outputFormat.format(DateTime.now()),
                         style: TextStyle(fontSize: 24, color: kFontColor)),
                   ),
                   const SizedBox(height: 16),
