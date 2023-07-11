@@ -62,6 +62,9 @@ flutter:
     - assets/svg/
     - assets/image/
     - assets/json/
+    - assets/json/mokumoku.json
+   
+    - assets/json/mokumoku.json
   
 
   

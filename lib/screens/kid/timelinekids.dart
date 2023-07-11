@@ -159,12 +159,20 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
             //               builder: (context) => const PostScreen()));
             //     },
             //     child: const Icon(Icons.add, color: Colors.white))
-            ? Stack(
-                alignment: Alignment.center,
-                children: [
-                  SvgPicture.asset('assets/svg/newpost.svg'),
-                  Icon(Icons.add, color: Colors.white, size: 35)
-                ],
+            ? GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PostScreen()));
+                },
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SvgPicture.asset('assets/svg/newpost.svg'),
+                    Icon(Icons.add, color: Colors.white, size: 35)
+                  ],
+                ),
               )
             : GestureDetector(
                 onTap: () {

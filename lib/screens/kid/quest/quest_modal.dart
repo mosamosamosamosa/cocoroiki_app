@@ -3,6 +3,7 @@ import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 
 class QuestModal extends StatefulWidget {
   const QuestModal({super.key, required this.start});
@@ -14,21 +15,32 @@ class QuestModal extends StatefulWidget {
 }
 
 class _QuestModalState extends State<QuestModal> {
-  int flag = 3;
+  int flag = 4;
   @override
   Widget build(BuildContext context) {
+    double deviceW = MediaQuery.of(context).size.width;
+    double deviceH = MediaQuery.of(context).size.height;
     return Dialog(
       elevation: 0,
       backgroundColor: Colors.transparent,
       alignment: Alignment.center,
       insetPadding: const EdgeInsets.only(
-        bottom: 200,
-        top: 200,
-        left: 28,
-        right: 28,
+        bottom: 0,
+        top: 0,
+        left: 0,
+        right: 0,
       ),
       child: Stack(
         children: [
+          Visibility(
+              visible: flag == 4,
+              child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      flag = 3;
+                    });
+                  },
+                  child: Lottie.asset('assets/json/quest_1.json'))),
           Visibility(
               visible: flag == 3,
               child: GestureDetector(
@@ -37,7 +49,7 @@ class _QuestModalState extends State<QuestModal> {
                       flag = 2;
                     });
                   },
-                  child: SvgPicture.asset('assets/svg/quest_baloon3.svg'))),
+                  child: Lottie.asset('assets/json/quest_2.json'))),
           Visibility(
               visible: flag == 2,
               child: GestureDetector(
@@ -45,8 +57,13 @@ class _QuestModalState extends State<QuestModal> {
                     setState(() {
                       flag = 1;
                     });
+                    Future.delayed(Duration(milliseconds: 1800), () {
+                      setState(() {
+                        flag = 0;
+                      });
+                    });
                   },
-                  child: SvgPicture.asset('assets/svg/quest_baloon2.svg'))),
+                  child: Lottie.asset('assets/json/quest_3.json'))),
           Visibility(
               visible: flag == 1,
               child: GestureDetector(
@@ -55,20 +72,26 @@ class _QuestModalState extends State<QuestModal> {
                       flag = 0;
                     });
                   },
-                  child: SvgPicture.asset('assets/svg/quest_baloon1.svg'))),
+                  child: SizedBox(
+                      height: deviceH,
+                      child: FittedBox(
+                          fit: BoxFit.fitHeight,
+                          child: Lottie.asset('assets/json/mokumoku.json'))))),
           Visibility(
             visible: flag == 0,
             child: Stack(
+              alignment: Alignment.center,
               children: [
                 SvgPicture.asset('assets/svg/quest_board.svg'),
                 const Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
-                    padding: EdgeInsets.only(top: 14),
+                    padding: EdgeInsets.only(top: 214),
                     child: Text(
                       'きょうのクエスト',
                       style: TextStyle(
-                          fontFamily: 'Zen-B',
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.bold,
                           color: Colors.white,
                           fontSize: 20),
                     ),
@@ -77,22 +100,41 @@ class _QuestModalState extends State<QuestModal> {
                 Align(
                   alignment: Alignment.center,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      SizedBox(height: 100),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      //SizedBox(height: 100),
                       SizedBox(
                         width: 222,
-                        child: Text(
-                          'おさんぽにいこう！',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Zen-B',
-                            color: kQuestfontColor,
-                            fontSize: 24,
-                          ),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Text(
+                              'おさんぽにいこう！',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                height: 1.2,
+                                fontSize: 24,
+                                fontFamily: 'Zen-B',
+                                foreground: Paint()
+                                  ..style = PaintingStyle.stroke
+                                  ..strokeWidth = 3
+                                  ..color = Colors.white,
+                              ),
+                            ),
+                            Text(
+                              'おさんぽにいこう！',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                height: 1.2,
+                                fontFamily: 'Zen-B',
+                                fontSize: 24,
+                                color: Color(0xFF62510C),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(height: 12),
+                      SizedBox(height: 24),
                       SizedBox(
                         width: 255,
                         child: Text(
@@ -105,6 +147,7 @@ class _QuestModalState extends State<QuestModal> {
                           ),
                         ),
                       ),
+                      SizedBox(height: 24),
                     ],
                   ),
                 ),

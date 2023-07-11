@@ -16,9 +16,13 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
   bool visiCheck = false;
   bool open = false;
   bool result = false;
+  int flag = 0;
+  bool mokumoku = false;
 
   @override
   Widget build(BuildContext context) {
+    double deviceW = MediaQuery.of(context).size.width;
+    double deviceH = MediaQuery.of(context).size.height;
     controller.selection = TextSelection.fromPosition(
       TextPosition(offset: controller.text.length),
     );
@@ -166,61 +170,103 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
                         )
                       ],
                     )
-                  : Align(
-                      alignment: Alignment.center,
-                      child: GestureDetector(
+                  : mokumoku
+                      ? GestureDetector(
                           onTap: () {
-                            // Future.delayed(Duration(seconds: 5), () {
-                            //   setState(() {
-                            //     visiCheck = false;
-                            //   });
-                            // });
                             setState(() {
+                              mokumoku = false;
+
                               result = true;
                             });
                           },
-                          child: Lottie.asset(
-                              'assets/json/present_open (2).json')))
-              : GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      open = true;
-                    });
-                  },
-                  child: Stack(
-                    alignment: Alignment.topCenter,
-                    children: [
-                      Stack(
-                        alignment: Alignment.center,
+                          child: SizedBox(
+                              height: deviceH,
+                              child: FittedBox(
+                                  fit: BoxFit.fitHeight,
+                                  child: Lottie.asset(
+                                      'assets/json/mokumoku.json'))))
+                      : Align(
+                          alignment: Alignment.center,
+                          child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  mokumoku = true;
+                                });
+                                Future.delayed(Duration(milliseconds: 1800),
+                                    () {
+                                  setState(() {
+                                    mokumoku = false;
+                                    result = true;
+                                  });
+                                  // });
+                                });
+                              },
+                              child: Lottie.asset(
+                                  'assets/json/present_open (2).json')))
+              : flag == 3
+                  ? GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          open = true;
+                        });
+                      },
+                      child: Stack(
+                        alignment: Alignment.topCenter,
                         children: [
-                          Text(
-                            'おかあさんといっしょに\nプレゼントをタッチしてね',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              height: 1.2,
-                              fontSize: 24,
-                              fontFamily: 'Zen-B',
-                              foreground: Paint()
-                                ..style = PaintingStyle.stroke
-                                ..strokeWidth = 4
-                                ..color = Colors.white,
-                            ),
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Text(
+                                'おかあさんといっしょに\nプレゼントをタッチしてね',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  height: 1.2,
+                                  fontSize: 24,
+                                  fontFamily: 'Zen-B',
+                                  foreground: Paint()
+                                    ..style = PaintingStyle.stroke
+                                    ..strokeWidth = 4
+                                    ..color = Colors.white,
+                                ),
+                              ),
+                              Text(
+                                'おかあさんといっしょに\nプレゼントをタッチしてね',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    height: 1.2,
+                                    fontFamily: 'Zen-B',
+                                    fontSize: 24,
+                                    color: Color(0xFF40210F)),
+                              ),
+                            ],
                           ),
-                          Text(
-                            'おかあさんといっしょに\nプレゼントをタッチしてね',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                height: 1.2,
-                                fontFamily: 'Zen-B',
-                                fontSize: 24,
-                                color: Color(0xFF40210F)),
-                          ),
+                          Lottie.asset('assets/json/present (2).json'),
                         ],
                       ),
-                      Lottie.asset('assets/json/present (2).json'),
-                    ],
-                  ),
-                )
+                    )
+                  : flag == 0
+                      ? GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              flag = 1;
+                            });
+                          },
+                          child: Lottie.asset('assets/json/Balloon_1.json'))
+                      : flag == 1
+                          ? GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  flag = 2;
+                                });
+                              },
+                              child: Lottie.asset('assets/json/Balloon_2.json'))
+                          : GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  flag = 3;
+                                });
+                              },
+                              child: Lottie.asset('assets/json/Balloon_3.json'))
           : Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

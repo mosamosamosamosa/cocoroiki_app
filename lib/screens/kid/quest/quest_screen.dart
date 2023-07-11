@@ -2,19 +2,21 @@ import 'package:cocoroiki_app/api_client/api.dart';
 import 'package:cocoroiki_app/components/bottom_button.dart';
 import 'package:cocoroiki_app/components/buttom_bar.dart';
 import 'package:cocoroiki_app/constants.dart';
+import 'package:cocoroiki_app/provider/provider.dart';
 import 'package:cocoroiki_app/screens/kid/quest/tree_modal.dart';
 import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
-class QuestScreen extends StatefulWidget {
+class QuestScreen extends ConsumerStatefulWidget {
   const QuestScreen({super.key});
 
   @override
-  State<QuestScreen> createState() => _QuestScreenState();
+  ConsumerState<QuestScreen> createState() => _QuestScreenState();
 }
 
-class _QuestScreenState extends State<QuestScreen> {
+class _QuestScreenState extends ConsumerState<QuestScreen> {
   AppUserListResponse? users = AppUserListResponse();
   List<int> grandList = [];
   List<String> grandNameList = [];
@@ -42,8 +44,8 @@ class _QuestScreenState extends State<QuestScreen> {
       }
     });
 
-    setState(() {});
-    super.initState();
+    //setState(() {});
+    //super.initState();
   }
 
   Future fetchSomeData() async {
@@ -59,6 +61,7 @@ class _QuestScreenState extends State<QuestScreen> {
               response.data[i].attributes?.grandparent == true) {
             setState(() {
               grandList.add((response.data[i].id!).toInt());
+
               grandNameList.add((response.data[i].attributes?.name).toString());
               grandGenderList
                   .add((response.data[i].attributes?.gender).toString());
@@ -78,6 +81,8 @@ class _QuestScreenState extends State<QuestScreen> {
   Widget build(BuildContext context) {
     double deviceW = MediaQuery.of(context).size.width;
     double deviceH = MediaQuery.of(context).size.height;
+    final grandListNotifier = ref.watch(grandListProvider.notifier);
+
     return Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -142,6 +147,7 @@ class _QuestScreenState extends State<QuestScreen> {
                       right: deviceW * 0.32,
                       child: GestureDetector(
                           onTap: () {
+                            grandListNotifier.state = grandList;
                             showDialog(
                                 barrierDismissible: false,
                                 context: context,
