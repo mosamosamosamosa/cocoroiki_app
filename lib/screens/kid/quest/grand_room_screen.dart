@@ -1,29 +1,32 @@
 import 'dart:async';
 
+import 'package:cocoroiki_app/api_client/api.dart';
 import 'package:cocoroiki_app/components/bottom_button.dart';
 import 'package:cocoroiki_app/components/buttom_bar.dart';
 
 import 'package:cocoroiki_app/constants.dart';
+import 'package:cocoroiki_app/provider/provider.dart';
 import 'package:cocoroiki_app/screens/kid/quest/present_modal.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_check_modal.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_modal.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
 import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 
-class GrandRoomScreen extends StatefulWidget {
+class GrandRoomScreen extends ConsumerStatefulWidget {
   const GrandRoomScreen(
       {super.key, required this.grandName, required this.gender});
   final String grandName;
   final String gender;
 
   @override
-  State<GrandRoomScreen> createState() => _GrandRoomScreenState();
+  ConsumerState<GrandRoomScreen> createState() => _GrandRoomScreenState();
 }
 
-class _GrandRoomScreenState extends State<GrandRoomScreen>
+class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
     with TickerProviderStateMixin {
   bool visiWatermark = true;
   bool visiJouro = false;
@@ -42,9 +45,14 @@ class _GrandRoomScreenState extends State<GrandRoomScreen>
   bool visiWater = false;
   bool visiKirakira = false;
   late final AnimationController _controller;
+  TreeListResponse posts = TreeListResponse();
+
+  //木の状態
+  int? treeStatus = 0;
 
   @override
   void initState() {
+    fetchSomeData();
     if (questClose) {
       Future(() {
         showDialog(
@@ -91,6 +99,39 @@ class _GrandRoomScreenState extends State<GrandRoomScreen>
     _controller =
         AnimationController(duration: Duration(seconds: 30), vsync: this);
     //super.initState();
+    print(treeStatus);
+  }
+
+  Future fetchSomeData() async {
+    print('ここきた');
+
+    // final grandListState = ref.watch(grandListProvider);
+    // final userIdState = ref.watch(userIdProvider);
+    final apiClient =
+        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+    final apiInstance = TreeApi(apiClient);
+    try {
+      final response = await apiInstance.getTrees();
+      print('帰ってきた値:$response');
+      if (response != null) {
+        print('ここ');
+
+        for (int i = 0; i < response.data.length; i++) {
+          print('ここ');
+          if (response.data[i].attributes?.parent?.data[0].id == 1 &&
+              response.data[i].attributes?.grandparent?.data[0].id == 3) {
+            setState(() {
+              treeStatus = response.data[i].attributes?.state;
+            });
+            print(treeStatus);
+          }
+        }
+        setState(() {});
+      }
+      //setState(() => {posts = response});
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -176,7 +217,19 @@ class _GrandRoomScreenState extends State<GrandRoomScreen>
                   child: GestureDetector(
                       onHorizontalDragUpdate: (details) => print('ふりふり'),
                       onHorizontalDragEnd: (details) => print('ふりふり終了'),
-                      child: SvgPicture.asset('assets/svg/green.svg'))),
+                      child: treeStatus == 1
+                          ? SvgPicture.asset('assets/svg/green.svg')
+                          : treeStatus == 2
+                              ? SvgPicture.asset('assets/svg/green2.svg')
+                              : treeStatus == 3
+                                  ? SvgPicture.asset('assets/svg/green3.svg')
+                                  : treeStatus == 4
+                                      ? SvgPicture.asset(
+                                          'assets/svg/green4.svg')
+                                      : treeStatus == 5
+                                          ? SvgPicture.asset(
+                                              'assets/svg/green5.svg')
+                                          : Container())),
               Visibility(
                   visible: visiQuest,
                   child: Positioned(
@@ -273,6 +326,20 @@ class _GrandRoomScreenState extends State<GrandRoomScreen>
 
                             visiWater = true;
                           });
+                          Future.delayed(Duration(milliseconds: 4800), () {
+                            setState(() {
+                              visiWater = false;
+
+                              visiQuest = true;
+                              plazaButton = true;
+                              visiKirakira = true;
+                            });
+                            Future.delayed(Duration(seconds: 30), () {
+                              setState(() {
+                                visiKirakira = false;
+                              });
+                            });
+                          });
                           print('ドラッグ完了:$visiButton');
                         },
                         feedback: SvgPicture.asset('assets/svg/jouro.svg'),
@@ -290,6 +357,41 @@ class _GrandRoomScreenState extends State<GrandRoomScreen>
                         return SvgPicture.asset('assets/svg/yellowpoint.svg');
                       },
                     )),
+              ),
+              Visibility(
+                visible: visiYellowmark,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 410),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Text(
+                        'じょうろをひっぱって\nみずをあげよう！',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            height: 1.2,
+                            fontSize: 20,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.bold,
+                            foreground: Paint()
+                              ..style = PaintingStyle.stroke
+                              ..strokeWidth = 3
+                              ..color = Colors.white),
+                      ),
+                      Text(
+                        'じょうろをひっぱって\nみずをあげよう！',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          height: 1.2,
+                          fontFamily: 'Inter',
+                          fontSize: 20,
+                          color: Color(0xFF553A25),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
               Visibility(
                 visible: visiWatermark,
