@@ -40,7 +40,15 @@ class _QuestModalState extends State<QuestModal> {
                       flag = 3;
                     });
                   },
-                  child: Lottie.asset('assets/json/quest_1.json'))),
+                  child: Stack(
+                    children: [
+                      Lottie.asset('assets/json/quest_1.json'),
+                      Positioned(
+                          right: deviceW * 0.2,
+                          top: deviceH * 0.2,
+                          child: Lottie.asset('assets/json/touch.json')),
+                    ],
+                  ))),
           Visibility(
               visible: flag == 3,
               child: GestureDetector(
