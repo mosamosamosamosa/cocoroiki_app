@@ -9,11 +9,13 @@ import 'package:cocoroiki_app/screens/grandparent/timeline/menu_screen.dart';
 // import 'package:cocoroiki_app/api_client/api.dart';
 
 import 'package:cocoroiki_app/screens/post_screen.dart';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class Timelinekids extends ConsumerStatefulWidget {
   const Timelinekids({super.key});
@@ -23,13 +25,20 @@ class Timelinekids extends ConsumerStatefulWidget {
 }
 
 class _TimelinekidsState extends ConsumerState<Timelinekids> {
-  PostListResponse? posts = PostListResponse();
+  PostListResponse posts = PostListResponse();
   List<String> imageUrl = [];
 
   //var posts;
 
   @override
   void initState() {
+    fetchSomeData();
+    super.initState();
+  }
+
+  void _onReflesh() {
+    // Navigator.push(
+    //     context, MaterialPageRoute(builder: (context) => Timelinekids()));
     fetchSomeData();
     super.initState();
   }
@@ -55,43 +64,61 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
   @override
   Widget build(BuildContext context) {
     //おばあちゃんかいなか
+    //final controller = AutoScrollController();
     final userRoleState = ref.watch(userRoleProvider);
     DateFormat outputFormat = DateFormat('yyyy年MM月dd日 H:m');
     double deviceW = MediaQuery.of(context).size.width;
     double deviceH = MediaQuery.of(context).size.height;
     return Scaffold(
         backgroundColor: kBackgroundColor,
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Stack(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        height: deviceH,
-                        width: 50,
-                        decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
-                      ),
-                      Container(
-                        height: deviceH,
-                        width: 50,
-                        decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
-                      ),
-                      Container(
-                        height: deviceH,
-                        width: 50,
-                        decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
-                      ),
-                      Container(
-                        height: deviceH,
-                        width: 50,
-                        decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
-                      )
-                    ],
+        body: Stack(
+          children: [
+            Stack(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      height: deviceH,
+                      width: 50,
+                      decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
+                    ),
+                    Container(
+                      height: deviceH,
+                      width: 50,
+                      decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
+                    ),
+                    Container(
+                      height: deviceH,
+                      width: 50,
+                      decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
+                    ),
+                    Container(
+                      height: deviceH,
+                      width: 50,
+                      decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
+                    )
+                  ],
+                ),
+                CustomRefreshIndicator(
+                  onRefresh: () async {
+                    _onReflesh();
+                  },
+                  builder: MaterialIndicatorDelegate(
+                    builder: (context, controller) {
+                      return SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 30,
+                            ),
+                            SvgPicture.asset('assets/svg/green.svg'),
+                          ],
+                        ),
+                      );
+                    },
                   ),
-                  Column(
+                  child: Column(
                     children: [
                       posts != null
                           ? SizedBox(
@@ -101,31 +128,35 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
                                   padding: EdgeInsets.only(
                                       top: deviceH * 0.18,
                                       bottom: deviceH * 0.12),
-                                  itemCount: posts?.data.length,
+                                  itemCount: posts.data.length,
                                   //shrinkWrap: true,
                                   itemBuilder: ((BuildContext context, index) {
                                     return Column(
                                       children: [
                                         PostComp(
-                                            content: posts?.data[index]
-                                                .attributes?.content,
-                                            kidName: (posts?.data[0].attributes
+                                            content: posts
+                                                .data[(posts.data.length - 1) -
+                                                    index]
+                                                .attributes
+                                                ?.content,
+                                            kidName: (posts.data[0].attributes
                                                     ?.kids?.data[0].attributes
                                                 as Map<String,
                                                     dynamic>)['name'],
-                                            imageNum: ((posts?.data[index]
-                                                    .attributes?.images?.data)!
-                                                .length),
+                                            imageNum:
+                                                ((posts.data[(posts.data.length - 1) - index].attributes?.images?.data)!
+                                                    .length),
                                             postUser: posts
-                                                ?.data[index]
+                                                .data[(posts.data.length - 1) - index]
                                                 .attributes!
                                                 .user
                                                 ?.data
                                                 ?.attributes
                                                 ?.name,
                                             parent: false,
-                                            createdTime: posts?.data[index].attributes!.createdAt,
-                                            postId: posts?.data[index].id),
+                                            createdTime: posts.data[(posts.data.length - 1) - index].attributes!.createdAt,
+                                            postId: posts.data[(posts.data.length - 1) - index].id,
+                                            like: posts.data[(posts.data.length - 1) - index].attributes?.like),
                                         SizedBox(height: 21)
                                       ],
                                     );
@@ -133,20 +164,20 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
                           : Container()
                     ],
                   ),
-                  // Positioned(
-                  //   bottom: 0,
-                  //   child: Container(
-                  //     height: deviceH * 0.315,
-                  //     width: deviceW,
-                  //     decoration:
-                  //         BoxDecoration(color: Colors.white.withOpacity(0.9)),
-                  //   ),
-                  // ),
-                  CustomAppBar(title: 'タイムライン', reading: 'humberger.svg'),
-                ],
-              ),
-            ],
-          ),
+                ),
+                // Positioned(
+                //   bottom: 0,
+                //   child: Container(
+                //     height: deviceH * 0.315,
+                //     width: deviceW,
+                //     decoration:
+                //         BoxDecoration(color: Colors.white.withOpacity(0.9)),
+                //   ),
+                // ),
+                CustomAppBar(title: 'タイムライン', reading: 'humberger.svg'),
+              ],
+            ),
+          ],
         ),
         floatingActionButton: userRoleState == false
             // ? FloatingActionButton(

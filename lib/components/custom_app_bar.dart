@@ -1,5 +1,7 @@
 import 'package:cocoroiki_app/data/database.dart';
 import 'package:cocoroiki_app/provider/provider.dart';
+import 'package:cocoroiki_app/screens/grandparent/grandchild_room.dart';
+import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,7 +31,17 @@ class CustomAppBar extends ConsumerWidget {
             left: 20,
             child: GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
+                  if (userRoleState) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const GrandchildScreen()));
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const QuestScreen()));
+                  }
                 },
                 child: SvgPicture.asset('assets/svg/$reading'))),
       ],

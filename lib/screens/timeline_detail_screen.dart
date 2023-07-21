@@ -8,6 +8,7 @@ import 'package:cocoroiki_app/components/post_image_two.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/data/database.dart';
 import 'package:cocoroiki_app/provider/provider.dart';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -144,10 +145,10 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
           backgroundColor: kBackgroundColor,
           body: Stack(
             children: [
-              SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      top: deviceH * 0.16, bottom: deviceH * 0.001),
+              Padding(
+                padding: EdgeInsets.only(
+                    top: deviceH * 0.16, bottom: deviceH * 0.001),
+                child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -163,7 +164,8 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
                         ),
                       ),
                       Padding(
-                          padding: const EdgeInsets.only(left: 28, top: 16),
+                          padding: const EdgeInsets.only(
+                              left: 28, top: 16, right: 26),
                           child: (postDetail.data?.attributes?.content) != null
                               ? Text(
                                   (postDetail.data?.attributes?.content)
@@ -249,7 +251,7 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
                             ],
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: deviceW * 0.35),
+                            padding: EdgeInsets.only(left: deviceW * 0.44),
                             child: Container(
                               alignment: Alignment.center,
                               height: 32,
