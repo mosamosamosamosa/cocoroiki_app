@@ -6,12 +6,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:audioplayers/audioplayers.dart';
+
 void main() {
   runApp(ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final audioPlayer = AudioPlayer();
+  @override
+  void initState() {
+    print('BGMスタート');
+    audioPlayer.play(AssetSource('assets/bgm/cocoroiki.mp3'));
+    audioPlayer.setReleaseMode(ReleaseMode.loop);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +37,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Zen-M',
       ),
-      home: QuestScreen(),
+      home: Timelinekids(),
     );
   }
 }

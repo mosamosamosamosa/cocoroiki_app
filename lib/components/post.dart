@@ -23,7 +23,8 @@ class PostComp extends ConsumerStatefulWidget {
       required this.content,
       required this.postUser,
       required this.parent,
-      required this.createdTime});
+      required this.createdTime,
+      required this.like});
 
   final int imageNum;
   final String? kidName;
@@ -32,20 +33,26 @@ class PostComp extends ConsumerStatefulWidget {
   final bool parent;
   final DateTime? createdTime;
   final num? postId;
+  final int? like;
   @override
   _PostCompState createState() => _PostCompState();
 }
 
 class _PostCompState extends ConsumerState<PostComp> {
   PostResponse? postDetail = PostResponse();
+  PostResponse putreturnPost = PostResponse();
   List<String> imageList = [];
   Widget post = Container();
+  bool grandlike = false;
+  bool like = false;
+  int? likeNum = 0;
   //bool visible = false;
 
   @override
   void initState() {
     fetchSomeData().then((value) {
       setState(() {
+        likeNum = widget.like;
         if (widget.imageNum == 1) {
           post = PostImageOne(myPost: false, imageList: imageList);
         } else if (widget.imageNum == 2) {
@@ -82,6 +89,37 @@ class _PostCompState extends ConsumerState<PostComp> {
 
       print('imageList : $imageList');
     } catch (e) {
+      print(e);
+    }
+  }
+
+  Future putPostData(num id) async {
+    print('こっちきてると');
+    final apiClient =
+        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+    final apiInstance = PostApi(apiClient);
+    //final apiImgInstance = UploadFileApi(apiClient);
+    try {
+      //apiImgInstance.uploadPost(images);
+      final newPost = PostRequest(
+          data: PostRequestData(
+        user: AppUserRequestDataFamiliesInner(fields: {'id': 1}),
+        content: widget.content,
+        kids: <AppUserRequestDataFamiliesInner>[
+          AppUserRequestDataFamiliesInner(fields: {'id': 2}),
+        ],
+        images: <AppUserRequestDataFamiliesInner>[
+          AppUserRequestDataFamiliesInner(fields: {'id': 1}),
+        ],
+        like: 1,
+        // comments: <AppUserRequestDataFamiliesInner>[
+        //   AppUserRequestDataFamiliesInner(fields: {'id': null}),
+        // ]
+      ));
+      final response = await apiInstance.putPostsId(widget.postId!, newPost);
+      print(response);
+    } catch (e) {
+      print('こっちに来ちゃってる');
       print(e);
     }
   }
@@ -167,10 +205,14 @@ class _PostCompState extends ConsumerState<PostComp> {
                 ),
                 Padding(
                     padding:
-                        const EdgeInsets.only(top: 12, left: 16, right: 20),
+                        const EdgeInsets.only(top: 12, left: 24, right: 20),
                     child: Text(widget.content!,
+                        textAlign: TextAlign.left,
                         style: userRoleState
-                            ? TextStyle(color: kFontColor, fontSize: 20)
+                            ? TextStyle(
+                                color: kFontColor,
+                                fontSize: 20,
+                              )
                             : TextStyle(color: kFontColor, fontSize: 16))),
                 SizedBox(height: 16),
                 Row(
@@ -185,10 +227,32 @@ class _PostCompState extends ConsumerState<PostComp> {
                     Row(
                       children: [
                         userRoleState
-                            ? SvgPicture.asset('assets/svg/like_grand.svg')
-                            : SvgPicture.asset('assets/svg/like.svg'),
+                            ? GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    putPostData(3).then(((value) {
+                                      likeNum = 1;
+                                    }));
+                                    print('ここ');
+                                    grandlike = true;
+
+                                    ;
+                                  });
+                                },
+                                child: grandlike
+                                    ? SvgPicture.asset(
+                                        'assets/svg/pink_like_grand.svg')
+                                    : SvgPicture.asset(
+                                        'assets/svg/like_grand.svg'))
+                            : GestureDetector(
+                                onTap: () {
+                                  putPostData(1);
+                                  setState(() {});
+                                },
+                                child: SvgPicture.asset('assets/svg/like.svg')),
                         //SizedBox(width: 4),
-                        postDetail?.data?.attributes?.like == null
+                        postDetail?.data?.attributes?.like == null ||
+                                postDetail?.data?.attributes?.like == 0
                             ? Row(
                                 children: [
                                   SizedBox(width: 10),
@@ -199,8 +263,7 @@ class _PostCompState extends ConsumerState<PostComp> {
                                 children: [
                                   SizedBox(width: 4),
                                   Text(
-                                    (postDetail?.data?.attributes?.like)
-                                        .toString(),
+                                    likeNum.toString(),
                                     style: TextStyle(
                                         color: Color(0xFF949494),
                                         fontWeight: FontWeight.bold,

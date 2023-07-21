@@ -5,9 +5,11 @@ import 'package:cocoroiki_app/components/custom_app_bar.dart';
 
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/data/database.dart';
+import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
@@ -20,23 +22,30 @@ class PostScreen extends StatefulWidget {
 
 class _PostScreenState extends State<PostScreen> {
   final tags = ['ゆうと'];
+  //final List<MultipartFile> images = [];
+
   final List<File> images = [];
+  final List<MultipartFile> postimages = [];
   var selectedTags = <String>[];
 
+  MultipartFile? postimage;
   File? image;
   ImagePicker picker = ImagePicker();
-
   PostResponse post = PostResponse();
-  //PostRequest postPost = PostRequest(data: );
-  //IOSのみ許可の記述がいる
-  //フォルダから選んだ画像を読みとる
+
+  final controller = TextEditingController();
+
   Future pickImage() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      // final postimage = await ImagePicker()
+      //     .pickImage(source: ImageSource.gallery) as MultipartFile;
+
       // 画像がnullの場合戻る
       if (image == null) return;
 
       final imageTemp = File(image.path);
+      //final postimageTemp = MultipartFile(field, stream, length)
 
       setState(() {
         this.image = imageTemp;
@@ -46,19 +55,75 @@ class _PostScreenState extends State<PostScreen> {
       print('Failed to pick image: $e');
     }
   }
+  //PostRequest postPost = PostRequest(data: );
+  //IOSのみ許可の記述がいる
+  //フォルダから選んだ画像を読みとる
+  // Future pickImage() async {
+  //   try {
+  //     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //     final disdayImage =
+  //         await ImagePicker().pickImage(source: ImageSource.gallery);
+  //     // 画像がnullの場合戻る
+
+  //     if (image == null) return;
+  //     if (displayImage == null) return;
+
+  //     final imageTemp = File(image.path) as MultipartFile;
+  //     final displayImageTemp = File(displayImage!.path);
+
+  //     setState(() {
+  //       this.image = imageTemp;
+  //       this.displayImage = displayImageTemp;
+  //       images.add(imageTemp);
+  //       displayImages.add(displayImageTemp);
+  //     });
+  //     print(images);
+  //   } on PlatformException catch (e) {
+  //     print('Failed to pick image: $e');
+  //   }
+  // }
 
   // カメラを使う関数
-  Future pickImageC() async {
+  // Future pickImageC() async {
+  //   try {
+  //     final image = await ImagePicker().pickImage(source: ImageSource.camera);
+  //     // 画像がnullの場合戻る
+  //     if (image == null) return;
+
+  //     final imageTemp = File(image.path);
+
+  //     setState(() => this.image = imageTemp);
+  //   } on PlatformException catch (e) {
+  //     print('Failed to pick image: $e');
+  //   }
+  // }
+
+  Future postPostData() async {
+    final apiClient =
+        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+    final apiInstance = PostApi(apiClient);
+    final apiImgInstance = UploadFileApi(apiClient);
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
-      // 画像がnullの場合戻る
-      if (image == null) return;
-
-      final imageTemp = File(image.path);
-
-      setState(() => this.image = imageTemp);
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
+      //apiImgInstance.uploadPost(images);
+      final newPost = PostRequest(
+          data: PostRequestData(
+        user: AppUserRequestDataFamiliesInner(fields: {'id': 1}),
+        content: controller.text,
+        kids: <AppUserRequestDataFamiliesInner>[
+          AppUserRequestDataFamiliesInner(fields: {'id': 2}),
+        ],
+        images: <AppUserRequestDataFamiliesInner>[
+          AppUserRequestDataFamiliesInner(fields: {'id': 1}),
+        ],
+        //like: 0,
+        // comments: <AppUserRequestDataFamiliesInner>[
+        //   AppUserRequestDataFamiliesInner(fields: {'id': null}),
+        // ]
+      ));
+      final response = await apiInstance.postPosts(newPost);
+      print(response);
+    } catch (e) {
+      print(e);
     }
   }
 
@@ -108,7 +173,17 @@ class _PostScreenState extends State<PostScreen> {
                   Padding(
                     padding: const EdgeInsets.only(right: 20, top: 52),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        postPostData().then(
+                          (value) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const Timelinekids()));
+                          },
+                        );
+                      },
                       child: const Text(
                         'シェア',
                         style: TextStyle(
@@ -132,13 +207,19 @@ class _PostScreenState extends State<PostScreen> {
                         style: TextStyle(fontSize: 24, color: kFontColor)),
                   ),
                   const SizedBox(height: 16),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(left: 24.0),
-                    child: TextField(
-                      //cursorColor: kSelectColor,
-                      style: TextStyle(fontSize: 16, color: kFontColor),
-                      decoration: InputDecoration(
-                          border: InputBorder.none, hintText: '今日の出来事を共有しましょう'),
+                    child: SizedBox(
+                      width: 580,
+                      child: TextField(
+                        maxLines: null,
+                        //cursorColor: kSelectColor,
+                        controller: controller,
+                        style: TextStyle(fontSize: 16, color: kFontColor),
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: '今日の出来事を共有しましょう'),
+                      ),
                     ),
                   ),
                   Stack(
