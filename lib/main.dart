@@ -1,6 +1,7 @@
 import 'package:cocoroiki_app/screens/create_account/create_account_screen.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
 import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
+import 'package:cocoroiki_app/screens/login/start_screen.dart';
 import 'package:cocoroiki_app/screens/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -37,7 +38,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         fontFamily: 'Zen-M',
       ),
-      home: Timelinekids(),
+      home: StartScreen(),
     );
   }
 }

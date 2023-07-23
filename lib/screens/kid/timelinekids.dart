@@ -75,31 +75,7 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
           children: [
             Stack(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      height: deviceH,
-                      width: 50,
-                      decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
-                    ),
-                    Container(
-                      height: deviceH,
-                      width: 50,
-                      decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
-                    ),
-                    Container(
-                      height: deviceH,
-                      width: 50,
-                      decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
-                    ),
-                    Container(
-                      height: deviceH,
-                      width: 50,
-                      decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
-                    )
-                  ],
-                ),
+                Image.asset('assets/image/back_check.png'),
                 CustomRefreshIndicator(
                   onRefresh: () async {
                     _onReflesh();
@@ -174,7 +150,9 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
                 //         BoxDecoration(color: Colors.white.withOpacity(0.9)),
                 //   ),
                 // ),
-                CustomAppBar(title: 'タイムライン', reading: 'humberger.svg'),
+                CustomAppBar(
+                    title: 'タイムライン',
+                    reading: userRoleState ? '' : 'humberger.svg'),
               ],
             ),
           ],

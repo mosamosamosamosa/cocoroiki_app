@@ -35,7 +35,7 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
   bool flagTimeline = false;
   bool flagHome = false;
   bool flagQuest = false;
-  bool questClose = true;
+  bool questClose = false;
 
   int chatComment = 0;
   bool plazaButton = true;

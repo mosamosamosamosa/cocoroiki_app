@@ -1,7 +1,9 @@
 import 'package:cocoroiki_app/components/custom_app_bar.dart';
 import 'package:cocoroiki_app/components/grid_item.dart';
+import 'package:cocoroiki_app/components/grid_item_kids.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
+import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -18,17 +20,17 @@ class _MenuScreenState extends State<MenuScreen> {
     double deviceW = MediaQuery.of(context).size.width;
     double deviceH = MediaQuery.of(context).size.height;
     List<Widget> gridItem = [
-      GridItem(
-        text: 'アルバムを注文',
-        icon: 'menu_albam.svg',
+      GridItemKids(
+        text: 'クエスト履歴',
+        icon: 'menu_quest_icon.svg',
       ),
-      GridItem(
+      GridItemKids(
         text: 'プロフィール',
-        icon: 'menu_prof.svg',
+        icon: 'menu_albam_icon.svg',
       ),
-      GridItem(
+      GridItemKids(
         text: '安否通知設定',
-        icon: 'menu_anpi.svg',
+        icon: 'menu_setting_icon.svg',
       )
     ];
     return Scaffold(
@@ -46,24 +48,29 @@ class _MenuScreenState extends State<MenuScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const QuestScreen()));
+                              builder: (context) => const Timelinekids()));
                     },
                     child: Stack(
                       alignment: Alignment.center,
                       children: [
-                        SvgPicture.asset('assets/svg/quest_menu.svg'),
+                        SvgPicture.asset('assets/svg/menu_timeline.svg'),
                         Row(
                           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
                           children: [
-                            SizedBox(width: deviceW * 0.18),
-                            SvgPicture.asset('assets/svg/tree_menu.svg'),
+                            SizedBox(width: deviceW * 0.24),
+                            SvgPicture.asset(
+                                'assets/svg/menu_timeline_icon.svg'),
+                            SizedBox(
+                              width: 7,
+                            ),
                             Stack(
                               alignment: Alignment.center,
                               children: [
                                 Text(
-                                  'ひろばへ',
+                                  'タイムラインへ',
                                   style: TextStyle(
-                                    fontSize: 30,
+                                    fontSize: 20,
                                     fontFamily: 'Zen-B',
                                     foreground: Paint()
                                       ..style = PaintingStyle.stroke
@@ -72,10 +79,10 @@ class _MenuScreenState extends State<MenuScreen> {
                                   ),
                                 ),
                                 Text(
-                                  'ひろばへ',
+                                  'タイムラインへ',
                                   style: TextStyle(
                                     fontFamily: 'Zen-B',
-                                    fontSize: 30,
+                                    fontSize: 20,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -88,14 +95,14 @@ class _MenuScreenState extends State<MenuScreen> {
                   ),
                   Container(
                     height: deviceH * 0.7,
-                    width: deviceW,
+                    width: deviceW * 0.94,
                     child: GridView.count(
                         physics: NeverScrollableScrollPhysics(),
                         padding: const EdgeInsets.all(24),
                         childAspectRatio: 1.2,
                         mainAxisSpacing: 0,
                         crossAxisSpacing: 0,
-                        crossAxisCount: 2,
+                        crossAxisCount: 3,
                         children: gridItem),
                   )
                   // Row(
@@ -174,46 +181,9 @@ class _MenuScreenState extends State<MenuScreen> {
               ),
             ),
           ),
-          CustomAppBar(title: 'メニュー', reading: 'hu.svg'),
+          CustomAppBar(title: 'メニュー', reading: 'menu_batsu.svg'),
         ],
       ),
-      floatingActionButton: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              SvgPicture.asset('assets/svg/menu_close_button.svg'),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 14),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Text(
-                      '閉じる',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'Zen-B',
-                        foreground: Paint()
-                          ..style = PaintingStyle.stroke
-                          ..strokeWidth = 4.5
-                          ..color = kshadoeColor,
-                      ),
-                    ),
-                    Text(
-                      '閉じる',
-                      style: TextStyle(
-                        fontFamily: 'Zen-B',
-                        fontSize: 16,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          )),
     );
   }
 }
