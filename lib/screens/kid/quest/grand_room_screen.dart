@@ -55,6 +55,7 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
   @override
   void initState() {
     fetchSomeData();
+
     if (questClose) {
       Future(() {
         showDialog(
