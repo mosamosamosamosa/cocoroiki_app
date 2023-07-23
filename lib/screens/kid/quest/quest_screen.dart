@@ -3,6 +3,8 @@ import 'package:cocoroiki_app/components/bottom_button.dart';
 import 'package:cocoroiki_app/components/buttom_bar.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/provider/provider.dart';
+import 'package:cocoroiki_app/screens/grandparent/grandchild_room.dart';
+import 'package:cocoroiki_app/screens/kid/menu_screen.dart';
 import 'package:cocoroiki_app/screens/kid/quest/tree_modal.dart';
 import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
 import 'package:flutter/material.dart';
@@ -82,6 +84,8 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
     double deviceW = MediaQuery.of(context).size.width;
     double deviceH = MediaQuery.of(context).size.height;
     final grandListNotifier = ref.watch(grandListProvider.notifier);
+    //状態管理している値を取得する
+    final userRoleState = ref.watch(userRoleProvider);
 
     return Container(
         decoration: const BoxDecoration(
@@ -148,12 +152,20 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
                       child: GestureDetector(
                           onTap: () {
                             grandListNotifier.state = grandList;
-                            showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (BuildContext context) => TreeModal(
-                                    grandName: grandNameList[0],
-                                    gender: grandGenderList[0]));
+                            if (userRoleState) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          GrandchildScreen()));
+                            } else {
+                              showDialog(
+                                  barrierDismissible: false,
+                                  context: context,
+                                  builder: (BuildContext context) => TreeModal(
+                                      grandName: grandNameList[0],
+                                      gender: grandGenderList[0]));
+                            }
                           },
                           child: SvgPicture.asset('assets/svg/green.svg'))),
                 ),
@@ -256,7 +268,7 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Timelinekids()));
+                                  builder: (context) => MenuScreen()));
                         },
                         child: SvgPicture.asset(
                             'assets/svg/quest_humberger.svg'))),
