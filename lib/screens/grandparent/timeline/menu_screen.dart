@@ -34,31 +34,7 @@ class _MenuScreenState extends State<MenuScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                height: deviceH,
-                width: 50,
-                decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
-              ),
-              Container(
-                height: deviceH,
-                width: 50,
-                decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
-              ),
-              Container(
-                height: deviceH,
-                width: 50,
-                decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
-              ),
-              Container(
-                height: deviceH,
-                width: 50,
-                decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
-              )
-            ],
-          ),
+          Image.asset('assets/image/back_check.png'),
           SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(top: 52),
