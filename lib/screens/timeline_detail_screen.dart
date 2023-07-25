@@ -193,7 +193,7 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
                               //FavoriteButton(),
                               userRoleState
                                   ? SvgPicture.asset(
-                                      'assets/svg/like_grand.svg')
+                                      'assets/svg/pink_like_grand.svg')
                                   : SvgPicture.asset('assets/svg/like.svg'),
                               postDetail.data?.attributes?.like == null
                                   ? Row(
@@ -223,7 +223,7 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
                             children: [
                               userRoleState
                                   ? SvgPicture.asset(
-                                      'assets/svg/comment_grand.svg')
+                                      'assets/svg/orange_comment_grand.svg')
                                   : SvgPicture.asset('assets/svg/comment.svg'),
                               postDetail.data?.attributes?.comments?.data
                                           .length ==
@@ -251,7 +251,10 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
                             ],
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: deviceW * 0.44),
+                            padding: EdgeInsets.only(
+                                left: userRoleState
+                                    ? deviceW * 0.35
+                                    : deviceW * 0.44),
                             child: Container(
                               alignment: Alignment.center,
                               height: 32,
@@ -304,76 +307,158 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
                                     return Padding(
                                       padding: const EdgeInsets.only(
                                           left: 24, bottom: 16),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                      child: Column(
                                         children: [
-                                          SizedBox(
-                                              height: 40,
-                                              width: 40,
-                                              child: CircleAvatar(
-                                                  radius: 32,
-                                                  foregroundImage: NetworkImage(
-                                                      users_list[0].image))),
-                                          SizedBox(width: 8),
-                                          Column(
+                                          Row(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Row(
+                                              SizedBox(
+                                                  height: 40,
+                                                  width: 40,
+                                                  child: CircleAvatar(
+                                                      radius: 32,
+                                                      foregroundImage:
+                                                          NetworkImage(
+                                                              users_list[1]
+                                                                  .image))),
+                                              SizedBox(width: 8),
+                                              Column(
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.start,
                                                 children: [
-                                                  Text('よしえ',
-                                                      style: TextStyle(
-                                                          fontSize:
-                                                              userRoleState
-                                                                  ? 20
-                                                                  : 16,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: kFontColor)),
-                                                  SizedBox(width: 16),
-                                                  Text(
-                                                      createTimeAgoString(
-                                                          (postDetail
+                                                  Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text('よしえ',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  userRoleState
+                                                                      ? 20
+                                                                      : 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  kFontColor)),
+                                                      SizedBox(width: 16),
+                                                      Text(
+                                                          createTimeAgoString(
+                                                              (postDetail
+                                                                  .data
+                                                                  ?.attributes
+                                                                  ?.comments
+                                                                  ?.data[0]
+                                                                  .attributes
+                                                                  ?.createdAt)!),
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0xFF919191),
+                                                              fontSize:
+                                                                  userRoleState
+                                                                      ? 18
+                                                                      : 14)),
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 4),
+                                                  SizedBox(
+                                                    width: 294,
+                                                    child: Text(
+                                                      (postDetail
                                                               .data
                                                               ?.attributes
                                                               ?.comments
                                                               ?.data[0]
                                                               .attributes
-                                                              ?.createdAt)!),
+                                                              ?.content)
+                                                          .toString(),
                                                       style: TextStyle(
-                                                          color:
-                                                              Color(0xFF919191),
+                                                          fontFamily: 'Zen-B',
                                                           fontSize:
                                                               userRoleState
                                                                   ? 18
-                                                                  : 14)),
+                                                                  : 14,
+                                                          color: kFontColor),
+                                                    ),
+                                                  ),
                                                 ],
-                                              ),
-                                              SizedBox(height: 4),
-                                              SizedBox(
-                                                width: 294,
-                                                child: Text(
-                                                  (postDetail
-                                                          .data
-                                                          ?.attributes
-                                                          ?.comments
-                                                          ?.data[0]
-                                                          .attributes
-                                                          ?.content)
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      fontFamily: 'Zen-B',
-                                                      fontSize: userRoleState
-                                                          ? 18
-                                                          : 14,
-                                                      color: kFontColor),
-                                                ),
                                               )
                                             ],
-                                          )
+                                          ),
+                                          SizedBox(height: 20),
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                  height: 40,
+                                                  width: 40,
+                                                  child: CircleAvatar(
+                                                      radius: 32,
+                                                      foregroundImage:
+                                                          NetworkImage(
+                                                              users_list[0]
+                                                                  .image))),
+                                              SizedBox(width: 8),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text('ともこ',
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  userRoleState
+                                                                      ? 20
+                                                                      : 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:
+                                                                  kFontColor)),
+                                                      SizedBox(width: 16),
+                                                      Text(
+                                                          createTimeAgoString(
+                                                              (postDetail
+                                                                  .data
+                                                                  ?.attributes
+                                                                  ?.comments
+                                                                  ?.data[0]
+                                                                  .attributes
+                                                                  ?.createdAt)!),
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  0xFF919191),
+                                                              fontSize:
+                                                                  userRoleState
+                                                                      ? 18
+                                                                      : 14)),
+                                                    ],
+                                                  ),
+                                                  SizedBox(height: 4),
+                                                  SizedBox(
+                                                    width: 294,
+                                                    child: Text(
+                                                      'ありがとう。\n夏休みゆうとと遊びにいくね。',
+                                                      style: TextStyle(
+                                                          fontFamily: 'Zen-B',
+                                                          fontSize:
+                                                              userRoleState
+                                                                  ? 18
+                                                                  : 14,
+                                                          color: kFontColor),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ],
                                       ),
                                     );
