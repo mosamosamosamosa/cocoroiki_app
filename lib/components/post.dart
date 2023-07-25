@@ -24,7 +24,8 @@ class PostComp extends ConsumerStatefulWidget {
       required this.postUser,
       required this.parent,
       required this.createdTime,
-      required this.like});
+      required this.like,
+      required this.postNumber});
 
   final int imageNum;
   final String? kidName;
@@ -34,6 +35,8 @@ class PostComp extends ConsumerStatefulWidget {
   final DateTime? createdTime;
   final num? postId;
   final int? like;
+  final int postNumber;
+
   @override
   _PostCompState createState() => _PostCompState();
 }
@@ -43,7 +46,7 @@ class _PostCompState extends ConsumerState<PostComp> {
   PostResponse putreturnPost = PostResponse();
   List<String> imageList = [];
   Widget post = Container();
-  bool grandlike = false;
+  bool grandlike = true;
   bool like = false;
   int? likeNum = 0;
   //bool visible = false;
@@ -239,7 +242,9 @@ class _PostCompState extends ConsumerState<PostComp> {
                                     ;
                                   });
                                 },
-                                child: grandlike
+                                child: grandlike ||
+                                        widget.postNumber == 1 ||
+                                        widget.postNumber == 0
                                     ? SvgPicture.asset(
                                         'assets/svg/pink_like_grand.svg')
                                     : SvgPicture.asset(
@@ -276,9 +281,10 @@ class _PostCompState extends ConsumerState<PostComp> {
                     SizedBox(width: 28),
                     Row(
                       children: [
-                        userRoleState
-                            ? SvgPicture.asset('assets/svg/comment_grand.svg')
-                            : SvgPicture.asset('assets/svg/comment.svg'),
+                        //userRoleState
+                        //?
+                        SvgPicture.asset('assets/svg/comment_grand.svg'),
+                        //:SvgPicture.asset('assets/svg/comment.svg'),
                         postDetail?.data?.attributes?.comments?.data.length == 0
                             ? Row(
                                 children: [
