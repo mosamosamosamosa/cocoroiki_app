@@ -7,7 +7,7 @@ final StateProvider<int> userIdProvider = StateProvider((ref) {
 
 //ユーザがおばあちゃんか否か
 final StateProvider<bool> userRoleProvider = StateProvider((ref) {
-  return false;
+  return true;
 });
 
 //familyId
