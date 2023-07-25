@@ -16,16 +16,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 
-class GrandchildScreen extends ConsumerStatefulWidget {
-  const GrandchildScreen({super.key});
+class GrandRoomScreen2 extends ConsumerStatefulWidget {
+  const GrandRoomScreen2({
+    super.key,
+  });
 
   @override
-  ConsumerState<GrandchildScreen> createState() => _GrandchildScreenState();
+  ConsumerState<GrandRoomScreen2> createState() => _GrandRoomScreen2State();
 }
 
-class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
+class _GrandRoomScreen2State extends ConsumerState<GrandRoomScreen2>
     with TickerProviderStateMixin {
-  bool visiWatermark = true;
+  bool visiWatermark = false;
   bool visiJouro = false;
   bool visiYellowmark = false;
   bool visiQuest = false;
@@ -40,7 +42,7 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
   int chatComment = 0;
   bool plazaButton = true;
   bool visiWater = false;
-  bool visiKirakira = false;
+  bool visiKirakira = true;
   late final AnimationController _controller;
   TreeListResponse posts = TreeListResponse();
 
@@ -52,6 +54,7 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
   @override
   void initState() {
     fetchSomeData();
+
     if (questClose) {
       Future(() {
         showDialog(
@@ -80,7 +83,7 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
       setState(() {
         visiQuest = true;
       });
-      Timer.periodic(const Duration(seconds: 10), (_) {
+      Timer.periodic(const Duration(seconds: 30), (_) {
         setState(() {
           chatComment++;
         });
@@ -178,7 +181,7 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
                               alignment: Alignment.center,
                               children: [
                                 Text(
-                                  'ゆうとくん',
+                                  'よしえおばあちゃん',
                                   style: TextStyle(
                                     fontSize: 24,
                                     fontFamily: 'Zen-B',
@@ -189,7 +192,7 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
                                   ),
                                 ),
                                 Text(
-                                  'ゆうとくん',
+                                  'よしえおばあちゃん',
                                   style: TextStyle(
                                     fontFamily: 'Zen-B',
                                     fontSize: 24,
@@ -234,50 +237,40 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
                       alignment: Alignment.center,
                       children: [
                         SvgPicture.asset('assets/svg/chat.svg'),
-                        chatComment % 2 == 0
-                            ? Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'ゆうとくんが',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: 'Zen-B',
-                                          fontSize: 20),
-                                    ),
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          'おさんぽにいこう',
-                                          style: TextStyle(
-                                              color: Color(0xFF509D01),
-                                              fontFamily: 'Zen-B',
-                                              fontSize: 22),
-                                        ),
-                                        Text(
-                                          'を達成！',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: 'Zen-B',
-                                              fontSize: 18),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'よしえおばあちゃんの木が',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Zen-B',
+                                    fontSize: 20),
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    'レベルアップ',
+                                    style: TextStyle(
+                                        color: Color(0xFF509D01),
+                                        fontFamily: 'Zen-B',
+                                        fontSize: 24),
+                                  ),
+                                  Text(
+                                    'したよ！',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: 'Zen-B',
+                                        fontSize: 20),
+                                  ),
+                                ],
                               )
-                            : Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Text(
-                                  'お水をあげて\n応援してあげてください！',
-                                  style: TextStyle(
-                                      fontSize: 20, fontFamily: 'Zen-B'),
-                                ),
-                              )
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   )),
@@ -370,11 +363,11 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
                     alignment: Alignment.center,
                     children: [
                       Text(
-                        'じょうろをひっぱって\nみずをあげてください！',
+                        'じょうろをひっぱって\nみずをあげよう！',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             height: 1.2,
-                            fontSize: 24,
+                            fontSize: 20,
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.bold,
                             foreground: Paint()
@@ -383,13 +376,13 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
                               ..color = Colors.white),
                       ),
                       Text(
-                        'じょうろをひっぱって\nみずをあげてください！',
+                        'じょうろをひっぱって\nみずをあげよう！',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           height: 1.2,
                           fontFamily: 'Inter',
-                          fontSize: 24,
+                          fontSize: 20,
                           color: Color(0xFF553A25),
                         ),
                       ),
@@ -400,7 +393,7 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
               Visibility(
                 visible: visiWatermark,
                 child: Positioned(
-                    bottom: 380,
+                    bottom: 310,
                     right: 0,
                     left: 0,
                     child: GestureDetector(
@@ -438,62 +431,53 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
                       });
                     }
                   },
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Timelinekids()));
-                    },
-                    child: Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        SvgPicture.asset('assets/svg/plaza_back_container.svg'),
-                        plazaButton
-                            ? Column(
-                                children: [
-                                  SvgPicture.asset(
-                                      'assets/svg/timeline_icon.svg'),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 6),
-                                    child: Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        Text(
-                                          'タイムライン\nへもどる',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            height: 1.2,
-                                            fontSize: 14,
-                                            fontFamily: 'Zen-B',
-                                            foreground: Paint()
-                                              ..style = PaintingStyle.stroke
-                                              ..strokeWidth = 3
-                                              ..color = Color(0xFF3E0E0E),
-                                          ),
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      SvgPicture.asset('assets/svg/plaza_back_container.svg'),
+                      plazaButton
+                          ? Column(
+                              children: [
+                                SvgPicture.asset('assets/svg/plaza_tree.svg'),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 6),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Text(
+                                        'ひろばに\nもどる',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          height: 1.2,
+                                          fontSize: 14,
+                                          fontFamily: 'Zen-B',
+                                          foreground: Paint()
+                                            ..style = PaintingStyle.stroke
+                                            ..strokeWidth = 3
+                                            ..color = Color(0xFF3E0E0E),
                                         ),
-                                        Text(
-                                          'タイムライン\nへもどる',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            height: 1.2,
-                                            fontFamily: 'Zen-B',
-                                            fontSize: 14,
-                                            color: Colors.white,
-                                          ),
+                                      ),
+                                      Text(
+                                        'ひろばに\nもどる',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          height: 1.2,
+                                          fontFamily: 'Zen-B',
+                                          fontSize: 14,
+                                          color: Colors.white,
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              )
-                            : Padding(
-                                padding: const EdgeInsets.only(bottom: 24),
-                                child: SvgPicture.asset(
-                                    'assets/svg/plaza_batsu.svg'),
-                              )
-                      ],
-                    ),
+                                ),
+                              ],
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.only(bottom: 24),
+                              child: SvgPicture.asset(
+                                  'assets/svg/plaza_batsu.svg'),
+                            )
+                    ],
                   ),
                 ),
               ),
@@ -528,12 +512,19 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
                       ),
                     )),
               ),
-              Visibility(
-                visible: visiKirakira,
-                child: Positioned(
-                    bottom: 190,
-                    child: Lottie.asset('assets/json/kirakira.json')),
-              )
+              Positioned(
+                  bottom: 190,
+                  child: SizedBox(
+                      child: Lottie.asset('assets/json/kirakira.json'))),
+              Positioned(
+                  bottom: 190,
+                  child: SizedBox(
+                      child: Lottie.asset('assets/json/kirakira.json'))),
+              Positioned(
+                  top: 330,
+                  left: 24,
+                  child: SizedBox(
+                      child: SvgPicture.asset('assets/svg/quest_mark.svg'))),
             ])));
   }
 }

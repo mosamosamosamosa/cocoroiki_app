@@ -1,4 +1,5 @@
 import 'package:cocoroiki_app/constants.dart';
+import 'package:cocoroiki_app/screens/kid/quest/grand_room_screen2.dart';
 import 'package:cocoroiki_app/screens/kid/quest/present_modal.dart';
 import 'package:cocoroiki_app/screens/post_screen.dart';
 import 'package:flutter/material.dart';
@@ -221,7 +222,11 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                Navigator.pop(context);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            GrandRoomScreen2()));
                               },
                               child:
                                   Stack(alignment: Alignment.center, children: [

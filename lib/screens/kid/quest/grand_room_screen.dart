@@ -64,7 +64,7 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
                 builder: (BuildContext context) => QuestModal(start: true))
             .then(((value) => setState(() {
                   visiQuest = true;
-                  Timer.periodic(const Duration(seconds: 30), (_) {
+                  Timer.periodic(const Duration(seconds: 10), (_) {
                     setState(() {
                       chatComment++;
                     });
@@ -84,7 +84,7 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
       setState(() {
         visiQuest = true;
       });
-      Timer.periodic(const Duration(seconds: 30), (_) {
+      Timer.periodic(const Duration(seconds: 10), (_) {
         setState(() {
           chatComment++;
         });
@@ -210,7 +210,7 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
                         ],
                       ),
                       SizedBox(height: 6),
-                      SvgPicture.asset('assets/svg/mater1_0.svg')
+                      Image.asset('assets/image/mater1_2.png')
                     ],
                   )),
               Positioned(
