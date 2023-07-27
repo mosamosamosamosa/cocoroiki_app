@@ -11,7 +11,7 @@
 part of openapi.api;
 
 class ApiClient {
-  ApiClient({this.basePath = 'https://cocoroiki-strapi.yumekiti.net', this.authentication,});
+  ApiClient({this.basePath = 'http://localhost:1337/api', this.authentication,});
 
   final String basePath;
   final Authentication? authentication;
@@ -396,28 +396,10 @@ class ApiClient {
           return QuestResponseDataObject.fromJson(value);
         case 'QuestStatus':
           return QuestStatus.fromJson(value);
-        case 'QuestStatusKid':
-          return QuestStatusKid.fromJson(value);
-        case 'QuestStatusKidData':
-          return QuestStatusKidData.fromJson(value);
-        case 'QuestStatusKidDataAttributes':
-          return QuestStatusKidDataAttributes.fromJson(value);
-        case 'QuestStatusKidDataAttributesFamilies':
-          return QuestStatusKidDataAttributesFamilies.fromJson(value);
-        case 'QuestStatusKidDataAttributesFamiliesDataInner':
-          return QuestStatusKidDataAttributesFamiliesDataInner.fromJson(value);
-        case 'QuestStatusKidDataAttributesFamiliesDataInnerAttributes':
-          return QuestStatusKidDataAttributesFamiliesDataInnerAttributes.fromJson(value);
         case 'QuestStatusListResponse':
           return QuestStatusListResponse.fromJson(value);
         case 'QuestStatusListResponseDataItem':
           return QuestStatusListResponseDataItem.fromJson(value);
-        case 'QuestStatusQuest':
-          return QuestStatusQuest.fromJson(value);
-        case 'QuestStatusQuestData':
-          return QuestStatusQuestData.fromJson(value);
-        case 'QuestStatusQuestDataAttributes':
-          return QuestStatusQuestDataAttributes.fromJson(value);
         case 'QuestStatusRequest':
           return QuestStatusRequest.fromJson(value);
         case 'QuestStatusRequestData':
@@ -426,6 +408,12 @@ class ApiClient {
           return QuestStatusResponse.fromJson(value);
         case 'QuestStatusResponseDataObject':
           return QuestStatusResponseDataObject.fromJson(value);
+        case 'QuestStatusTree':
+          return QuestStatusTree.fromJson(value);
+        case 'QuestStatusTreeData':
+          return QuestStatusTreeData.fromJson(value);
+        case 'QuestStatusTreeDataAttributes':
+          return QuestStatusTreeDataAttributes.fromJson(value);
         case 'Reward':
           return Reward.fromJson(value);
         case 'RewardListResponse':

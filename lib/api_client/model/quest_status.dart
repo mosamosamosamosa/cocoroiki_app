@@ -13,33 +13,16 @@ part of openapi.api;
 class QuestStatus {
   /// Returns a new [QuestStatus] instance.
   QuestStatus({
-    this.quest,
-    this.kid,
     this.completedAt,
     this.doing,
     this.grandparent,
+    this.tree,
     this.createdAt,
     this.updatedAt,
     this.publishedAt,
     this.createdBy,
     this.updatedBy,
   });
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  QuestStatusQuest? quest;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  QuestStatusKid? kid;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -63,7 +46,15 @@ class QuestStatus {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole? grandparent;
+  CommentCommentsDataInnerAttributesUser? grandparent;
+
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  QuestStatusTree? tree;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -107,11 +98,10 @@ class QuestStatus {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is QuestStatus &&
-     other.quest == quest &&
-     other.kid == kid &&
      other.completedAt == completedAt &&
      other.doing == doing &&
      other.grandparent == grandparent &&
+     other.tree == tree &&
      other.createdAt == createdAt &&
      other.updatedAt == updatedAt &&
      other.publishedAt == publishedAt &&
@@ -121,11 +111,10 @@ class QuestStatus {
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (quest == null ? 0 : quest!.hashCode) +
-    (kid == null ? 0 : kid!.hashCode) +
     (completedAt == null ? 0 : completedAt!.hashCode) +
     (doing == null ? 0 : doing!.hashCode) +
     (grandparent == null ? 0 : grandparent!.hashCode) +
+    (tree == null ? 0 : tree!.hashCode) +
     (createdAt == null ? 0 : createdAt!.hashCode) +
     (updatedAt == null ? 0 : updatedAt!.hashCode) +
     (publishedAt == null ? 0 : publishedAt!.hashCode) +
@@ -133,20 +122,10 @@ class QuestStatus {
     (updatedBy == null ? 0 : updatedBy!.hashCode);
 
   @override
-  String toString() => 'QuestStatus[quest=$quest, kid=$kid, completedAt=$completedAt, doing=$doing, grandparent=$grandparent, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
+  String toString() => 'QuestStatus[completedAt=$completedAt, doing=$doing, grandparent=$grandparent, tree=$tree, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.quest != null) {
-      json[r'quest'] = this.quest;
-    } else {
-      json[r'quest'] = null;
-    }
-    if (this.kid != null) {
-      json[r'kid'] = this.kid;
-    } else {
-      json[r'kid'] = null;
-    }
     if (this.completedAt != null) {
       json[r'completedAt'] = this.completedAt!.toUtc().toIso8601String();
     } else {
@@ -161,6 +140,11 @@ class QuestStatus {
       json[r'grandparent'] = this.grandparent;
     } else {
       json[r'grandparent'] = null;
+    }
+    if (this.tree != null) {
+      json[r'tree'] = this.tree;
+    } else {
+      json[r'tree'] = null;
     }
     if (this.createdAt != null) {
       json[r'createdAt'] = this.createdAt!.toUtc().toIso8601String();
@@ -209,11 +193,10 @@ class QuestStatus {
       }());
 
       return QuestStatus(
-        quest: QuestStatusQuest.fromJson(json[r'quest']),
-        kid: QuestStatusKid.fromJson(json[r'kid']),
         completedAt: mapDateTime(json, r'completedAt', r''),
         doing: mapValueOfType<bool>(json, r'doing'),
-        grandparent: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesCreatedByDataAttributesRolesDataInnerAttributesPermissionsDataInnerAttributesRole.fromJson(json[r'grandparent']),
+        grandparent: CommentCommentsDataInnerAttributesUser.fromJson(json[r'grandparent']),
+        tree: QuestStatusTree.fromJson(json[r'tree']),
         createdAt: mapDateTime(json, r'createdAt', r''),
         updatedAt: mapDateTime(json, r'updatedAt', r''),
         publishedAt: mapDateTime(json, r'publishedAt', r''),

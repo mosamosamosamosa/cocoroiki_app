@@ -13,28 +13,11 @@ part of openapi.api;
 class QuestStatusRequestData {
   /// Returns a new [QuestStatusRequestData] instance.
   QuestStatusRequestData({
-    this.quest,
-    this.kid,
     this.completedAt,
     this.doing,
     this.grandparent,
+    this.tree,
   });
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  AppUserRequestDataFamiliesInner? quest;
-
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  AppUserRequestDataFamiliesInner? kid;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -60,38 +43,34 @@ class QuestStatusRequestData {
   ///
   AppUserRequestDataFamiliesInner? grandparent;
 
+  ///
+  /// Please note: This property should have been non-nullable! Since the specification file
+  /// does not include a default value (using the "default:" property), however, the generated
+  /// source code must fall back to having a nullable type.
+  /// Consider adding a "default:" property in the specification file to hide this note.
+  ///
+  AppUserRequestDataFamiliesInner? tree;
+
   @override
   bool operator ==(Object other) => identical(this, other) || other is QuestStatusRequestData &&
-     other.quest == quest &&
-     other.kid == kid &&
      other.completedAt == completedAt &&
      other.doing == doing &&
-     other.grandparent == grandparent;
+     other.grandparent == grandparent &&
+     other.tree == tree;
 
   @override
   int get hashCode =>
     // ignore: unnecessary_parenthesis
-    (quest == null ? 0 : quest!.hashCode) +
-    (kid == null ? 0 : kid!.hashCode) +
     (completedAt == null ? 0 : completedAt!.hashCode) +
     (doing == null ? 0 : doing!.hashCode) +
-    (grandparent == null ? 0 : grandparent!.hashCode);
+    (grandparent == null ? 0 : grandparent!.hashCode) +
+    (tree == null ? 0 : tree!.hashCode);
 
   @override
-  String toString() => 'QuestStatusRequestData[quest=$quest, kid=$kid, completedAt=$completedAt, doing=$doing, grandparent=$grandparent]';
+  String toString() => 'QuestStatusRequestData[completedAt=$completedAt, doing=$doing, grandparent=$grandparent, tree=$tree]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-    if (this.quest != null) {
-      json[r'quest'] = this.quest;
-    } else {
-      json[r'quest'] = null;
-    }
-    if (this.kid != null) {
-      json[r'kid'] = this.kid;
-    } else {
-      json[r'kid'] = null;
-    }
     if (this.completedAt != null) {
       json[r'completedAt'] = this.completedAt!.toUtc().toIso8601String();
     } else {
@@ -106,6 +85,11 @@ class QuestStatusRequestData {
       json[r'grandparent'] = this.grandparent;
     } else {
       json[r'grandparent'] = null;
+    }
+    if (this.tree != null) {
+      json[r'tree'] = this.tree;
+    } else {
+      json[r'tree'] = null;
     }
     return json;
   }
@@ -129,11 +113,10 @@ class QuestStatusRequestData {
       }());
 
       return QuestStatusRequestData(
-        quest: AppUserRequestDataFamiliesInner.fromJson(json[r'quest']),
-        kid: AppUserRequestDataFamiliesInner.fromJson(json[r'kid']),
         completedAt: mapDateTime(json, r'completedAt', r''),
         doing: mapValueOfType<bool>(json, r'doing'),
         grandparent: AppUserRequestDataFamiliesInner.fromJson(json[r'grandparent']),
+        tree: AppUserRequestDataFamiliesInner.fromJson(json[r'tree']),
       );
     }
     return null;
