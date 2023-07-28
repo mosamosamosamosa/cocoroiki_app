@@ -10,9 +10,9 @@
 
 part of openapi.api;
 
-class QuestStatusKid {
-  /// Returns a new [QuestStatusKid] instance.
-  QuestStatusKid({
+class QuestStatusTree {
+  /// Returns a new [QuestStatusTree] instance.
+  QuestStatusTree({
     this.data,
   });
 
@@ -22,10 +22,10 @@ class QuestStatusKid {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  QuestStatusKidData? data;
+  QuestStatusTreeData? data;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is QuestStatusKid &&
+  bool operator ==(Object other) => identical(this, other) || other is QuestStatusTree &&
      other.data == data;
 
   @override
@@ -34,7 +34,7 @@ class QuestStatusKid {
     (data == null ? 0 : data!.hashCode);
 
   @override
-  String toString() => 'QuestStatusKid[data=$data]';
+  String toString() => 'QuestStatusTree[data=$data]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -46,10 +46,10 @@ class QuestStatusKid {
     return json;
   }
 
-  /// Returns a new [QuestStatusKid] instance and imports its values from
+  /// Returns a new [QuestStatusTree] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
-  static QuestStatusKid? fromJson(dynamic value) {
+  static QuestStatusTree? fromJson(dynamic value) {
     if (value is Map) {
       final json = value.cast<String, dynamic>();
 
@@ -58,24 +58,24 @@ class QuestStatusKid {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "QuestStatusKid[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "QuestStatusKid[$key]" has a null value in JSON.');
+          assert(json.containsKey(key), 'Required key "QuestStatusTree[$key]" is missing from JSON.');
+          assert(json[key] != null, 'Required key "QuestStatusTree[$key]" has a null value in JSON.');
         });
         return true;
       }());
 
-      return QuestStatusKid(
-        data: QuestStatusKidData.fromJson(json[r'data']),
+      return QuestStatusTree(
+        data: QuestStatusTreeData.fromJson(json[r'data']),
       );
     }
     return null;
   }
 
-  static List<QuestStatusKid> listFromJson(dynamic json, {bool growable = false,}) {
-    final result = <QuestStatusKid>[];
+  static List<QuestStatusTree> listFromJson(dynamic json, {bool growable = false,}) {
+    final result = <QuestStatusTree>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
-        final value = QuestStatusKid.fromJson(row);
+        final value = QuestStatusTree.fromJson(row);
         if (value != null) {
           result.add(value);
         }
@@ -84,12 +84,12 @@ class QuestStatusKid {
     return result.toList(growable: growable);
   }
 
-  static Map<String, QuestStatusKid> mapFromJson(dynamic json) {
-    final map = <String, QuestStatusKid>{};
+  static Map<String, QuestStatusTree> mapFromJson(dynamic json) {
+    final map = <String, QuestStatusTree>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = QuestStatusKid.fromJson(entry.value);
+        final value = QuestStatusTree.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -98,14 +98,14 @@ class QuestStatusKid {
     return map;
   }
 
-  // maps a json object with a list of QuestStatusKid-objects as value to a dart map
-  static Map<String, List<QuestStatusKid>> mapListFromJson(dynamic json, {bool growable = false,}) {
-    final map = <String, List<QuestStatusKid>>{};
+  // maps a json object with a list of QuestStatusTree-objects as value to a dart map
+  static Map<String, List<QuestStatusTree>> mapListFromJson(dynamic json, {bool growable = false,}) {
+    final map = <String, List<QuestStatusTree>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = QuestStatusKid.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = QuestStatusTree.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

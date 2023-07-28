@@ -15,7 +15,7 @@ class ErrorData {
   ErrorData();
 
   @override
-  String toString() => 'ErrorData[]';
+  bool operator ==(Object other) => identical(this, other) || other is ErrorData;
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
