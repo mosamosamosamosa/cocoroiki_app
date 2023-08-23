@@ -132,7 +132,7 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
                                             parent: false,
                                             createdTime: posts.data[(posts.data.length - 1) - index].attributes!.createdAt,
                                             postId: posts.data[(posts.data.length - 1) - index].id,
-                                            like: posts.data[(posts.data.length - 1) - index].attributes?.like,
+                                            like: posts.data[(posts.data.length - 1) - index].attributes?.appUsers?.data.length,
                                             postNumber: index),
                                         SizedBox(height: 21)
                                       ],

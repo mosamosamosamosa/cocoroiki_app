@@ -17,23 +17,30 @@ class UsersPermissionsPermissionsTreeValue {
   });
 
   /// every controller of the api
-  Map<String, Map<String, UsersPermissionsPermissionsTreeValueControllersValueValue>> controllers;
+  Map<
+          String,
+          Map<String,
+              UsersPermissionsPermissionsTreeValueControllersValueValue>>
+      controllers;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is UsersPermissionsPermissionsTreeValue &&
-     other.controllers == controllers;
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UsersPermissionsPermissionsTreeValue &&
+          other.controllers == controllers;
 
   @override
   int get hashCode =>
-    // ignore: unnecessary_parenthesis
-    (controllers.hashCode);
+      // ignore: unnecessary_parenthesis
+      (controllers.hashCode);
 
   @override
-  String toString() => 'UsersPermissionsPermissionsTreeValue[controllers=$controllers]';
+  String toString() =>
+      'UsersPermissionsPermissionsTreeValue[controllers=$controllers]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
-      json[r'controllers'] = this.controllers;
+    json[r'controllers'] = this.controllers;
     return json;
   }
 
@@ -49,8 +56,10 @@ class UsersPermissionsPermissionsTreeValue {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "UsersPermissionsPermissionsTreeValue[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "UsersPermissionsPermissionsTreeValue[$key]" has a null value in JSON.');
+          assert(json.containsKey(key),
+              'Required key "UsersPermissionsPermissionsTreeValue[$key]" is missing from JSON.');
+          assert(json[key] != null,
+              'Required key "UsersPermissionsPermissionsTreeValue[$key]" has a null value in JSON.');
         });
         return true;
       }());
@@ -60,7 +69,10 @@ class UsersPermissionsPermissionsTreeValue {
     return null;
   }
 
-  static List<UsersPermissionsPermissionsTreeValue> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<UsersPermissionsPermissionsTreeValue> listFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final result = <UsersPermissionsPermissionsTreeValue>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -73,12 +85,14 @@ class UsersPermissionsPermissionsTreeValue {
     return result.toList(growable: growable);
   }
 
-  static Map<String, UsersPermissionsPermissionsTreeValue> mapFromJson(dynamic json) {
+  static Map<String, UsersPermissionsPermissionsTreeValue> mapFromJson(
+      dynamic json) {
     final map = <String, UsersPermissionsPermissionsTreeValue>{};
     if (json is Map && json.isNotEmpty) {
       json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        final value = UsersPermissionsPermissionsTreeValue.fromJson(entry.value);
+        final value =
+            UsersPermissionsPermissionsTreeValue.fromJson(entry.value);
         if (value != null) {
           map[entry.key] = value;
         }
@@ -88,20 +102,25 @@ class UsersPermissionsPermissionsTreeValue {
   }
 
   // maps a json object with a list of UsersPermissionsPermissionsTreeValue-objects as value to a dart map
-  static Map<String, List<UsersPermissionsPermissionsTreeValue>> mapListFromJson(dynamic json, {bool growable = false,}) {
+  static Map<String, List<UsersPermissionsPermissionsTreeValue>>
+      mapListFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final map = <String, List<UsersPermissionsPermissionsTreeValue>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = UsersPermissionsPermissionsTreeValue.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = UsersPermissionsPermissionsTreeValue.listFromJson(
+          entry.value,
+          growable: growable,
+        );
       }
     }
     return map;
   }
 
   /// The list of required keys that must be present in a JSON.
-  static const requiredKeys = <String>{
-  };
+  static const requiredKeys = <String>{};
 }
-

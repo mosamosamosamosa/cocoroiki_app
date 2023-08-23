@@ -147,7 +147,7 @@ class UsersPermissionsUsersRolesApi {
   ///
   /// * [String] id (required):
   ///   user Id
-  Future<UsersIdDelete200Response?> usersIdDelete(String id,) async {
+  Future<UsersPermissionsUser?> usersIdDelete(String id,) async {
     final response = await usersIdDeleteWithHttpInfo(id,);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
@@ -156,7 +156,7 @@ class UsersPermissionsUsersRolesApi {
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'UsersIdDelete200Response',) as UsersIdDelete200Response;
+      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'UsersPermissionsUser',) as UsersPermissionsUser;
     
     }
     return null;

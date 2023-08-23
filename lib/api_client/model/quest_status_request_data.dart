@@ -49,25 +49,28 @@ class QuestStatusRequestData {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  AppUserRequestDataFamiliesInner? tree;
+  int? tree;
 
   @override
-  bool operator ==(Object other) => identical(this, other) || other is QuestStatusRequestData &&
-     other.completedAt == completedAt &&
-     other.doing == doing &&
-     other.grandparent == grandparent &&
-     other.tree == tree;
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is QuestStatusRequestData &&
+          other.completedAt == completedAt &&
+          other.doing == doing &&
+          other.grandparent == grandparent &&
+          other.tree == tree;
 
   @override
   int get hashCode =>
-    // ignore: unnecessary_parenthesis
-    (completedAt == null ? 0 : completedAt!.hashCode) +
-    (doing == null ? 0 : doing!.hashCode) +
-    (grandparent == null ? 0 : grandparent!.hashCode) +
-    (tree == null ? 0 : tree!.hashCode);
+      // ignore: unnecessary_parenthesis
+      (completedAt == null ? 0 : completedAt!.hashCode) +
+      (doing == null ? 0 : doing!.hashCode) +
+      (grandparent == null ? 0 : grandparent!.hashCode) +
+      (tree == null ? 0 : tree!.hashCode);
 
   @override
-  String toString() => 'QuestStatusRequestData[completedAt=$completedAt, doing=$doing, grandparent=$grandparent, tree=$tree]';
+  String toString() =>
+      'QuestStatusRequestData[completedAt=$completedAt, doing=$doing, grandparent=$grandparent, tree=$tree]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -106,8 +109,10 @@ class QuestStatusRequestData {
       // Note 2: this code is stripped in release mode!
       assert(() {
         requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "QuestStatusRequestData[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "QuestStatusRequestData[$key]" has a null value in JSON.');
+          assert(json.containsKey(key),
+              'Required key "QuestStatusRequestData[$key]" is missing from JSON.');
+          assert(json[key] != null,
+              'Required key "QuestStatusRequestData[$key]" has a null value in JSON.');
         });
         return true;
       }());
@@ -115,14 +120,18 @@ class QuestStatusRequestData {
       return QuestStatusRequestData(
         completedAt: mapDateTime(json, r'completedAt', r''),
         doing: mapValueOfType<bool>(json, r'doing'),
-        grandparent: AppUserRequestDataFamiliesInner.fromJson(json[r'grandparent']),
-        tree: AppUserRequestDataFamiliesInner.fromJson(json[r'tree']),
+        grandparent:
+            AppUserRequestDataFamiliesInner.fromJson(json[r'grandparent']),
+        tree: mapValueOfType<int>(json, r'tree'),
       );
     }
     return null;
   }
 
-  static List<QuestStatusRequestData> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<QuestStatusRequestData> listFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final result = <QuestStatusRequestData>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -150,20 +159,24 @@ class QuestStatusRequestData {
   }
 
   // maps a json object with a list of QuestStatusRequestData-objects as value to a dart map
-  static Map<String, List<QuestStatusRequestData>> mapListFromJson(dynamic json, {bool growable = false,}) {
+  static Map<String, List<QuestStatusRequestData>> mapListFromJson(
+    dynamic json, {
+    bool growable = false,
+  }) {
     final map = <String, List<QuestStatusRequestData>>{};
     if (json is Map && json.isNotEmpty) {
       // ignore: parameter_assignments
       json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        map[entry.key] = QuestStatusRequestData.listFromJson(entry.value, growable: growable,);
+        map[entry.key] = QuestStatusRequestData.listFromJson(
+          entry.value,
+          growable: growable,
+        );
       }
     }
     return map;
   }
 
   /// The list of required keys that must be present in a JSON.
-  static const requiredKeys = <String>{
-  };
+  static const requiredKeys = <String>{};
 }
-

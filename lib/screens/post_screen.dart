@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:cocoroiki_app/api/clients.dart';
 import 'package:cocoroiki_app/api_client/api.dart';
 import 'package:cocoroiki_app/components/custom_app_bar.dart';
 
@@ -9,7 +11,7 @@ import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
@@ -25,10 +27,10 @@ class _PostScreenState extends State<PostScreen> {
   //final List<MultipartFile> images = [];
 
   final List<File> images = [];
-  final List<MultipartFile> postimages = [];
+  //final List<MultipartFile> postimages = [];
   var selectedTags = <String>[];
 
-  MultipartFile? postimage;
+  //MultipartFile? postimage;
   File? image;
   ImagePicker picker = ImagePicker();
   PostResponse post = PostResponse();
@@ -98,32 +100,84 @@ class _PostScreenState extends State<PostScreen> {
   //   }
   // }
 
-  Future postPostData() async {
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = PostApi(apiClient);
-    final apiImgInstance = UploadFileApi(apiClient);
+  // Future postPostData() async {
+  //   final apiClient =
+  //       ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+  //   final apiInstance = PostApi(apiClient);
+  //   final apiImgInstance = UploadFileApi(apiClient);
+  //   try {
+  //     //apiImgInstance.uploadPost(images);
+  //     final newPost = PostRequest(
+  //         data: PostRequestData(
+  //       // user: AppUserRequestDataFamiliesInner(fields: {'id': 1}),
+  //       content: controller.text,
+  //       // kids: <AppUserRequestDataFamiliesInner>[
+  //       //   AppUserRequestDataFamiliesInner(fields: {'id': 2}),
+  //       // ],
+  //       // images: <AppUserRequestDataFamiliesInner>[
+  //       //   AppUserRequestDataFamiliesInner(fields: {'id': 1}),
+  //       // ],
+  //       //like: 0,
+  //       // comments: <AppUserRequestDataFamiliesInner>[
+  //       //   AppUserRequestDataFamiliesInner(fields: {'id': null}),
+  //       // ]
+  //     ));
+  //     final response = await apiInstance.postPosts(newPost);
+  //     print(response);
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
+
+  postImageAndPost(String userId, String content, List images) async {
+    final formData =
+        http.MultipartRequest('POST', Uri.parse('${Clients().url}posts'))
+          ..fields['data'] = jsonEncode({
+            'user': userId,
+            'content': content,
+          })
+          ..files.addAll(
+            images
+                .map(
+                  (file) => http.MultipartFile.fromBytes(
+                    'files.images',
+                    file.readAsBytesSync(),
+                    filename: file.path.split('/').last,
+                  ),
+                )
+                .toList(),
+          );
+
     try {
-      //apiImgInstance.uploadPost(images);
-      final newPost = PostRequest(
-          data: PostRequestData(
-        user: AppUserRequestDataFamiliesInner(fields: {'id': 1}),
-        content: controller.text,
-        kids: <AppUserRequestDataFamiliesInner>[
-          AppUserRequestDataFamiliesInner(fields: {'id': 2}),
-        ],
-        images: <AppUserRequestDataFamiliesInner>[
-          AppUserRequestDataFamiliesInner(fields: {'id': 1}),
-        ],
-        //like: 0,
-        // comments: <AppUserRequestDataFamiliesInner>[
-        //   AppUserRequestDataFamiliesInner(fields: {'id': null}),
-        // ]
-      ));
-      final response = await apiInstance.postPosts(newPost);
-      print(response);
-    } catch (e) {
-      print(e);
+      final response = await http.Response.fromStream(await formData.send());
+
+      if (response.statusCode == 200) {
+        print('Upload successful');
+        // Do something with the response if needed
+      } else {
+        print('Upload failed');
+      }
+    } catch (error) {
+      print('Error uploading data: $error');
+    }
+  }
+
+  postPost(String userId, String content, List images) async {
+    final url = Uri.parse('${Clients().url}posts');
+    final headers = <String, String>{
+      'Content-Type': 'application/json',
+    };
+
+    final body = jsonEncode({
+      'data': {'user': userId, 'content': content, 'images': images}
+    });
+
+    try {
+      final response = await http.post(url, headers: headers, body: body);
+      // Handle the response here
+      print(response.body);
+    } catch (error) {
+      // Handle error here
     }
   }
 
@@ -174,8 +228,9 @@ class _PostScreenState extends State<PostScreen> {
                     padding: const EdgeInsets.only(right: 20, top: 52),
                     child: GestureDetector(
                       onTap: () {
-                        postPostData().then(
+                        postPost(1.toString(), controller.text, images).then(
                           (value) {
+                            print('できた！');
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

@@ -444,8 +444,6 @@ class ApiClient {
           return TreeResponseDataObject.fromJson(value);
         case 'UploadFile':
           return UploadFile.fromJson(value);
-        case 'UsersIdDelete200Response':
-          return UsersIdDelete200Response.fromJson(value);
         case 'UsersPermissionsPermissionsGet200Response':
           return UsersPermissionsPermissionsGet200Response.fromJson(value);
         case 'UsersPermissionsPermissionsTreeValue':

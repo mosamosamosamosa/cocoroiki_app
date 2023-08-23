@@ -114,7 +114,9 @@ class _PostCompState extends ConsumerState<PostComp> {
         images: <AppUserRequestDataFamiliesInner>[
           AppUserRequestDataFamiliesInner(fields: {'id': 1}),
         ],
-        like: 1,
+        appUsers: <AppUserRequestDataFamiliesInner>[
+          AppUserRequestDataFamiliesInner(fields: {'id': 3}),
+        ],
         // comments: <AppUserRequestDataFamiliesInner>[
         //   AppUserRequestDataFamiliesInner(fields: {'id': null}),
         // ]
@@ -256,8 +258,11 @@ class _PostCompState extends ConsumerState<PostComp> {
                                 },
                                 child: SvgPicture.asset('assets/svg/like.svg')),
                         //SizedBox(width: 4),
-                        postDetail?.data?.attributes?.like == null ||
-                                postDetail?.data?.attributes?.like == 0
+                        postDetail?.data?.attributes?.appUsers?.data.length ==
+                                    null ||
+                                postDetail?.data?.attributes?.appUsers?.data
+                                        .length ==
+                                    0
                             ? Row(
                                 children: [
                                   SizedBox(width: 10),
@@ -281,10 +286,9 @@ class _PostCompState extends ConsumerState<PostComp> {
                     SizedBox(width: 28),
                     Row(
                       children: [
-                        //userRoleState
-                        //?
-                        SvgPicture.asset('assets/svg/comment_grand.svg'),
-                        //:SvgPicture.asset('assets/svg/comment.svg'),
+                        userRoleState
+                            ? SvgPicture.asset('assets/svg/comment_grand.svg')
+                            : SvgPicture.asset('assets/svg/comment.svg'),
                         postDetail?.data?.attributes?.comments?.data.length == 0
                             ? Row(
                                 children: [

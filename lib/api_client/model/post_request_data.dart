@@ -17,8 +17,8 @@ class PostRequestData {
     this.content,
     this.kids = const [],
     this.images = const [],
-    this.like,
     this.comments = const [],
+    this.appUsers = const [],
   });
 
   ///
@@ -41,15 +41,9 @@ class PostRequestData {
 
   List<AppUserRequestDataFamiliesInner> images;
 
-  ///
-  /// Please note: This property should have been non-nullable! Since the specification file
-  /// does not include a default value (using the "default:" property), however, the generated
-  /// source code must fall back to having a nullable type.
-  /// Consider adding a "default:" property in the specification file to hide this note.
-  ///
-  int? like;
-
   List<AppUserRequestDataFamiliesInner> comments;
+
+  List<AppUserRequestDataFamiliesInner> appUsers;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is PostRequestData &&
@@ -57,8 +51,8 @@ class PostRequestData {
      other.content == content &&
      other.kids == kids &&
      other.images == images &&
-     other.like == like &&
-     other.comments == comments;
+     other.comments == comments &&
+     other.appUsers == appUsers;
 
   @override
   int get hashCode =>
@@ -67,11 +61,11 @@ class PostRequestData {
     (content == null ? 0 : content!.hashCode) +
     (kids.hashCode) +
     (images.hashCode) +
-    (like == null ? 0 : like!.hashCode) +
-    (comments.hashCode);
+    (comments.hashCode) +
+    (appUsers.hashCode);
 
   @override
-  String toString() => 'PostRequestData[user=$user, content=$content, kids=$kids, images=$images, like=$like, comments=$comments]';
+  String toString() => 'PostRequestData[user=$user, content=$content, kids=$kids, images=$images, comments=$comments, appUsers=$appUsers]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -87,12 +81,8 @@ class PostRequestData {
     }
       json[r'kids'] = this.kids;
       json[r'images'] = this.images;
-    if (this.like != null) {
-      json[r'like'] = this.like;
-    } else {
-      json[r'like'] = null;
-    }
       json[r'comments'] = this.comments;
+      json[r'app_users'] = this.appUsers;
     return json;
   }
 
@@ -119,8 +109,8 @@ class PostRequestData {
         content: mapValueOfType<String>(json, r'content'),
         kids: AppUserRequestDataFamiliesInner.listFromJson(json[r'kids']),
         images: AppUserRequestDataFamiliesInner.listFromJson(json[r'images']),
-        like: mapValueOfType<int>(json, r'like'),
         comments: AppUserRequestDataFamiliesInner.listFromJson(json[r'comments']),
+        appUsers: AppUserRequestDataFamiliesInner.listFromJson(json[r'app_users']),
       );
     }
     return null;
