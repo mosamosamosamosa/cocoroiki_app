@@ -195,7 +195,12 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
                                   ? SvgPicture.asset(
                                       'assets/svg/pink_like_grand.svg')
                                   : SvgPicture.asset('assets/svg/like.svg'),
-                              postDetail.data?.attributes?.like == null
+                              postDetail.data?.attributes?.appUsers?.data
+                                              .length ==
+                                          null ||
+                                      postDetail.data?.attributes?.appUsers
+                                              ?.data.length ==
+                                          0
                                   ? Row(
                                       children: [
                                         SizedBox(width: 10),
@@ -206,7 +211,8 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
                                       children: [
                                         SizedBox(width: 4),
                                         Text(
-                                          (postDetail.data?.attributes?.like)
+                                          (postDetail.data?.attributes?.appUsers
+                                                  ?.data.length)
                                               .toString(),
                                           style: TextStyle(
                                               color: Color(0xFF949494),
