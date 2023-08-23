@@ -5,6 +5,7 @@ import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/provider/provider.dart';
 import 'package:cocoroiki_app/screens/grandparent/grandchild_room.dart';
 import 'package:cocoroiki_app/screens/kid/menu_screen.dart';
+import 'package:cocoroiki_app/screens/kid/quest/grand_room_screen.dart';
 import 'package:cocoroiki_app/screens/kid/quest/tree_modal.dart';
 import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class QuestScreen extends ConsumerStatefulWidget {
 
 class _QuestScreenState extends ConsumerState<QuestScreen> {
   AppUserListResponse? users = AppUserListResponse();
+  QuestStatusListResponse? queststatus = QuestStatusListResponse();
   List<int> grandList = [];
   List<String> grandNameList = [];
   List<String> grandGenderList = [];
@@ -48,6 +50,27 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
 
     //setState(() {});
     //super.initState();
+  }
+
+  Future questStatus(int tree_id) async {
+    final apiClient =
+        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+    final apiInstance = QuestStatusApi(apiClient);
+    try {
+      final response = await apiInstance.getQuestStatuses();
+      print(response);
+      //setState(() => queststatus = response);
+      for (int i = 0; i < (response?.data)!.length; i++) {
+        if (response?.data[i].attributes?.tree?.data?.id == tree_id) {
+          if (response?.data[i].attributes?.doing == true) {
+            return true;
+          }
+        }
+      }
+      return false;
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future fetchSomeData() async {
@@ -159,12 +182,33 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
                                       builder: (context) =>
                                           GrandchildScreen()));
                             } else {
-                              showDialog(
-                                  barrierDismissible: false,
-                                  context: context,
-                                  builder: (BuildContext context) => TreeModal(
-                                      grandName: grandNameList[0],
-                                      gender: grandGenderList[0]));
+                              questStatus(1).then((value) => {
+                                    if (!value)
+                                      {
+                                        showDialog(
+                                            barrierDismissible: false,
+                                            context: context,
+                                            builder: (BuildContext context) =>
+                                                TreeModal(
+                                                    grandName: grandNameList[0],
+                                                    gender: grandGenderList[0]))
+                                      }
+                                    else
+                                      {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    GrandRoomScreen(
+                                                      grandName:
+                                                          grandNameList[0],
+                                                      gender:
+                                                          grandGenderList[0],
+                                                      questClose: false,
+                                                      online: true,
+                                                    )))
+                                      }
+                                  });
                             }
                           },
                           child: SvgPicture.asset('assets/svg/green.svg'))),

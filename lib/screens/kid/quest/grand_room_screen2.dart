@@ -58,26 +58,28 @@ class _GrandRoomScreen2State extends ConsumerState<GrandRoomScreen2>
     if (questClose) {
       Future(() {
         showDialog(
-                barrierDismissible: false,
-                context: context,
-                builder: (BuildContext context) => QuestModal(start: true))
-            .then(((value) => setState(() {
-                  visiQuest = true;
-                  Timer.periodic(const Duration(seconds: 30), (_) {
-                    setState(() {
-                      chatComment++;
-                    });
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) => QuestModal(
+                  start: true,
+                  quest: 'クエスト表示',
+                )).then(((value) => setState(() {
+              visiQuest = true;
+              Timer.periodic(const Duration(seconds: 30), (_) {
+                setState(() {
+                  chatComment++;
+                });
 
-                    print("5秒毎に実行:chatComment$chatComment");
-                  });
-                  Timer.periodic(const Duration(seconds: 1200), (_) {
-                    setState(() {
-                      visiWatermark = true;
-                    });
+                print("5秒毎に実行:chatComment$chatComment");
+              });
+              Timer.periodic(const Duration(seconds: 1200), (_) {
+                setState(() {
+                  visiWatermark = true;
+                });
 
-                    print("秒毎に実行:chatComment$chatComment");
-                  });
-                })));
+                print("秒毎に実行:chatComment$chatComment");
+              });
+            })));
       });
     } else {
       setState(() {

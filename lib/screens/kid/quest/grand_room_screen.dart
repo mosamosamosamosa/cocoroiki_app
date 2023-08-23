@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:cocoroiki_app/api_client/api.dart';
 import 'package:cocoroiki_app/components/bottom_button.dart';
@@ -18,9 +19,15 @@ import 'package:lottie/lottie.dart';
 
 class GrandRoomScreen extends ConsumerStatefulWidget {
   const GrandRoomScreen(
-      {super.key, required this.grandName, required this.gender});
+      {super.key,
+      required this.grandName,
+      required this.gender,
+      required this.questClose,
+      required this.online});
   final String grandName;
   final String gender;
+  final bool questClose;
+  final bool online;
 
   @override
   ConsumerState<GrandRoomScreen> createState() => _GrandRoomScreenState();
@@ -34,35 +41,74 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
   bool visiQuest = false;
   // var _isChanged = false;
   bool visiButton = false;
+  bool continueQuestFlag = false;
 
   bool flagTimeline = false;
   bool flagHome = false;
   bool flagQuest = false;
-  bool questClose = true;
 
   int chatComment = 0;
   bool plazaButton = true;
   bool visiWater = false;
   bool visiKirakira = false;
+  bool close = true;
   late final AnimationController _controller;
   TreeListResponse posts = TreeListResponse();
+
+  List<String> questList = [];
+  String quest = '';
+
+  int qCount = 0;
 
   var _isChanged = false;
 
   //木の状態
   int? treeStatus = 0;
 
+  //画面遷移した時の処理
   @override
-  void initState() {
+  void didChangeDependencies() {
+    final questNotifier = ref.watch(questProvider.notifier);
+    final questState = ref.watch(questProvider);
     fetchSomeData();
+    setState(() {
+      close = widget.questClose;
+    });
+    questCount().then((value) {
+      setState(() {
+        if (0 <= qCount && qCount <= 3) {
+          treeStatus = 1;
+        } else if (4 <= qCount && qCount <= 34) {
+          treeStatus = 2;
+        } else if (35 <= qCount && qCount <= 85) {
+          treeStatus = 3;
+        } else if (86 <= qCount && qCount <= 166) {
+          treeStatus = 4;
+        } else if (167 <= qCount && qCount <= 267) {
+          treeStatus = 5;
+        }
+      });
 
-    if (questClose) {
-      Future(() {
-        showDialog(
+      setState(() {
+        continueQuestFlag = false;
+      });
+
+      if (close) {
+        questSelect(widget.online).then(((value) {
+          var random = math.Random();
+          int i = random.nextInt(questList.length);
+          questNotifier.state = questList[i];
+          setState(() {
+            quest = questList[i];
+          });
+          Future(() {
+            showDialog(
                 barrierDismissible: false,
                 context: context,
-                builder: (BuildContext context) => QuestModal(start: true))
-            .then(((value) => setState(() {
+                builder: (BuildContext context) => QuestModal(
+                      start: true,
+                      quest: questList[i],
+                    )).then(((value) => setState(() {
                   visiQuest = true;
                   Timer.periodic(const Duration(seconds: 10), (_) {
                     setState(() {
@@ -79,26 +125,95 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
                     print("秒毎に実行:chatComment$chatComment");
                   });
                 })));
-      });
-    } else {
-      setState(() {
-        visiQuest = true;
-      });
-      Timer.periodic(const Duration(seconds: 10), (_) {
+          });
+        }));
+      } else {
         setState(() {
-          chatComment++;
+          visiQuest = true;
+          quest = questState;
         });
+        Timer.periodic(const Duration(seconds: 10), (_) {
+          setState(() {
+            chatComment++;
+          });
 
-        print("5秒毎に実行:chatComment$chatComment");
+          print("5秒毎に実行:chatComment$chatComment");
+        });
+        // Timer.periodic(const Duration(seconds: 30), (_) {
+        //   setState(() {
+        //     visiWatermark = true;
+        //   });
+
+        //   print("秒毎に実行:chatComment$chatComment");
+        // });
+      }
+    });
+
+    _controller =
+        AnimationController(duration: Duration(seconds: 30), vsync: this);
+    //super.initState();
+    print(treeStatus);
+  }
+
+  //閉じるボタン押した時の処理
+  Future questEnd() async {
+    final questNotifier = ref.watch(questProvider.notifier);
+    final questState = ref.watch(questProvider);
+    fetchSomeData();
+    questCount().then((value) {
+      setState(() {
+        if (0 <= qCount && qCount <= 3) {
+          treeStatus = 1;
+        } else if (4 <= qCount && qCount <= 34) {
+          treeStatus = 2;
+        } else if (35 <= qCount && qCount <= 85) {
+          treeStatus = 3;
+        } else if (86 <= qCount && qCount <= 166) {
+          treeStatus = 4;
+        } else if (167 <= qCount && qCount <= 267) {
+          treeStatus = 5;
+        }
       });
-      // Timer.periodic(const Duration(seconds: 30), (_) {
-      //   setState(() {
-      //     visiWatermark = true;
-      //   });
 
-      //   print("秒毎に実行:chatComment$chatComment");
-      // });
-    }
+      setState(() {
+        continueQuestFlag = true;
+      });
+    });
+  }
+
+  //クエスト風船押した時の処理
+  Future questOpen() async {
+    final questNotifier = ref.watch(questProvider.notifier);
+    final questState = ref.watch(questProvider);
+
+    setState(() {
+      close = widget.questClose;
+    });
+
+    setState(() {
+      continueQuestFlag = false;
+    });
+
+    questSelect(false).then(((value) {
+      var random = math.Random();
+      int i = random.nextInt(questList.length);
+      questNotifier.state = questList[i];
+      setState(() {
+        quest = questList[i];
+      });
+      Future(() {
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) => QuestModal(
+                  start: true,
+                  quest: questList[i],
+                )).then(((value) => setState(() {
+              visiQuest = true;
+            })));
+      });
+    }));
+
     _controller =
         AnimationController(duration: Duration(seconds: 30), vsync: this);
     //super.initState();
@@ -132,6 +247,54 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
         setState(() {});
       }
       //setState(() => {posts = response});
+    } catch (e) {
+      print(e);
+    }
+    super.didChangeDependencies();
+  }
+
+  Future questCount() async {
+    final apiClient =
+        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+    final apiInstance = QuestStatusApi(apiClient);
+    try {
+      final response = await apiInstance.getQuestStatuses();
+      print(response);
+      //setState(() => queststatus = response);
+      for (int i = 0; i < (response?.data)!.length; i++) {
+        if (response?.data[i].attributes?.tree?.data?.id == 1) {
+          if (response?.data[i].attributes?.doing == false) {
+            setState(() {
+              qCount++;
+            });
+
+            print('あああああああああああああああああああああああああ:$qCount');
+          }
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  //クエスト選択
+  Future questSelect(bool online) async {
+    final apiClient =
+        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+    final apiInstance = QuestApi(apiClient);
+    try {
+      final response = await apiInstance.getQuests();
+      print(response);
+      //setState(() => queststatus = response);
+      for (int i = 0; i < (response?.data)!.length; i++) {
+        if (response
+                ?.data[i].attributes?.questKinds?.data[0].attributes?.online ==
+            online) {
+          setState(() {
+            questList.add((response?.data[i].attributes?.content)!);
+          });
+        }
+      }
     } catch (e) {
       print(e);
     }
@@ -210,7 +373,24 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
                         ],
                       ),
                       SizedBox(height: 6),
-                      Image.asset('assets/image/mater1_2.png')
+                      qCount == 0
+                          ? Image.asset('assets/image/mater1_0.png')
+                          : qCount == 1
+                              ? Image.asset('assets/image/mater1_1.png')
+                              : qCount == 2
+                                  ? Image.asset('assets/image/mater1_2.png')
+                                  : qCount == 3
+                                      ? Image.asset('assets/image/mater1_3.png')
+                                      : 4 <= qCount && qCount <= 13
+                                          ? Image.asset(
+                                              'assets/image/mater1_0.png')
+                                          : 14 <= qCount && qCount <= 23
+                                              ? Image.asset(
+                                                  'assets/image/mater1_1.png')
+                                              : 24 <= qCount && qCount <= 34
+                                                  ? Image.asset(
+                                                      'assets/image/mater1_2.png')
+                                                  : Container()
                     ],
                   )),
               Positioned(
@@ -260,7 +440,7 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
                                           CrossAxisAlignment.end,
                                       children: [
                                         Text(
-                                          'おさんぽにいこう',
+                                          quest,
                                           style: TextStyle(
                                               color: Color(0xFF509D01),
                                               fontFamily: 'Zen-B',
@@ -295,16 +475,15 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
                     top: 230,
                     right: -20,
                     child: GestureDetector(
-                        onLongPress: () {
-                          setState(() {
+                        onLongPress: () async {
+                          setState(() async {
                             visiQuest = false;
+                            continueQuestFlag = await showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    QuestCheckModa());
                           });
-
-                          showDialog(
-                              barrierDismissible: false,
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  QuestCheckModa());
                         },
                         child: Lottie.asset('assets/json/yousei.json'))),
               ),
@@ -408,7 +587,17 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
               Visibility(
                 visible: visiWatermark,
                 child: Positioned(
-                    bottom: 310,
+                    bottom: treeStatus == 1
+                        ? 310
+                        : treeStatus == 2
+                            ? 380
+                            : treeStatus == 3
+                                ? 380
+                                : treeStatus == 4
+                                    ? 390
+                                    : treeStatus == 5
+                                        ? 420
+                                        : 0,
                     right: 0,
                     left: 0,
                     child: GestureDetector(
@@ -532,6 +721,20 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
                 child: Positioned(
                     bottom: 190,
                     child: Lottie.asset('assets/json/kirakira.json')),
+              ),
+              Visibility(
+                visible: continueQuestFlag,
+                child: Positioned(
+                    top: 190,
+                    left: 24,
+                    child: SizedBox(
+                        height: 200,
+                        width: 120,
+                        child: GestureDetector(
+                            onTap: () {
+                              questOpen();
+                            },
+                            child: Lottie.asset('assets/json/quest_1.json')))),
               )
             ])));
   }

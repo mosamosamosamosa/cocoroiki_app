@@ -66,8 +66,11 @@ class _TreeModalState extends State<TreeModal> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => GrandRoomScreen(
-                              grandName: widget.grandName,
-                              gender: widget.gender)));
+                                grandName: widget.grandName,
+                                gender: widget.gender,
+                                questClose: true,
+                                online: selectedN,
+                              )));
                 }
               },
               child: selectedN || selectedY

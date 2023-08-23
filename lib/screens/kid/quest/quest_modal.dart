@@ -1,3 +1,4 @@
+import 'package:cocoroiki_app/api_client/api.dart';
 import 'package:cocoroiki_app/components/sub_app_button.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
@@ -6,9 +7,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 
 class QuestModal extends StatefulWidget {
-  const QuestModal({super.key, required this.start});
+  const QuestModal({super.key, required this.start, required this.quest});
 
   final bool start;
+  final String quest;
 
   @override
   State<QuestModal> createState() => _QuestModalState();
@@ -16,6 +18,40 @@ class QuestModal extends StatefulWidget {
 
 class _QuestModalState extends State<QuestModal> {
   int flag = 4;
+
+  Future postQuestStatusData() async {
+    final apiClient =
+        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+    final apiInstance = QuestStatusApi(apiClient);
+    //final apiImgInstance = UploadFileApi(apiClient);
+    try {
+      //apiImgInstance.uploadPost(images);
+      final newQuestStatus = QuestStatusRequest(
+          data: QuestStatusRequestData(
+        completedAt: DateTime.now(),
+        doing: true,
+        grandparent: AppUserRequestDataFamiliesInner(fields: {'id': 3}),
+        tree: 1,
+        // user: AppUserRequestDataFamiliesInner(fields: {'id': 1}),
+        // content: controller.text,
+        // kids: <AppUserRequestDataFamiliesInner>[
+        //   AppUserRequestDataFamiliesInner(fields: {'id': 2}),
+        // ],
+        // images: <AppUserRequestDataFamiliesInner>[
+        //   AppUserRequestDataFamiliesInner(fields: {'id': 1}),
+        // ],
+        //like: 0,
+        // comments: <AppUserRequestDataFamiliesInner>[
+        //   AppUserRequestDataFamiliesInner(fields: {'id': null}),
+        // ]
+      ));
+      final response = await apiInstance.postQuestStatuses(newQuestStatus);
+      print(response);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double deviceW = MediaQuery.of(context).size.width;
@@ -112,14 +148,21 @@ class _QuestModalState extends State<QuestModal> {
                     children: [
                       //SizedBox(height: 100),
                       SizedBox(
-                        width: 222,
+                        width: 240,
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
                             Text(
-                              'おさんぽにいこう！',
+                              widget.quest,
                               textAlign: TextAlign.center,
                               style: TextStyle(
+                                shadows: <Shadow>[
+                                  Shadow(
+                                    color: Colors.grey,
+                                    offset: Offset(0, 3.0),
+                                    blurRadius: 3.0,
+                                  ),
+                                ],
                                 height: 1.2,
                                 fontSize: 24,
                                 fontFamily: 'Zen-B',
@@ -130,7 +173,7 @@ class _QuestModalState extends State<QuestModal> {
                               ),
                             ),
                             Text(
-                              'おさんぽにいこう！',
+                              widget.quest,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 height: 1.2,
@@ -204,7 +247,9 @@ class _QuestModalState extends State<QuestModal> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pop(context);
+                          postQuestStatusData().then(((value) {
+                            Navigator.pop(context);
+                          }));
                         },
                         child: Stack(
                           alignment: Alignment.center,
