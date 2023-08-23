@@ -172,7 +172,6 @@ part 'model/tree_request_data.dart';
 part 'model/tree_response.dart';
 part 'model/tree_response_data_object.dart';
 part 'model/upload_file.dart';
-part 'model/users_id_delete200_response.dart';
 part 'model/users_permissions_permissions_get200_response.dart';
 part 'model/users_permissions_permissions_tree_value.dart';
 part 'model/users_permissions_permissions_tree_value_controllers_value_value.dart';

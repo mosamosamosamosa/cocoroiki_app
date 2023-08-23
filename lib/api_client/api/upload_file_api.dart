@@ -10,9 +10,9 @@
 
 part of openapi.api;
 
-
 class UploadFileApi {
-  UploadFileApi([ApiClient? apiClient]) : apiClient = apiClient ?? defaultApiClient;
+  UploadFileApi([ApiClient? apiClient])
+      : apiClient = apiClient ?? defaultApiClient;
 
   final ApiClient apiClient;
 
@@ -29,7 +29,6 @@ class UploadFileApi {
     final formParams = <String, String>{};
 
     const contentTypes = <String>[];
-
 
     return apiClient.invokeAPI(
       path,
@@ -50,12 +49,13 @@ class UploadFileApi {
     // When a remote server returns no body with a status of 204, we shall not decode it.
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+    if (response.body.isNotEmpty &&
+        response.statusCode != HttpStatus.noContent) {
       final responseBody = await _decodeBodyBytes(response);
-      return (await apiClient.deserializeAsync(responseBody, 'List<UploadFile>') as List)
-        .cast<UploadFile>()
-        .toList(growable: false);
-
+      return (await apiClient.deserializeAsync(responseBody, 'List<UploadFile>')
+              as List)
+          .cast<UploadFile>()
+          .toList(growable: false);
     }
     return null;
   }
@@ -64,11 +64,12 @@ class UploadFileApi {
   /// Parameters:
   ///
   /// * [String] id (required):
-  ///   
-  Future<Response> uploadFilesIdDeleteWithHttpInfo(String id,) async {
+  ///
+  Future<Response> uploadFilesIdDeleteWithHttpInfo(
+    String id,
+  ) async {
     // ignore: prefer_const_declarations
-    final path = r'/upload/files/{id}'
-      .replaceAll('{id}', id);
+    final path = r'/upload/files/{id}'.replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -78,7 +79,6 @@ class UploadFileApi {
     final formParams = <String, String>{};
 
     const contentTypes = <String>[];
-
 
     return apiClient.invokeAPI(
       path,
@@ -94,18 +94,25 @@ class UploadFileApi {
   /// Parameters:
   ///
   /// * [String] id (required):
-  ///   
-  Future<UploadFile?> uploadFilesIdDelete(String id,) async {
-    final response = await uploadFilesIdDeleteWithHttpInfo(id,);
+  ///
+  Future<UploadFile?> uploadFilesIdDelete(
+    String id,
+  ) async {
+    final response = await uploadFilesIdDeleteWithHttpInfo(
+      id,
+    );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
     // When a remote server returns no body with a status of 204, we shall not decode it.
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'UploadFile',) as UploadFile;
-    
+    if (response.body.isNotEmpty &&
+        response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(
+        await _decodeBodyBytes(response),
+        'UploadFile',
+      ) as UploadFile;
     }
     return null;
   }
@@ -114,11 +121,12 @@ class UploadFileApi {
   /// Parameters:
   ///
   /// * [String] id (required):
-  ///   
-  Future<Response> uploadFilesIdGetWithHttpInfo(String id,) async {
+  ///
+  Future<Response> uploadFilesIdGetWithHttpInfo(
+    String id,
+  ) async {
     // ignore: prefer_const_declarations
-    final path = r'/upload/files/{id}'
-      .replaceAll('{id}', id);
+    final path = r'/upload/files/{id}'.replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -128,7 +136,6 @@ class UploadFileApi {
     final formParams = <String, String>{};
 
     const contentTypes = <String>[];
-
 
     return apiClient.invokeAPI(
       path,
@@ -144,23 +151,30 @@ class UploadFileApi {
   /// Parameters:
   ///
   /// * [String] id (required):
-  ///   
-  Future<UploadFile?> uploadFilesIdGet(String id,) async {
-    final response = await uploadFilesIdGetWithHttpInfo(id,);
+  ///
+  Future<UploadFile?> uploadFilesIdGet(
+    String id,
+  ) async {
+    final response = await uploadFilesIdGetWithHttpInfo(
+      id,
+    );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
     // When a remote server returns no body with a status of 204, we shall not decode it.
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await _decodeBodyBytes(response), 'UploadFile',) as UploadFile;
-    
+    if (response.body.isNotEmpty &&
+        response.statusCode != HttpStatus.noContent) {
+      return await apiClient.deserializeAsync(
+        await _decodeBodyBytes(response),
+        'UploadFile',
+      ) as UploadFile;
     }
     return null;
   }
 
-  /// 
+  ///
   ///
   /// Upload file information
   ///
@@ -174,10 +188,13 @@ class UploadFileApi {
   /// * [UploadIdPostRequestFileInfo] fileInfo:
   ///
   /// * [MultipartFile] files:
-  Future<Response> uploadIdPostWithHttpInfo(String id, { fileInfo, MultipartFile? files, }) async {
+  Future<Response> uploadIdPostWithHttpInfo(
+    String id, {
+    fileInfo,
+    MultipartFile? files,
+  }) async {
     // ignore: prefer_const_declarations
-    final path = r'/upload/{id}'
-      .replaceAll('{id}', id);
+    final path = r'/upload/{id}'.replaceAll('{id}', id);
 
     // ignore: prefer_final_locals
     Object? postBody;
@@ -214,7 +231,7 @@ class UploadFileApi {
     );
   }
 
-  /// 
+  ///
   ///
   /// Upload file information
   ///
@@ -226,25 +243,34 @@ class UploadFileApi {
   /// * [UploadIdPostRequestFileInfo] fileInfo:
   ///
   /// * [MultipartFile] files:
-  Future<List<UploadFile>?> uploadIdPost(String id, { fileInfo, MultipartFile? files, }) async {
-    final response = await uploadIdPostWithHttpInfo(id,  fileInfo: fileInfo, files: files, );
+  Future<List<UploadFile>?> uploadIdPost(
+    String id, {
+    fileInfo,
+    MultipartFile? files,
+  }) async {
+    final response = await uploadIdPostWithHttpInfo(
+      id,
+      fileInfo: fileInfo,
+      files: files,
+    );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
     // When a remote server returns no body with a status of 204, we shall not decode it.
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+    if (response.body.isNotEmpty &&
+        response.statusCode != HttpStatus.noContent) {
       final responseBody = await _decodeBodyBytes(response);
-      return (await apiClient.deserializeAsync(responseBody, 'List<UploadFile>') as List)
-        .cast<UploadFile>()
-        .toList(growable: false);
-
+      return (await apiClient.deserializeAsync(responseBody, 'List<UploadFile>')
+              as List)
+          .cast<UploadFile>()
+          .toList(growable: false);
     }
     return null;
   }
 
-  /// 
+  ///
   ///
   /// Upload files
   ///
@@ -265,7 +291,13 @@ class UploadFileApi {
   ///
   /// * [String] field:
   ///   The field of the entry which the file(s) will be precisely linked to.
-  Future<Response> uploadPostWithHttpInfo(List<MultipartFile> files, { String? path, String? refId, String? ref, String? field, }) async {
+  Future<Response> uploadPostWithHttpInfo(
+    List<MultipartFile> files, {
+    String? path,
+    String? refId,
+    String? ref,
+    String? field,
+  }) async {
     // ignore: prefer_const_declarations
     final path = r'/upload';
 
@@ -311,7 +343,7 @@ class UploadFileApi {
     );
   }
 
-  /// 
+  ///
   ///
   /// Upload files
   ///
@@ -330,20 +362,33 @@ class UploadFileApi {
   ///
   /// * [String] field:
   ///   The field of the entry which the file(s) will be precisely linked to.
-  Future<List<UploadFile>?> uploadPost(List<MultipartFile> files, { String? path, String? refId, String? ref, String? field, }) async {
-    final response = await uploadPostWithHttpInfo(files,  path: path, refId: refId, ref: ref, field: field, );
+  Future<List<UploadFile>?> uploadPost(
+    List<MultipartFile> files, {
+    String? path,
+    String? refId,
+    String? ref,
+    String? field,
+  }) async {
+    final response = await uploadPostWithHttpInfo(
+      files,
+      path: path,
+      refId: refId,
+      ref: ref,
+      field: field,
+    );
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await _decodeBodyBytes(response));
     }
     // When a remote server returns no body with a status of 204, we shall not decode it.
     // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
     // FormatException when trying to decode an empty string.
-    if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
+    if (response.body.isNotEmpty &&
+        response.statusCode != HttpStatus.noContent) {
       final responseBody = await _decodeBodyBytes(response);
-      return (await apiClient.deserializeAsync(responseBody, 'List<UploadFile>') as List)
-        .cast<UploadFile>()
-        .toList(growable: false);
-
+      return (await apiClient.deserializeAsync(responseBody, 'List<UploadFile>')
+              as List)
+          .cast<UploadFile>()
+          .toList(growable: false);
     }
     return null;
   }

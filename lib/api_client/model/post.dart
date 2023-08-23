@@ -17,8 +17,8 @@ class Post {
     this.content,
     this.kids,
     this.images,
-    this.like,
     this.comments,
+    this.appUsers,
     this.createdAt,
     this.updatedAt,
     this.publishedAt,
@@ -64,7 +64,7 @@ class Post {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  int? like;
+  PostComments? comments;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -72,7 +72,7 @@ class Post {
   /// source code must fall back to having a nullable type.
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
-  PostComments? comments;
+  AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesFamilies? appUsers;
 
   ///
   /// Please note: This property should have been non-nullable! Since the specification file
@@ -120,8 +120,8 @@ class Post {
      other.content == content &&
      other.kids == kids &&
      other.images == images &&
-     other.like == like &&
      other.comments == comments &&
+     other.appUsers == appUsers &&
      other.createdAt == createdAt &&
      other.updatedAt == updatedAt &&
      other.publishedAt == publishedAt &&
@@ -135,8 +135,8 @@ class Post {
     (content == null ? 0 : content!.hashCode) +
     (kids == null ? 0 : kids!.hashCode) +
     (images == null ? 0 : images!.hashCode) +
-    (like == null ? 0 : like!.hashCode) +
     (comments == null ? 0 : comments!.hashCode) +
+    (appUsers == null ? 0 : appUsers!.hashCode) +
     (createdAt == null ? 0 : createdAt!.hashCode) +
     (updatedAt == null ? 0 : updatedAt!.hashCode) +
     (publishedAt == null ? 0 : publishedAt!.hashCode) +
@@ -144,7 +144,7 @@ class Post {
     (updatedBy == null ? 0 : updatedBy!.hashCode);
 
   @override
-  String toString() => 'Post[user=$user, content=$content, kids=$kids, images=$images, like=$like, comments=$comments, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
+  String toString() => 'Post[user=$user, content=$content, kids=$kids, images=$images, comments=$comments, appUsers=$appUsers, createdAt=$createdAt, updatedAt=$updatedAt, publishedAt=$publishedAt, createdBy=$createdBy, updatedBy=$updatedBy]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -168,15 +168,15 @@ class Post {
     } else {
       json[r'images'] = null;
     }
-    if (this.like != null) {
-      json[r'like'] = this.like;
-    } else {
-      json[r'like'] = null;
-    }
     if (this.comments != null) {
       json[r'comments'] = this.comments;
     } else {
       json[r'comments'] = null;
+    }
+    if (this.appUsers != null) {
+      json[r'app_users'] = this.appUsers;
+    } else {
+      json[r'app_users'] = null;
     }
     if (this.createdAt != null) {
       json[r'createdAt'] = this.createdAt!.toUtc().toIso8601String();
@@ -229,8 +229,8 @@ class Post {
         content: mapValueOfType<String>(json, r'content'),
         kids: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesFamilies.fromJson(json[r'kids']),
         images: PostImages.fromJson(json[r'images']),
-        like: mapValueOfType<int>(json, r'like'),
         comments: PostComments.fromJson(json[r'comments']),
+        appUsers: AppUserFamiliesDataInnerAttributesKidsDataInnerAttributesFamilies.fromJson(json[r'app_users']),
         createdAt: mapDateTime(json, r'createdAt', r''),
         updatedAt: mapDateTime(json, r'updatedAt', r''),
         publishedAt: mapDateTime(json, r'publishedAt', r''),
