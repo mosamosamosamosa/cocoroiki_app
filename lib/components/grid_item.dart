@@ -29,7 +29,7 @@ class GridItem extends StatelessWidget {
                     foreground: Paint()
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 4.5
-                      ..color = kshadoeColor,
+                      ..color = Color(0xFF3E0E0E),
                   ),
                 ),
                 Text(

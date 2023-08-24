@@ -1,7 +1,7 @@
 import 'package:cocoroiki_app/data/database.dart';
 import 'package:cocoroiki_app/provider/provider.dart';
 import 'package:cocoroiki_app/screens/grandparent/grandchild_room.dart';
-import 'package:cocoroiki_app/screens/kid/menu_screen.dart';
+import 'package:cocoroiki_app/screens/kid/menu_modal.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,10 +36,11 @@ class CustomAppBar extends ConsumerWidget {
                       reading == 'back_button.svg') {
                     Navigator.pop(context);
                   } else {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MenuScreen()));
+                    showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (BuildContext context) =>
+                            MenuModal(timelineButton: false));
                   }
                 },
                 child: SvgPicture.asset('assets/svg/$reading'))),

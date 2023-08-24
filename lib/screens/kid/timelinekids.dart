@@ -5,7 +5,7 @@ import 'package:cocoroiki_app/components/post.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/data/database.dart';
 import 'package:cocoroiki_app/provider/provider.dart';
-import 'package:cocoroiki_app/screens/grandparent/timeline/menu_screen.dart';
+import 'package:cocoroiki_app/screens/grandparent/timeline/menu_g_modal.dart';
 // import 'package:cocoroiki_app/api_client/api.dart';
 
 import 'package:cocoroiki_app/screens/post_screen.dart';
@@ -186,10 +186,12 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
               )
             : GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MenuScreen()));
+                  showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) => MenuGModal(
+                            timelineButton: false,
+                          ));
                 },
                 child: Stack(
                   alignment: Alignment.bottomCenter,
