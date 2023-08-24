@@ -4,7 +4,8 @@ import 'package:cocoroiki_app/components/buttom_bar.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/provider/provider.dart';
 import 'package:cocoroiki_app/screens/grandparent/grandchild_room.dart';
-import 'package:cocoroiki_app/screens/kid/menu_screen.dart';
+import 'package:cocoroiki_app/screens/grandparent/timeline/menu_g_modal.dart';
+import 'package:cocoroiki_app/screens/kid/menu_modal.dart';
 import 'package:cocoroiki_app/screens/kid/quest/grand_room_screen.dart';
 import 'package:cocoroiki_app/screens/kid/quest/tree_modal.dart';
 import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
@@ -309,22 +310,72 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
                     left: 24,
                     child: GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MenuScreen()));
+                          showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  MenuModal(timelineButton: true));
                         },
-                        child: SvgPicture.asset(
-                            'assets/svg/quest_humberger.svg'))),
+                        child: userRoleState
+                            ? SvgPicture.asset('assets/svg/.svg')
+                            : SvgPicture.asset(
+                                'assets/svg/quest_humberger.svg'))),
                 Positioned(
                     top: 70,
                     right: 8,
-                    child: SvgPicture.asset('assets/svg/qrcode.svg')),
+                    child: userRoleState
+                        ? SvgPicture.asset('assets/svg/.svg')
+                        : SvgPicture.asset('assets/svg/qrcode.svg')),
 
                 // const Padding(
                 //     padding: EdgeInsets.only(bottom: 65),
                 //     child: BottomButton()),
               ],
-            )));
+            ),
+            floatingActionButton: userRoleState
+                ? GestureDetector(
+                    onTap: () {
+                      showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (BuildContext context) => MenuGModal(
+                                timelineButton: true,
+                              ));
+                    },
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        SvgPicture.asset('assets/svg/menu_button.svg'),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 14),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Text(
+                                'メニュー',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Zen-B',
+                                  foreground: Paint()
+                                    ..style = PaintingStyle.stroke
+                                    ..strokeWidth = 4.5
+                                    ..color = kshadoeColor,
+                                ),
+                              ),
+                              Text(
+                                'メニュー',
+                                style: TextStyle(
+                                  fontFamily: 'Zen-B',
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Container()));
   }
 }
