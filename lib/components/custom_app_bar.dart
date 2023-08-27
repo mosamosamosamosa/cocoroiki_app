@@ -33,7 +33,8 @@ class CustomAppBar extends ConsumerWidget {
             child: GestureDetector(
                 onTap: () {
                   if (reading == 'menu_batsu.svg' ||
-                      reading == 'back_button.svg') {
+                      reading == 'back_button.svg' ||
+                      reading == 'reading_batsu.svg') {
                     Navigator.pop(context);
                   } else {
                     showDialog(
@@ -44,6 +45,15 @@ class CustomAppBar extends ConsumerWidget {
                   }
                 },
                 child: SvgPicture.asset('assets/svg/$reading'))),
+        Positioned(
+            top: 86,
+            right: 20,
+            child: Visibility(
+              visible: title == 'アルバム作成' || title == 'サイズ選択',
+              child: GestureDetector(
+                  onTap: () {},
+                  child: Image.asset('assets/image/info_icon.png')),
+            )),
       ],
     );
   }
