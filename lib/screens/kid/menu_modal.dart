@@ -2,6 +2,7 @@ import 'package:cocoroiki_app/components/custom_app_bar.dart';
 import 'package:cocoroiki_app/components/grid_item.dart';
 import 'package:cocoroiki_app/components/grid_item_kids.dart';
 import 'package:cocoroiki_app/constants.dart';
+import 'package:cocoroiki_app/screens/kid/albam/albam1_screen.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
 import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
 import 'package:flutter/material.dart';
@@ -26,9 +27,15 @@ class _MenuModalState extends State<MenuModal> {
         text: 'クエスト履歴',
         icon: 'menu_quest_icon.svg',
       ),
-      GridItemKids(
-        text: 'プロフィール',
-        icon: 'menu_albam_icon.svg',
+      GestureDetector(
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const Albam1Screen()));
+        },
+        child: GridItemKids(
+          text: 'アルバム注文',
+          icon: 'menu_albam_icon.svg',
+        ),
       ),
       GridItemKids(
         text: '安否通知設定',
