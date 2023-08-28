@@ -4,6 +4,7 @@ import 'package:cocoroiki_app/components/grid_item_kids.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/screens/kid/albam/albam1_screen.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
+import 'package:cocoroiki_app/screens/kid/quest_manage/quest_manage_screen.dart';
 import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,9 +24,17 @@ class _MenuModalState extends State<MenuModal> {
     double deviceW = MediaQuery.of(context).size.width;
     double deviceH = MediaQuery.of(context).size.height;
     List<Widget> gridItem = [
-      GridItemKids(
-        text: 'クエスト履歴',
-        icon: 'menu_quest_icon.svg',
+      GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const QuestManageScreen()));
+        },
+        child: GridItemKids(
+          text: 'クエスト履歴',
+          icon: 'menu_quest_icon.svg',
+        ),
       ),
       GestureDetector(
         onTap: () {
