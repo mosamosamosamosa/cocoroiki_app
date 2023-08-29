@@ -39,7 +39,7 @@ class RewardBox extends StatelessWidget {
                       width: 46,
                       height: 46,
                       child: SvgPicture.asset('assets/svg/$icon')),
-                  SizedBox(height: 2),
+                  SizedBox(height: 4),
                   Text(
                     title,
                     style: TextStyle(

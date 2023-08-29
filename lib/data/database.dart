@@ -159,7 +159,7 @@ List<Reward3> reward3_list = [
   ),
   Reward3(
     title: 'ケーキ',
-    icon: 'gohoubi_okashi_icon.svg',
+    icon: 'gohoubi_sweet_icon.svg',
   ),
   Reward3(
     title: 'ミニカー',

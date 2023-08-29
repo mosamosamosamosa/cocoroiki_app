@@ -1,3 +1,4 @@
+import 'package:cocoroiki_app/api_client/api.dart';
 import 'package:cocoroiki_app/components/custom_app_bar.dart';
 import 'package:cocoroiki_app/components/grid_item.dart';
 import 'package:cocoroiki_app/components/reward_box.dart';
@@ -16,6 +17,51 @@ class RewardManageScreen extends StatefulWidget {
 }
 
 class _RewardManageScreenState extends State<RewardManageScreen> {
+  List<String> reward1List = [];
+  List<String> reward2List = [];
+  List<String> reward3List = [];
+
+  bool visi = false;
+
+  Future getReward() async {
+    final apiClient =
+        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+    final apiInstance = RewardApi(apiClient);
+    try {
+      final response = await apiInstance.getRewards();
+      print('帰ってきた値:$response');
+
+      if (response != null) {
+        for (int i = 0; i < response.data.length; i++) {
+          if (response.data[i].attributes?.point == 1) {
+            setState(() {
+              reward1List.add((response.data[i].attributes?.name)!);
+              print('レア度１  :  $reward1List');
+            });
+          } else if (response.data[i].attributes?.point == 2) {
+            setState(() {
+              reward2List.add((response.data[i].attributes?.name)!);
+              print('レア度２  :  $reward2List');
+            });
+          } else {
+            setState(() {
+              reward3List.add((response.data[i].attributes?.name)!);
+              print('レア度３  :  $reward3List');
+            });
+          }
+        }
+      }
+      //setState(() => {posts = response});
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    getReward();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,12 +72,21 @@ class _RewardManageScreenState extends State<RewardManageScreen> {
           children: [
             SizedBox(height: 140),
             Center(
-              child: Text(
-                '項目を長押しするとごほうびを削除できます',
-                style: TextStyle(
-                    fontFamily: 'Zen-B',
-                    color: Color(0xFFED5500),
-                    fontSize: 14),
+              child: GestureDetector(
+                onTap: () {
+                  if (visi) {
+                    setState(() {
+                      visi = false;
+                    });
+                  }
+                },
+                child: Text(
+                  visi ? '完了' : '項目を長押しするとごほうびを削除できます',
+                  style: TextStyle(
+                      fontFamily: 'Zen-B',
+                      color: Color(0xFFED5500),
+                      fontSize: 14),
+                ),
               ),
             ),
             Column(
@@ -73,8 +128,8 @@ class _RewardManageScreenState extends State<RewardManageScreen> {
                       crossAxisSpacing: 0,
                       crossAxisCount: 3,
                       children: List.generate(
-                        reward1_list.length + 1,
-                        ((index) => index == reward1_list.length
+                        reward1List.length + 1,
+                        ((index) => index == reward1List.length
                             ? GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -85,10 +140,35 @@ class _RewardManageScreenState extends State<RewardManageScreen> {
                                 },
                                 child:
                                     RewardBox(title: '', icon: '', add: true))
-                            : RewardBox(
-                                title: reward1_list[index].title,
-                                icon: reward1_list[index].icon,
-                                add: false,
+                            : GestureDetector(
+                                onLongPress: () {
+                                  setState(() {
+                                    visi = true;
+                                  });
+                                },
+                                child: Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    RewardBox(
+                                      title: reward1List[index],
+                                      icon: reward1_list[index].icon,
+                                      add: false,
+                                    ),
+                                    Visibility(
+                                      visible: visi,
+                                      child: Positioned(
+                                        top: -8,
+                                        right: 0,
+                                        child: SizedBox(
+                                          height: 32,
+                                          width: 32,
+                                          child: SvgPicture.asset(
+                                              'assets/svg/reward_batsu_icon.svg'),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               )),
                       ),
                     ))
@@ -134,8 +214,8 @@ class _RewardManageScreenState extends State<RewardManageScreen> {
                       crossAxisSpacing: 0,
                       crossAxisCount: 3,
                       children: List.generate(
-                        reward2_list.length + 1,
-                        ((index) => index == reward2_list.length
+                        reward2List.length + 1,
+                        ((index) => index == reward2List.length
                             ? GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -146,10 +226,35 @@ class _RewardManageScreenState extends State<RewardManageScreen> {
                                 },
                                 child:
                                     RewardBox(title: '', icon: '', add: true))
-                            : RewardBox(
-                                title: reward2_list[index].title,
-                                icon: reward2_list[index].icon,
-                                add: false,
+                            : GestureDetector(
+                                onLongPress: () {
+                                  setState(() {
+                                    visi = true;
+                                  });
+                                },
+                                child: Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    RewardBox(
+                                      title: reward2List[index],
+                                      icon: reward2_list[index].icon,
+                                      add: false,
+                                    ),
+                                    Visibility(
+                                      visible: visi,
+                                      child: Positioned(
+                                        top: -8,
+                                        right: 0,
+                                        child: SizedBox(
+                                          height: 32,
+                                          width: 32,
+                                          child: SvgPicture.asset(
+                                              'assets/svg/reward_batsu_icon.svg'),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               )),
                       ),
                     ))
@@ -196,8 +301,8 @@ class _RewardManageScreenState extends State<RewardManageScreen> {
                       crossAxisSpacing: 0,
                       crossAxisCount: 3,
                       children: List.generate(
-                        reward2_list.length + 1,
-                        ((index) => index == reward3_list.length
+                        reward2List.length + 1,
+                        ((index) => index == reward3List.length
                             ? GestureDetector(
                                 onTap: () {
                                   Navigator.push(
@@ -208,10 +313,35 @@ class _RewardManageScreenState extends State<RewardManageScreen> {
                                 },
                                 child:
                                     RewardBox(title: '', icon: '', add: true))
-                            : RewardBox(
-                                title: reward3_list[index].title,
-                                icon: reward3_list[index].icon,
-                                add: false,
+                            : GestureDetector(
+                                onLongPress: () {
+                                  setState(() {
+                                    visi = true;
+                                  });
+                                },
+                                child: Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    RewardBox(
+                                      title: reward3List[index],
+                                      icon: reward3_list[index].icon,
+                                      add: false,
+                                    ),
+                                    Visibility(
+                                      visible: visi,
+                                      child: Positioned(
+                                        top: -8,
+                                        right: 0,
+                                        child: SizedBox(
+                                          height: 32,
+                                          width: 32,
+                                          child: SvgPicture.asset(
+                                              'assets/svg/reward_batsu_icon.svg'),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               )),
                       ),
                     ))
