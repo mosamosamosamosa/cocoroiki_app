@@ -15,17 +15,20 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 
 class PostComp extends ConsumerStatefulWidget {
-  PostComp(
-      {super.key,
-      required this.postId,
-      required this.imageNum,
-      required this.kidName,
-      required this.content,
-      required this.postUser,
-      required this.parent,
-      required this.createdTime,
-      required this.like,
-      required this.postNumber});
+  PostComp({
+    super.key,
+    required this.postId,
+    required this.imageNum,
+    required this.kidName,
+    required this.content,
+    required this.postUser,
+    required this.parent,
+    required this.createdTime,
+    required this.like,
+    required this.likeme,
+    required this.postNumber,
+    this.commentId,
+  });
 
   final int imageNum;
   final String? kidName;
@@ -35,7 +38,9 @@ class PostComp extends ConsumerStatefulWidget {
   final DateTime? createdTime;
   final num? postId;
   final int? like;
+  final bool likeme;
   final int postNumber;
+  final num? commentId;
 
   @override
   _PostCompState createState() => _PostCompState();
@@ -49,12 +54,19 @@ class _PostCompState extends ConsumerState<PostComp> {
   bool grandlike = true;
   bool like = false;
   int? likeNum = 0;
+  bool commentme = false;
   //bool visible = false;
 
   @override
   void initState() {
     fetchSomeData().then((value) {
       setState(() {
+        print('きたああああああああああああああああああああ:${widget.likeme}');
+
+        if (widget.commentId != null) {
+          getCommentId(widget.commentId!);
+        }
+
         likeNum = widget.like;
         if (widget.imageNum == 1) {
           post = PostImageOne(myPost: false, imageList: imageList);
@@ -69,6 +81,28 @@ class _PostCompState extends ConsumerState<PostComp> {
     });
 
     super.initState();
+  }
+
+  Future getCommentId(num id) async {
+    final userIdState = ref.watch(userIdProvider);
+    print('コメントちるぞ＝');
+    final apiClient =
+        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+    final apiInstance = CommentApi(apiClient);
+    try {
+      final response = await apiInstance.getCommentsId(id);
+
+      if (response != null) {
+        if (response.data?.attributes?.user?.data?.id == userIdState) {
+          setState(() {
+            commentme = true;
+          });
+        }
+      }
+      //setState(() => {posts = response});
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future fetchSomeData() async {
@@ -115,7 +149,7 @@ class _PostCompState extends ConsumerState<PostComp> {
           AppUserRequestDataFamiliesInner(fields: {'id': 1}),
         ],
         appUsers: <AppUserRequestDataFamiliesInner>[
-          AppUserRequestDataFamiliesInner(fields: {'id': 3}),
+          AppUserRequestDataFamiliesInner(fields: {'id': id}),
         ],
         // comments: <AppUserRequestDataFamiliesInner>[
         //   AppUserRequestDataFamiliesInner(fields: {'id': null}),
@@ -143,6 +177,9 @@ class _PostCompState extends ConsumerState<PostComp> {
                       postId: widget.postId!,
                       imageNum: widget.imageNum,
                       imageList: imageList,
+                      like: (widget.like)!,
+                      likeme: widget.likeme,
+                      commentId: widget.commentId,
                     )));
       },
       child: Container(
@@ -235,18 +272,12 @@ class _PostCompState extends ConsumerState<PostComp> {
                             ? GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    putPostData(3).then(((value) {
-                                      likeNum = 1;
-                                    }));
-                                    print('ここ');
-                                    grandlike = true;
+                                    putPostData(3).then(((value) {}));
 
                                     ;
                                   });
                                 },
-                                child: grandlike ||
-                                        widget.postNumber == 1 ||
-                                        widget.postNumber == 0
+                                child: widget.likeme
                                     ? SvgPicture.asset(
                                         'assets/svg/pink_like_grand.svg')
                                     : SvgPicture.asset(
@@ -254,9 +285,11 @@ class _PostCompState extends ConsumerState<PostComp> {
                             : GestureDetector(
                                 onTap: () {
                                   putPostData(1);
-                                  setState(() {});
                                 },
-                                child: SvgPicture.asset('assets/svg/like.svg')),
+                                child: widget.likeme
+                                    ? SvgPicture.asset(
+                                        'assets/svg/pink_like.svg')
+                                    : SvgPicture.asset('assets/svg/like.svg')),
                         //SizedBox(width: 4),
                         postDetail?.data?.attributes?.appUsers?.data.length ==
                                     null ||
@@ -287,8 +320,15 @@ class _PostCompState extends ConsumerState<PostComp> {
                     Row(
                       children: [
                         userRoleState
-                            ? SvgPicture.asset('assets/svg/comment_grand.svg')
-                            : SvgPicture.asset('assets/svg/comment.svg'),
+                            ? commentme
+                                ? SvgPicture.asset(
+                                    'assets/svg/orange_comment_grand.svg')
+                                : SvgPicture.asset(
+                                    'assets/svg/comment_grand.svg')
+                            : commentme
+                                ? SvgPicture.asset(
+                                    'assets/svg/orange_comment.svg')
+                                : SvgPicture.asset('assets/svg/comment.svg'),
                         postDetail?.data?.attributes?.comments?.data.length == 0
                             ? Row(
                                 children: [

@@ -32,7 +32,10 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
 
   @override
   void initState() {
-    fetchSomeData();
+    fetchSomeData().then((value) {
+      //getCommentId();
+    });
+
     super.initState();
   }
 
@@ -43,6 +46,23 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
     super.initState();
   }
 
+  // Future getCommentId(int id) async {
+  //   print('コメントちるぞ＝');
+  //   final apiClient =
+  //       ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+  //   final apiInstance = CommentApi(apiClient);
+  //   try {
+  //     final response = await apiInstance.getCommentsId(id);
+
+  //     if (response != null) {
+  //       print('こめんとおおおおおおおおおおおおお$response');
+  //     }
+  //     //setState(() => {posts = response});
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
+
   Future fetchSomeData() async {
     final apiClient =
         ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
@@ -50,6 +70,10 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
     try {
       final response = await apiInstance.getPosts();
       print('帰ってきた値:$response');
+      print(
+          'これがいいねした人だー!!!!!${response?.data[2].attributes?.appUsers?.data[0].id}');
+      print(
+          'これがコメントしたひとだ＝＝＝！！！！！！！${response?.data[1].attributes?.comments?.data[0]}');
       if (response != null) {
         setState(() {
           posts = response;
@@ -66,9 +90,11 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
     //おばあちゃんかいなか
     //final controller = AutoScrollController();
     final userRoleState = ref.watch(userRoleProvider);
+    final userIdState = ref.watch(userIdProvider);
     DateFormat outputFormat = DateFormat('yyyy年MM月dd日 H:m');
     double deviceW = MediaQuery.of(context).size.width;
     double deviceH = MediaQuery.of(context).size.height;
+
     return Scaffold(
         backgroundColor: kBackgroundColor,
         body: Stack(
@@ -133,7 +159,13 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
                                             createdTime: posts.data[(posts.data.length - 1) - index].attributes!.createdAt,
                                             postId: posts.data[(posts.data.length - 1) - index].id,
                                             like: posts.data[(posts.data.length - 1) - index].attributes?.appUsers?.data.length,
-                                            postNumber: index),
+                                            likeme: posts.data[(posts.data.length - 1) - index].attributes?.appUsers?.data.length == 1
+                                                ? posts.data[(posts.data.length - 1) - index].attributes?.appUsers?.data[0].id == userIdState
+                                                : posts.data[(posts.data.length - 1) - index].attributes?.appUsers?.data.length == 2
+                                                    ? posts.data[(posts.data.length - 1) - index].attributes?.appUsers?.data[0].id == userIdState || posts.data[(posts.data.length - 1) - index].attributes?.appUsers?.data[1].id == userIdState
+                                                    : false,
+                                            postNumber: index,
+                                            commentId: posts.data[(posts.data.length - 1) - index].attributes?.comments?.data.length != 0 ? posts.data[(posts.data.length - 1) - index].attributes?.comments?.data[0].id : null),
                                         SizedBox(height: 21)
                                       ],
                                     );

@@ -22,11 +22,18 @@ class TimelineDetailScreen extends ConsumerStatefulWidget {
       {super.key,
       required this.postId,
       required this.imageNum,
-      required this.imageList});
+      required this.imageList,
+      required this.like,
+      required this.likeme,
+      required this.commentId});
 
   final num postId;
   final int imageNum;
   final List<String> imageList;
+  final int like;
+
+  final bool likeme;
+  final num? commentId;
 
   @override
   _TimelineDetailScreenState createState() => _TimelineDetailScreenState();
@@ -37,11 +44,16 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
   CommentListResponse comDetail = CommentListResponse();
   List<int> commentList = [];
   Widget post = Container();
+  bool commentme = false;
 
   @override
   void initState() {
+    print(widget.likeme);
     fetchSomeData().then(
       (value) {
+        if (widget.commentId != null) {
+          getCommentId(widget.commentId!);
+        }
         setState(() {
           if (widget.imageNum == 1) {
             post = PostImageOne(myPost: true, imageList: widget.imageList);
@@ -58,6 +70,28 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
     //fetchSomeDataComment(1);
     print(widget.imageList.length);
     super.initState();
+  }
+
+  Future getCommentId(num id) async {
+    final userIdState = ref.watch(userIdProvider);
+    print('コメントちるぞ＝');
+    final apiClient =
+        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+    final apiInstance = CommentApi(apiClient);
+    try {
+      final response = await apiInstance.getCommentsId(id);
+
+      if (response != null) {
+        if (response.data?.attributes?.user?.data?.id == userIdState) {
+          setState(() {
+            commentme = true;
+          });
+        }
+      }
+      //setState(() => {posts = response});
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future fetchSomeData() async {
@@ -192,9 +226,16 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
                             children: [
                               //FavoriteButton(),
                               userRoleState
-                                  ? SvgPicture.asset(
-                                      'assets/svg/pink_like_grand.svg')
-                                  : SvgPicture.asset('assets/svg/like.svg'),
+                                  ? widget.likeme
+                                      ? SvgPicture.asset(
+                                          'assets/svg/pink_like_grand.svg')
+                                      : SvgPicture.asset(
+                                          'assets/svg/like_grand.svg')
+                                  : widget.likeme
+                                      ? SvgPicture.asset(
+                                          'assets/svg/pink_like.svg')
+                                      : SvgPicture.asset('assets/svg/like.svg'),
+
                               postDetail.data?.attributes?.appUsers?.data
                                               .length ==
                                           null ||
@@ -228,9 +269,16 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
                           Row(
                             children: [
                               userRoleState
-                                  ? SvgPicture.asset(
-                                      'assets/svg/orange_comment_grand.svg')
-                                  : SvgPicture.asset('assets/svg/comment.svg'),
+                                  ? commentme
+                                      ? SvgPicture.asset(
+                                          'assets/svg/orange_comment_grand.svg')
+                                      : SvgPicture.asset(
+                                          'assets/svg/comment_grand.svg')
+                                  : commentme
+                                      ? SvgPicture.asset(
+                                          'assets/svg/orange_comment.svg')
+                                      : SvgPicture.asset(
+                                          'assets/svg/comment.svg'),
                               postDetail.data?.attributes?.comments?.data
                                           .length ==
                                       0
@@ -481,6 +529,13 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
                     '${postDetail.data?.attributes?.user?.data?.attributes?.name}の投稿',
                 reading: 'back_button.svg',
               ),
+              // VerticalDivider(
+              //   color: Color(0xFFAFAFAF),
+              //   thickness: 0.5,
+              //   width: 42,
+              //   indent: 40,
+              //   endIndent: 40,
+              // ),
             ],
           ));
     }
