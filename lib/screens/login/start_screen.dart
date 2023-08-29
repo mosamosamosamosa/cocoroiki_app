@@ -52,9 +52,9 @@ class StartScreen extends StatelessWidget {
                       repeatForever: true,
                       isRepeatingAnimation: true,
                       animatedTexts: [
-                        FadeAnimatedText('タップしてスタート',
+                        FadeAnimatedText('画面をタッチしてスタート',
                             textStyle: const TextStyle(
-                                fontSize: 18,
+                                fontSize: 20,
                                 fontFamily: 'Zen-B',
                                 color: kFontColor)),
                       ],
