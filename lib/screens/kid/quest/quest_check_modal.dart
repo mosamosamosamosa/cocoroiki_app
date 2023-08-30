@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:cocoroiki_app/api_client/api.dart';
 import 'package:cocoroiki_app/constants.dart';
+import 'package:cocoroiki_app/screens/kid/quest/grand_room_screen.dart';
 import 'package:cocoroiki_app/screens/kid/quest/grand_room_screen2.dart';
 import 'package:cocoroiki_app/screens/kid/quest/present_modal.dart';
 import 'package:cocoroiki_app/screens/post_screen.dart';
@@ -27,6 +28,7 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
   int presentFlag = 0;
   List<String> rewardList = ['１０円ゲット！', 'おやつゲット！'];
   String reward = '';
+  bool json = false;
   //bool timelineModal = false;
 
   @override
@@ -130,9 +132,9 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
               elevation: 0,
               backgroundColor: Colors.transparent,
               alignment: Alignment.center,
-              insetPadding: const EdgeInsets.only(
+              insetPadding: EdgeInsets.only(
                 bottom: 0,
-                top: 280,
+                top: json ? 0 : 240,
                 left: 0,
                 right: 0,
               ),
@@ -380,11 +382,13 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
                                         });
                                         setState(() {
                                           present = true;
+                                          json = true;
                                         });
                                         Future.delayed(
                                             Duration(milliseconds: 2600), () {
                                           setState(() {
                                             presentFlag = 1;
+                                            json = false;
                                           });
                                         });
                                       }
@@ -516,146 +520,149 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
                                       },
                                       child: Lottie.asset(
                                           'assets/json/present_open (2).json')))
-                              : Stack(
+                              : Column(
                                   children: [
                                     Stack(
                                       clipBehavior: Clip.none,
-                                      alignment: Alignment.center,
                                       children: [
-                                        SvgPicture.asset(
-                                            'assets/svg/present_result_board.svg'),
-                                        Positioned(
-                                            top: 214,
-                                            child: SvgPicture.asset(
-                                                'assets/svg/ribon.svg')),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                        Stack(
+                                          clipBehavior: Clip.none,
+                                          alignment: Alignment.center,
                                           children: [
-                                            Row(
+                                            SvgPicture.asset(
+                                                'assets/svg/present_result_board.svg'),
+                                            Positioned(
+                                                top: -24,
+                                                child: SvgPicture.asset(
+                                                    'assets/svg/ribon.svg')),
+                                            Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                Text('レア度',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontFamily: 'Zen-B',
-                                                        fontSize: 24)),
-                                                SizedBox(width: 5),
                                                 Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: [
-                                                    SvgPicture.asset(
-                                                        'assets/svg/star_yellow.svg'),
-                                                    SvgPicture.asset(
-                                                        'assets/svg/star_grey.svg'),
-                                                    SvgPicture.asset(
-                                                        'assets/svg/star_grey.svg'),
+                                                    Text('レア度',
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontFamily: 'Zen-B',
+                                                            fontSize: 24)),
+                                                    SizedBox(width: 5),
+                                                    Row(
+                                                      children: [
+                                                        SvgPicture.asset(
+                                                            'assets/svg/star_yellow.svg'),
+                                                        SvgPicture.asset(
+                                                            'assets/svg/star_grey.svg'),
+                                                        SvgPicture.asset(
+                                                            'assets/svg/star_grey.svg'),
+                                                      ],
+                                                    )
                                                   ],
-                                                )
+                                                ),
+                                                SizedBox(height: 14),
+                                                SvgPicture.asset(
+                                                    'assets/svg/kozukai.svg'),
+                                                SizedBox(height: 14),
+                                                Stack(
+                                                  alignment: Alignment.center,
+                                                  children: [
+                                                    Text(
+                                                      reward,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        height: 1.2,
+                                                        fontSize: 24,
+                                                        fontFamily: 'Zen-B',
+                                                        foreground: Paint()
+                                                          ..style =
+                                                              PaintingStyle
+                                                                  .stroke
+                                                          ..strokeWidth = 5
+                                                          ..color =
+                                                              Color(0xFF562B13),
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      reward,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          height: 1.2,
+                                                          fontFamily: 'Zen-B',
+                                                          fontSize: 24,
+                                                          color: Colors.white),
+                                                    ),
+                                                  ],
+                                                ),
                                               ],
                                             ),
-                                            SizedBox(height: 14),
+                                            Positioned(
+                                                top: 160,
+                                                left: 130,
+                                                child: SvgPicture.asset(
+                                                    'assets/svg/kirakira.svg')),
+                                            Positioned(
+                                                top: 120,
+                                                left: 110,
+                                                child: SvgPicture.asset(
+                                                    'assets/svg/kirakira.svg')),
+                                            Positioned(
+                                                top: 200,
+                                                right: 110,
+                                                child: SvgPicture.asset(
+                                                    'assets/svg/kirakira.svg')),
+                                            Positioned(
+                                                top: 100,
+                                                right: 120,
+                                                child: SvgPicture.asset(
+                                                    'assets/svg/kirakira.svg')),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          present = false;
+                                          //Navigator.pop(context);
+                                          Navigator.of(context).pop(true);
+                                          //timelineModal = true;
+                                        });
+                                      },
+                                      child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
                                             SvgPicture.asset(
-                                                'assets/svg/kozukai.svg'),
-                                            SizedBox(height: 14),
+                                                'assets/svg/next_push.svg'),
                                             Stack(
                                               alignment: Alignment.center,
                                               children: [
                                                 Text(
-                                                  reward,
-                                                  textAlign: TextAlign.center,
+                                                  'とじる',
                                                   style: TextStyle(
-                                                    height: 1.2,
-                                                    fontSize: 24,
+                                                    fontSize: 20,
                                                     fontFamily: 'Zen-B',
                                                     foreground: Paint()
                                                       ..style =
                                                           PaintingStyle.stroke
-                                                      ..strokeWidth = 5
-                                                      ..color =
-                                                          Color(0xFF562B13),
+                                                      ..strokeWidth = 4.5
+                                                      ..color = kshadoeColor,
                                                   ),
                                                 ),
                                                 Text(
-                                                  reward,
-                                                  textAlign: TextAlign.center,
+                                                  'とじる',
                                                   style: TextStyle(
-                                                      height: 1.2,
-                                                      fontFamily: 'Zen-B',
-                                                      fontSize: 24,
-                                                      color: Colors.white),
+                                                    fontFamily: 'Zen-B',
+                                                    fontSize: 20,
+                                                    color: Colors.white,
+                                                  ),
                                                 ),
                                               ],
-                                            ),
-                                          ],
-                                        ),
-                                        Positioned(
-                                            top: 340,
-                                            left: 130,
-                                            child: SvgPicture.asset(
-                                                'assets/svg/kirakira.svg')),
-                                        Positioned(
-                                            top: 420,
-                                            left: 110,
-                                            child: SvgPicture.asset(
-                                                'assets/svg/kirakira.svg')),
-                                        Positioned(
-                                            top: 410,
-                                            right: 110,
-                                            child: SvgPicture.asset(
-                                                'assets/svg/kirakira.svg')),
-                                        Positioned(
-                                            top: 350,
-                                            right: 120,
-                                            child: SvgPicture.asset(
-                                                'assets/svg/kirakira.svg')),
-                                      ],
-                                    ),
-                                    Positioned(
-                                      bottom: 160,
-                                      left: 0,
-                                      right: 0,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            present = false;
-                                            //Navigator.pop(context);
-                                            Navigator.of(context).pop(true);
-                                            //timelineModal = true;
-                                          });
-                                        },
-                                        child: Stack(
-                                            alignment: Alignment.center,
-                                            children: [
-                                              SvgPicture.asset(
-                                                  'assets/svg/next_push.svg'),
-                                              Stack(
-                                                alignment: Alignment.center,
-                                                children: [
-                                                  Text(
-                                                    'とじる',
-                                                    style: TextStyle(
-                                                      fontSize: 20,
-                                                      fontFamily: 'Zen-B',
-                                                      foreground: Paint()
-                                                        ..style =
-                                                            PaintingStyle.stroke
-                                                        ..strokeWidth = 4.5
-                                                        ..color = kshadoeColor,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'とじる',
-                                                    style: TextStyle(
-                                                      fontFamily: 'Zen-B',
-                                                      fontSize: 20,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-                                            ]),
-                                      ),
+                                            )
+                                          ]),
                                     )
                                   ],
                                 )),

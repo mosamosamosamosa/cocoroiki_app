@@ -64,119 +64,125 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
 
   //木の状態
   int? treeStatus = 0;
+  bool check = false;
 
   //画面遷移した時の処理
   @override
   void didChangeDependencies() {
     final questNotifier = ref.watch(questProvider.notifier);
     final questState = ref.watch(questProvider);
-    fetchSomeData();
-    setState(() {
-      close = widget.questClose;
-    });
-    questCount().then((value) {
+    if (!check) {
+      fetchSomeData();
       setState(() {
-        if (0 <= qCount && qCount <= 3) {
-          treeStatus = 1;
-        } else if (4 <= qCount && qCount <= 34) {
-          treeStatus = 2;
-        } else if (35 <= qCount && qCount <= 85) {
-          treeStatus = 3;
-        } else if (86 <= qCount && qCount <= 166) {
-          treeStatus = 4;
-        } else if (167 <= qCount && qCount <= 267) {
-          treeStatus = 5;
+        close = widget.questClose;
+      });
+      questCount().then((value) {
+        setState(() {
+          if (0 <= qCount && qCount <= 3) {
+            treeStatus = 1;
+          } else if (4 <= qCount && qCount <= 34) {
+            treeStatus = 2;
+          } else if (35 <= qCount && qCount <= 85) {
+            treeStatus = 3;
+          } else if (86 <= qCount && qCount <= 166) {
+            treeStatus = 4;
+          } else if (167 <= qCount && qCount <= 267) {
+            treeStatus = 5;
+          }
+        });
+
+        setState(() {
+          continueQuestFlag = false;
+        });
+
+        if (close) {
+          questSelect(widget.online).then(((value) {
+            var random = math.Random();
+            int i = random.nextInt(questList.length);
+            questNotifier.state = questList[i];
+            setState(() {
+              quest = questList[i];
+            });
+            Future(() {
+              print('①クエストモーダルきたああああああああああああ');
+              showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (BuildContext context) => QuestModal(
+                        start: true,
+                        quest: questList[i],
+                      )).then(((value) => setState(() {
+                    visiQuest = true;
+                    Timer.periodic(const Duration(seconds: 10), (_) {
+                      setState(() {
+                        chatComment++;
+                      });
+
+                      print("5秒毎に実行:chatComment$chatComment");
+                    });
+                    Timer.periodic(const Duration(seconds: 1200), (_) {
+                      setState(() {
+                        visiWatermark = true;
+                      });
+
+                      print("秒毎に実行:chatComment$chatComment");
+                    });
+                  })));
+            });
+          }));
+        } else {
+          setState(() {
+            visiQuest = true;
+            quest = questState;
+          });
+          Timer.periodic(const Duration(seconds: 10), (_) {
+            setState(() {
+              chatComment++;
+            });
+
+            print("5秒毎に実行:chatComment$chatComment");
+          });
+          // Timer.periodic(const Duration(seconds: 30), (_) {
+          //   setState(() {
+          //     visiWatermark = true;
+          //   });
+
+          //   print("秒毎に実行:chatComment$chatComment");
+          // });
         }
       });
 
-      setState(() {
-        continueQuestFlag = false;
-      });
-
-      if (close) {
-        questSelect(widget.online).then(((value) {
-          var random = math.Random();
-          int i = random.nextInt(questList.length);
-          questNotifier.state = questList[i];
-          setState(() {
-            quest = questList[i];
-          });
-          Future(() {
-            showDialog(
-                barrierDismissible: false,
-                context: context,
-                builder: (BuildContext context) => QuestModal(
-                      start: true,
-                      quest: questList[i],
-                    )).then(((value) => setState(() {
-                  visiQuest = true;
-                  Timer.periodic(const Duration(seconds: 10), (_) {
-                    setState(() {
-                      chatComment++;
-                    });
-
-                    print("5秒毎に実行:chatComment$chatComment");
-                  });
-                  Timer.periodic(const Duration(seconds: 1200), (_) {
-                    setState(() {
-                      visiWatermark = true;
-                    });
-
-                    print("秒毎に実行:chatComment$chatComment");
-                  });
-                })));
-          });
-        }));
-      } else {
-        setState(() {
-          visiQuest = true;
-          quest = questState;
-        });
-        Timer.periodic(const Duration(seconds: 10), (_) {
-          setState(() {
-            chatComment++;
-          });
-
-          print("5秒毎に実行:chatComment$chatComment");
-        });
-        // Timer.periodic(const Duration(seconds: 30), (_) {
-        //   setState(() {
-        //     visiWatermark = true;
-        //   });
-
-        //   print("秒毎に実行:chatComment$chatComment");
-        // });
-      }
-    });
-
-    _controller =
-        AnimationController(duration: Duration(seconds: 30), vsync: this);
-    //super.initState();
-    print(treeStatus);
+      _controller =
+          AnimationController(duration: Duration(seconds: 30), vsync: this);
+      //super.initState();
+      print(treeStatus);
+    }
   }
 
   //閉じるボタン押した時の処理
   Future questEnd() async {
+    print(treeStatus);
     final questNotifier = ref.watch(questProvider.notifier);
     final questState = ref.watch(questProvider);
-    fetchSomeData();
-    questCount().then((value) {
-      setState(() {
-        if (0 <= qCount && qCount <= 3) {
-          treeStatus = 1;
-        } else if (4 <= qCount && qCount <= 34) {
-          treeStatus = 2;
-        } else if (35 <= qCount && qCount <= 85) {
-          treeStatus = 3;
-        } else if (86 <= qCount && qCount <= 166) {
-          treeStatus = 4;
-        } else if (167 <= qCount && qCount <= 267) {
-          treeStatus = 5;
-        }
-      });
+    fetchSomeData().then((value) {
+      questCount().then((value) {
+        setState(() {
+          if (0 <= qCount && qCount <= 3) {
+            treeStatus = 1;
+          } else if (4 <= qCount && qCount <= 34) {
+            treeStatus = 2;
+          } else if (35 <= qCount && qCount <= 85) {
+            treeStatus = 3;
+          } else if (86 <= qCount && qCount <= 166) {
+            treeStatus = 4;
+          } else if (167 <= qCount && qCount <= 267) {
+            treeStatus = 5;
+          }
+        });
 
-      setState(() {
-        continueQuestFlag = true;
+        setState(() {
+          continueQuestFlag = true;
+        });
       });
     });
   }
@@ -202,6 +208,7 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
         quest = questList[i];
       });
       Future(() {
+        print('②クエストモーダルきたああああああああああああ');
         showDialog(
             barrierDismissible: false,
             context: context,
@@ -481,12 +488,16 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
                     child: GestureDetector(
                         onLongPress: () async {
                           setState(() async {
+                            check = true;
                             visiQuest = false;
-                            continueQuestFlag = await showDialog(
+                            showDialog(
                                 barrierDismissible: false,
                                 context: context,
                                 builder: (BuildContext context) =>
-                                    QuestCheckModa());
+                                    QuestCheckModa()).then((value) {
+                              continueQuestFlag = value;
+                              questEnd();
+                            });
                           });
                         },
                         child: Lottie.asset('assets/json/yousei.json'))),
