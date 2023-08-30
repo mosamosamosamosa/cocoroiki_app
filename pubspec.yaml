@@ -31,6 +31,10 @@ dependencies:
   scroll_to_index: ^3.0.1
   custom_refresh_indicator: ^2.2.1
   animated_text_kit: ^4.2.2
+  qr_flutter: ^4.1.0
+  share: ^2.0.4
+  qr_code_scanner: ^1.0.1
+
   
   #flutter_reaction_button: ^0.1.2
 
@@ -70,7 +74,6 @@ flutter:
     - assets/image/
     - assets/json/
     - assets/json/mokumoku.json
-   
     - assets/bgm/cocoroiki.mp3
   
 
