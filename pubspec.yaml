@@ -32,6 +32,7 @@ dependencies:
   custom_refresh_indicator: ^2.2.1
   animated_text_kit: ^4.2.2
   qr_code_scanner: ^1.0.1
+  qr_flutter: ^4.0.0
   
   #flutter_reaction_button: ^0.1.2
 

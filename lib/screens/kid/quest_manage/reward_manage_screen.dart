@@ -64,9 +64,15 @@ class _RewardManageScreenState extends State<RewardManageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double deviceW = MediaQuery.of(context).size.width;
+    double deviceH = MediaQuery.of(context).size.height;
     return Scaffold(
         body: Stack(children: [
-      Image.asset('assets/image/back_check.png'),
+      SizedBox(
+          width: deviceW,
+          child: FittedBox(
+              fit: BoxFit.contain,
+              child: Image.asset('assets/image/back_check.png'))),
       SingleChildScrollView(
         child: Column(
           children: [

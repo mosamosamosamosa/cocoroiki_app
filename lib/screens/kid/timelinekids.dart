@@ -101,7 +101,11 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
           children: [
             Stack(
               children: [
-                Image.asset('assets/image/back_check.png'),
+                SizedBox(
+                    width: deviceW,
+                    child: FittedBox(
+                        fit: BoxFit.contain,
+                        child: Image.asset('assets/image/back_check.png'))),
                 CustomRefreshIndicator(
                   onRefresh: () async {
                     _onReflesh();

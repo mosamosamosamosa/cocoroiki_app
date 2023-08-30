@@ -192,31 +192,36 @@ class _PostScreenState extends State<PostScreen> {
       backgroundColor: kBackgroundColor,
       body: Stack(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                height: deviceH,
-                width: 50,
-                decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
-              ),
-              Container(
-                height: deviceH,
-                width: 50,
-                decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
-              ),
-              Container(
-                height: deviceH,
-                width: 50,
-                decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
-              ),
-              Container(
-                height: deviceH,
-                width: 50,
-                decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
-              )
-            ],
-          ),
+          SizedBox(
+              width: deviceW,
+              child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Image.asset('assets/image/back_check.png'))),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   children: [
+          //     Container(
+          //       height: deviceH,
+          //       width: 50,
+          //       decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
+          //     ),
+          //     Container(
+          //       height: deviceH,
+          //       width: 50,
+          //       decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
+          //     ),
+          //     Container(
+          //       height: deviceH,
+          //       width: 50,
+          //       decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
+          //     ),
+          //     Container(
+          //       height: deviceH,
+          //       width: 50,
+          //       decoration: BoxDecoration(color: Color(0xFFE9F9D4)),
+          //     )
+          //   ],
+          // ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

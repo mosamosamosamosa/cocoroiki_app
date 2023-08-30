@@ -18,11 +18,22 @@ class QuestManageScreen extends StatefulWidget {
 class _QuestManageScreenState extends State<QuestManageScreen> {
   @override
   Widget build(BuildContext context) {
+    double deviceW = MediaQuery.of(context).size.width;
+    double deviceH = MediaQuery.of(context).size.height;
     return Scaffold(
         body: Stack(children: [
-          Image.asset('assets/image/back_check.png'),
+          Container(
+              width: deviceW,
+              child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Image.asset('assets/image/back_check.png'))),
           Positioned(
-              bottom: 0, child: Image.asset('assets/image/fukidashi.png')),
+              bottom: 0,
+              child: Container(
+                  width: deviceW,
+                  child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Image.asset('assets/image/fukidashi.png')))),
           CustomAppBar(title: 'クエスト', reading: 'reading_batsu.svg'),
           Column(
             children: [

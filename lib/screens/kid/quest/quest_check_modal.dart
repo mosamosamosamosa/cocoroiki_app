@@ -132,7 +132,7 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
               alignment: Alignment.center,
               insetPadding: const EdgeInsets.only(
                 bottom: 0,
-                top: 0,
+                top: 280,
                 left: 0,
                 right: 0,
               ),

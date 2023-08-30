@@ -2,6 +2,7 @@ import 'package:cocoroiki_app/components/custom_app_bar.dart';
 import 'package:cocoroiki_app/components/grid_item.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/screens/grandparent/qr/qr_scan_screen.dart';
+import 'package:cocoroiki_app/screens/kid/albam/albam1_screen.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
 import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
 import 'package:cocoroiki_app/screens/post_screen.dart';
@@ -23,9 +24,15 @@ class _MenuGModalState extends State<MenuGModal> {
     double deviceW = MediaQuery.of(context).size.width;
     double deviceH = MediaQuery.of(context).size.height;
     List<Widget> gridItem = [
-      GridItem(
-        text: 'アルバムを注文',
-        icon: 'menu_albam.svg',
+      GestureDetector(
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const Albam1Screen()));
+        },
+        child: GridItem(
+          text: 'アルバムを注文',
+          icon: 'menu_albam.svg',
+        ),
       ),
       GridItem(
         text: 'プロフィール',
@@ -288,6 +295,12 @@ class _MenuGModalState extends State<MenuGModal> {
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             const QRScanScreen()));
+                              } else {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const PostScreen()));
                               }
                             },
                             child: Stack(

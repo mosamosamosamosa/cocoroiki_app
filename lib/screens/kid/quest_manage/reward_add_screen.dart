@@ -196,12 +196,23 @@ class _RewardAddScreenState extends State<RewardAddScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double deviceW = MediaQuery.of(context).size.width;
+    double deviceH = MediaQuery.of(context).size.height;
     return Scaffold(
         body: Stack(children: [
-      Image.asset('assets/image/back_check.png'),
+      SizedBox(
+          width: deviceW,
+          child: FittedBox(
+              fit: BoxFit.contain,
+              child: Image.asset('assets/image/back_check.png'))),
       CustomAppBar(title: 'ご褒美を追加', reading: 'back_button.svg'),
       Positioned(
-          bottom: 0, child: Image.asset('assets/image/reward_add_back.png')),
+          bottom: 0,
+          child: SizedBox(
+              width: deviceW,
+              child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Image.asset('assets/image/reward_add_back.png')))),
       Padding(
         padding: const EdgeInsets.only(top: 150, left: 30, right: 30),
         child: Column(

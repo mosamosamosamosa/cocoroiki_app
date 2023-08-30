@@ -65,7 +65,11 @@ class _Albam3ScreenState extends State<Albam3Screen> {
     return Scaffold(
       body: Stack(
         children: [
-          Image.asset('assets/image/back_check.png'),
+          Container(
+              width: deviceW,
+              child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Image.asset('assets/image/back_check.png'))),
           Align(
             alignment: Alignment.center,
             child: Padding(
@@ -177,7 +181,11 @@ class _Albam3ScreenState extends State<Albam3Screen> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  SvgPicture.asset('assets/svg/bottom.svg'),
+                  SizedBox(
+                      width: deviceW,
+                      child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: SvgPicture.asset('assets/svg/bottom.svg'))),
                   Positioned(
                     right: 27,
                     top: 4,

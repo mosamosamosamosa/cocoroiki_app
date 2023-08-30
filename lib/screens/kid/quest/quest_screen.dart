@@ -12,6 +12,7 @@ import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class QuestScreen extends ConsumerStatefulWidget {
   const QuestScreen({super.key});
@@ -26,6 +27,14 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
   List<int> grandList = [];
   List<String> grandNameList = [];
   List<String> grandGenderList = [];
+  String qrData = "";
+  bool showQrCode = false; //QRcodeの表示の有無
+
+  bool showIcons = true; //QRcodd表示時の他のwidgetの表示
+
+  GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+
+  //QRViewController? controller;
 
   bool visible0 = false;
   bool visible1 = false;
@@ -130,7 +139,11 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
               children: [
                 Align(
                     alignment: Alignment.bottomCenter,
-                    child: Image.asset('assets/image/back.png')),
+                    child: Container(
+                        width: deviceW,
+                        child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Image.asset('assets/image/back.png')))),
                 Visibility(
                     visible: visible0,
                     child: Padding(
@@ -305,6 +318,233 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
                         ),
                       ],
                     )),
+
+                if (showIcons)
+                  Positioned(
+                      top: 80,
+                      left: 24,
+                      child: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (BuildContext context) => MenuModal(
+                                      timelineButton: true,
+                                    ));
+                            setState(() {});
+                          },
+                          child: userRoleState
+                              ? Container()
+                              : SvgPicture.asset(
+                                  'assets/svg/quest_humberger.svg'))),
+
+                if (showIcons)
+                  Positioned(
+                    top: 60,
+                    right: 8,
+                    child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            qrData = "1"; // 新しいQRコードのデータ
+
+                            showQrCode = true;
+
+                            showIcons = false;
+
+                            print('QRコード生成');
+                          });
+                        },
+                        child: userRoleState
+                            ? Container()
+                            : SvgPicture.asset('assets/svg/qrcode.svg')),
+                  ),
+
+                if (showQrCode)
+                  Container(
+                    color: Colors.black.withOpacity(0.5), // 背後の画面を暗くする色と透明度を調整
+                  ),
+
+                if (showQrCode)
+                  Container(
+                    margin: EdgeInsets.only(top: 0), // QRコードの表示位置を調整
+
+                    child: Center(
+                      child: Container(
+                        width: 310,
+                        height: 310,
+                        child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: QrImage(
+                            data: qrData,
+                            version: QrVersions.auto,
+                            size: 310.0,
+                          ),
+                        ),
+                        color: Colors.white,
+                        padding: EdgeInsets.all(20),
+                      ),
+                    ),
+                  ),
+
+                // QRコードを消すボタンとQRコードスキャナーアイコン
+
+                if (showQrCode)
+                  Container(
+                    alignment: Alignment.topCenter,
+                    padding: EdgeInsets.only(top: 70.0, right: 19, left: 30),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // QRコードを消すボタン
+
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              showQrCode = false;
+
+                              showIcons = true;
+
+                              print('QRコード削除');
+                            });
+                          },
+                          child: SvgPicture.asset('assets/svg/qr_close.svg'),
+                        ),
+
+                        // QRコードスキャナーアイコン
+
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              //QRコードをスキャンする処理
+
+                              print('QRスキャン');
+                            });
+                          },
+                          child: SvgPicture.asset('assets/svg/qr_scan.svg'),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                if (showQrCode)
+                  Positioned(
+                    bottom: 160,
+                    child: Container(
+                      alignment: Alignment.bottomCenter,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // QRコードを消すボタン
+
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    showQrCode = false;
+
+                                    showIcons = true;
+
+                                    print('共有する');
+                                  });
+                                },
+
+                                //child: Image.asset('assets/image/share.png')
+
+                                child: SvgPicture.asset(
+                                  'assets/svg/quest_button.svg',
+                                ),
+                              ),
+                              Column(
+                                children: [
+                                  SvgPicture.asset('assets/svg/share.svg'),
+                                  Stack(
+                                    children: [
+                                      Text(
+                                        'シェア',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: 'Zen-B',
+                                          foreground: Paint()
+                                            ..style = PaintingStyle.stroke
+                                            ..strokeWidth = 4
+                                            ..color = Color(0xFF835237),
+                                        ),
+                                      ),
+                                      Text(
+                                        'シェア',
+                                        style: TextStyle(
+                                          fontFamily: 'Zen-B',
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+
+                          SizedBox(width: 14),
+
+                          // QRコードスキャナーアイコン
+
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    showQrCode = false;
+
+                                    showIcons = true;
+
+                                    print('リンクコピー');
+                                  });
+                                },
+
+                                //child: Image.asset('assets/image/link_copy.png')
+
+                                child: SvgPicture.asset(
+                                    'assets/svg/quest_button.svg'),
+                              ),
+                              Column(
+                                children: [
+                                  Image.asset('assets/image/link_copy.png'),
+                                  Stack(
+                                    children: [
+                                      Text(
+                                        'リンクをコピー',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: 'Zen-B',
+                                          foreground: Paint()
+                                            ..style = PaintingStyle.stroke
+                                            ..strokeWidth = 4
+                                            ..color = Color(0xFF835237),
+                                        ),
+                                      ),
+                                      Text(
+                                        'リンクをコピー',
+                                        style: TextStyle(
+                                          fontFamily: 'Zen-B',
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                //like 1,
                 Positioned(
                     top: 87,
                     left: 24,
@@ -319,13 +559,13 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
                         child: userRoleState
                             ? SvgPicture.asset('assets/svg/.svg')
                             : SvgPicture.asset(
-                                'assets/svg/quest_humberger.svg'))),
+                                'assets/svg/quest_humberger...svg'))),
                 Positioned(
                     top: 70,
                     right: 8,
                     child: userRoleState
                         ? SvgPicture.asset('assets/svg/.svg')
-                        : SvgPicture.asset('assets/svg/qrcode.svg')),
+                        : SvgPicture.asset('assets/svg/.svg')),
 
                 // const Padding(
                 //     padding: EdgeInsets.only(bottom: 65),

@@ -29,7 +29,11 @@ class _Albam1ScreenState extends State<Albam1Screen> {
     return Scaffold(
       body: Stack(
         children: [
-          Image.asset('assets/image/back_check.png'),
+          Container(
+              width: deviceW,
+              child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Image.asset('assets/image/back_check.png'))),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

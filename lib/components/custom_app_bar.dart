@@ -14,11 +14,17 @@ class CustomAppBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    double deviceW = MediaQuery.of(context).size.width;
+    double deviceH = MediaQuery.of(context).size.height;
     final userRoleState = ref.watch(userRoleProvider);
     return Stack(
       alignment: Alignment.center,
       children: [
-        SvgPicture.asset('assets/svg/app_bar.svg'),
+        SizedBox(
+            width: deviceW,
+            child: FittedBox(
+                fit: BoxFit.contain,
+                child: SvgPicture.asset('assets/svg/app_bar.svg'))),
         Positioned(
           top: userRoleState ? 72 : 78,
           child: Text(title,
