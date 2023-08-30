@@ -228,6 +228,7 @@ class _PostScreenState extends State<PostScreen> {
                     padding: const EdgeInsets.only(right: 20, top: 52),
                     child: GestureDetector(
                       onTap: () {
+                        print('あああああああああああああああああああ');
                         postPost(1.toString(), controller.text, images).then(
                           (value) {
                             print('できた！');

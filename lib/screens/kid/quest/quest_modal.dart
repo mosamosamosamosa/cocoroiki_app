@@ -130,7 +130,10 @@ class _QuestModalState extends State<QuestModal> {
                 const Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
-                    padding: EdgeInsets.only(top: 214),
+                    //iphone13のとき
+                    //padding: EdgeInsets.only(top: 214),
+                    //Androidの時
+                    padding: EdgeInsets.only(top: 250),
                     child: Text(
                       'きょうのクエスト',
                       style: TextStyle(

@@ -12,6 +12,8 @@ class StartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double deviceW = MediaQuery.of(context).size.width;
+    double deviceH = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: () {
         // Navigator.push(
@@ -38,7 +40,12 @@ class StartScreen extends StatelessWidget {
                 children: [
                   Align(
                       alignment: Alignment.bottomCenter,
-                      child: Image.asset('assets/image/start_back.png')),
+                      child: Container(
+                        width: deviceW,
+                        child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Image.asset('assets/image/start_back.png')),
+                      )),
                   Positioned(
                       top: 280,
                       child: Image.asset('assets/image/cocoroiki.png')),

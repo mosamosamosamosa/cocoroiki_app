@@ -329,7 +329,11 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
             body: Stack(alignment: Alignment.bottomCenter, children: [
               Align(
                   alignment: Alignment.bottomCenter,
-                  child: Image.asset('assets/image/room_back.png')),
+                  child: Container(
+                      width: deviceW,
+                      child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: Image.asset('assets/image/room_back.png')))),
               Align(
                   alignment: Alignment.topCenter,
                   child: Column(

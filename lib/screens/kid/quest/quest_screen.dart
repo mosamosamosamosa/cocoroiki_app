@@ -4,7 +4,7 @@ import 'package:cocoroiki_app/components/buttom_bar.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/provider/provider.dart';
 import 'package:cocoroiki_app/screens/grandparent/grandchild_room.dart';
-import 'package:cocoroiki_app/screens/grandparent/timeline/menu_g_modal.dart';
+import 'package:cocoroiki_app/screens/grandparent/menu_g_modal.dart';
 import 'package:cocoroiki_app/screens/kid/menu_modal.dart';
 import 'package:cocoroiki_app/screens/kid/quest/grand_room_screen.dart';
 import 'package:cocoroiki_app/screens/kid/quest/tree_modal.dart';

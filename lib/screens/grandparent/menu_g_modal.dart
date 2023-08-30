@@ -1,6 +1,7 @@
 import 'package:cocoroiki_app/components/custom_app_bar.dart';
 import 'package:cocoroiki_app/components/grid_item.dart';
 import 'package:cocoroiki_app/constants.dart';
+import 'package:cocoroiki_app/screens/grandparent/qr/qr_scan_screen.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
 import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
 import 'package:cocoroiki_app/screens/post_screen.dart';
@@ -279,42 +280,57 @@ class _MenuGModalState extends State<MenuGModal> {
                                           const PostScreen()));
                             }
                           },
-                          child: Stack(
-                            alignment: Alignment.bottomCenter,
-                            children: [
-                              widget.timelineButton
-                                  ? SvgPicture.asset(
-                                      'assets/svg/menu_qr_button.svg')
-                                  : SvgPicture.asset(
-                                      'assets/svg/menu_post_button.svg'),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 14),
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Text(
-                                      widget.timelineButton ? 'QRコード' : '投稿する',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: 'Zen-B',
-                                        foreground: Paint()
-                                          ..style = PaintingStyle.stroke
-                                          ..strokeWidth = 4.5
-                                          ..color = Color(0xFF3E0E0E),
+                          child: GestureDetector(
+                            onTap: () {
+                              if (widget.timelineButton) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const QRScanScreen()));
+                              }
+                            },
+                            child: Stack(
+                              alignment: Alignment.bottomCenter,
+                              children: [
+                                widget.timelineButton
+                                    ? SvgPicture.asset(
+                                        'assets/svg/menu_qr_button.svg')
+                                    : SvgPicture.asset(
+                                        'assets/svg/menu_post_button.svg'),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 14),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Text(
+                                        widget.timelineButton
+                                            ? 'QRコード'
+                                            : '投稿する',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: 'Zen-B',
+                                          foreground: Paint()
+                                            ..style = PaintingStyle.stroke
+                                            ..strokeWidth = 4.5
+                                            ..color = Color(0xFF3E0E0E),
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      widget.timelineButton ? 'QRコード' : '投稿する',
-                                      style: TextStyle(
-                                        fontFamily: 'Zen-B',
-                                        fontSize: 16,
-                                        color: Colors.white,
+                                      Text(
+                                        widget.timelineButton
+                                            ? 'QRコード'
+                                            : '投稿する',
+                                        style: TextStyle(
+                                          fontFamily: 'Zen-B',
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           )),
                     ),
                   ],
