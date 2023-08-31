@@ -190,11 +190,14 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
                           onTap: () {
                             grandListNotifier.state = grandList;
                             if (userRoleState) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          GrandchildScreen()));
+                              questStatus(1).then((value) => {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                GrandchildScreen(
+                                                    questClose: !value)))
+                                  });
                             } else {
                               questStatus(1).then((value) => {
                                     if (!value)

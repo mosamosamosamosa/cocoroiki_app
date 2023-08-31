@@ -17,7 +17,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 
 class GrandchildScreen extends ConsumerStatefulWidget {
-  const GrandchildScreen({super.key});
+  const GrandchildScreen({super.key, required this.questClose});
+
+  final questClose;
 
   @override
   ConsumerState<GrandchildScreen> createState() => _GrandchildScreenState();
@@ -49,87 +51,200 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
   //木の状態
   int? treeStatus = 0;
 
+  List<String> questList = [];
+  String quest = '';
+
+  int qCount = 0;
+
+  bool check = false;
+  bool close = true;
+  bool continueQuestFlag = false;
+
+  // @override
+  // void initState() {
+  //   fetchSomeData();
+  //   if (questClose) {
+  //     Future(() {
+  //       showDialog(
+  //           barrierDismissible: false,
+  //           context: context,
+  //           builder: (BuildContext context) => QuestModal(
+  //                 start: true,
+  //                 quest: 'クエスト表示',
+  //               )).then(((value) => setState(() {
+  //             visiQuest = true;
+  //             Timer.periodic(const Duration(seconds: 30), (_) {
+  //               setState(() {
+  //                 chatComment++;
+  //               });
+
+  //               print("5秒毎に実行:chatComment$chatComment");
+  //             });
+  //             Timer.periodic(const Duration(seconds: 1200), (_) {
+  //               setState(() {
+  //                 visiWatermark = true;
+  //               });
+
+  //               print("秒毎に実行:chatComment$chatComment");
+  //             });
+  //           })));
+  //     });
+  //   } else {
+  //     setState(() {
+  //       visiQuest = true;
+  //     });
+  //     Timer.periodic(const Duration(seconds: 10), (_) {
+  //       setState(() {
+  //         chatComment++;
+  //       });
+
+  //       print("5秒毎に実行:chatComment$chatComment");
+  //     });
+  //     // Timer.periodic(const Duration(seconds: 30), (_) {
+  //     //   setState(() {
+  //     //     visiWatermark = true;
+  //     //   });
+
+  //     //   print("秒毎に実行:chatComment$chatComment");
+  //     // });
+  //   }
+  //   _controller =
+  //       AnimationController(duration: Duration(seconds: 30), vsync: this);
+  //   //super.initState();
+  //   print(treeStatus);
+  // }
+
+  // Future fetchSomeData() async {
+  //   print('ここきた');
+
+  //   // final grandListState = ref.watch(grandListProvider);
+  //   // final userIdState = ref.watch(userIdProvider);
+  //   final apiClient =
+  //       ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+  //   final apiInstance = TreeApi(apiClient);
+  //   try {
+  //     final response = await apiInstance.getTrees();
+  //     print('帰ってきた値:$response');
+  //     if (response != null) {
+  //       print('ここ');
+
+  //       for (int i = 0; i < response.data.length; i++) {
+  //         print('ここ');
+  //         if (response.data[i].attributes?.parent?.data[0].id == 1 &&
+  //             response.data[i].attributes?.grandparent?.data[0].id == 3) {
+  //           setState(() {
+  //             treeStatus = response.data[i].attributes?.state;
+  //           });
+  //           print(treeStatus);
+  //         }
+  //       }
+  //       setState(() {});
+  //     }
+  //     //setState(() => {posts = response});
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
+
+  // @override
+  // void dispose() {
+  //   print('消すとこ来たよ');
+  //   super.dispose();
+  //   _controller.dispose();
+  // }
+  //画面遷移した時の処理
   @override
   void initState() {
-    fetchSomeData();
-    if (questClose) {
-      Future(() {
-        showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (BuildContext context) => QuestModal(
-                  start: true,
-                  quest: 'クエスト表示',
-                )).then(((value) => setState(() {
-              visiQuest = true;
-              Timer.periodic(const Duration(seconds: 30), (_) {
-                setState(() {
-                  chatComment++;
-                });
+    //final questNotifier = ref.watch(questProvider.notifier);
+    //final questState = ref.watch(questProvider);
 
-                print("5秒毎に実行:chatComment$chatComment");
-              });
-              Timer.periodic(const Duration(seconds: 1200), (_) {
-                setState(() {
-                  visiWatermark = true;
-                });
-
-                print("秒毎に実行:chatComment$chatComment");
-              });
-            })));
-      });
-    } else {
+    //fetchSomeData();
+    setState(() {
+      close = widget.questClose;
+    });
+    questCount().then((value) {
       setState(() {
-        visiQuest = true;
+        if (0 <= qCount && qCount <= 3) {
+          treeStatus = 1;
+        } else if (4 <= qCount && qCount <= 34) {
+          treeStatus = 2;
+        } else if (35 <= qCount && qCount <= 85) {
+          treeStatus = 3;
+        } else if (86 <= qCount && qCount <= 166) {
+          treeStatus = 4;
+        } else if (167 <= qCount && qCount <= 267) {
+          treeStatus = 5;
+        }
       });
-      Timer.periodic(const Duration(seconds: 10), (_) {
+
+      setState(() {
+        continueQuestFlag = false;
+      });
+
+      if (close) {
+        print('クエスト閉じてるとき');
         setState(() {
-          chatComment++;
+          visiQuest = true;
+          Timer.periodic(const Duration(seconds: 10), (_) {
+            setState(() {
+              chatComment++;
+            });
+
+            print("5秒毎に実行:chatComment$chatComment");
+          });
+          Timer.periodic(const Duration(seconds: 1200), (_) {
+            setState(() {
+              visiWatermark = true;
+            });
+          });
         });
+      } else {
+        print('クエスト開いてるとき');
+        setState(() {
+          visiQuest = true;
+        });
+        Timer.periodic(const Duration(seconds: 10), (_) {
+          setState(() {
+            chatComment++;
+          });
 
-        print("5秒毎に実行:chatComment$chatComment");
-      });
-      // Timer.periodic(const Duration(seconds: 30), (_) {
-      //   setState(() {
-      //     visiWatermark = true;
-      //   });
+          print("5秒毎に実行:chatComment$chatComment");
+        });
+        // Timer.periodic(const Duration(seconds: 30), (_) {
+        //   setState(() {
+        //     visiWatermark = true;
+        //   });
 
-      //   print("秒毎に実行:chatComment$chatComment");
-      // });
-    }
+        //   print("秒毎に実行:chatComment$chatComment");
+        // });
+      }
+    });
+
     _controller =
         AnimationController(duration: Duration(seconds: 30), vsync: this);
     //super.initState();
     print(treeStatus);
   }
 
-  Future fetchSomeData() async {
-    print('ここきた');
-
-    // final grandListState = ref.watch(grandListProvider);
-    // final userIdState = ref.watch(userIdProvider);
+  Future questCount() async {
     final apiClient =
         ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = TreeApi(apiClient);
+    final apiInstance = QuestStatusApi(apiClient);
     try {
-      final response = await apiInstance.getTrees();
-      print('帰ってきた値:$response');
-      if (response != null) {
-        print('ここ');
-
-        for (int i = 0; i < response.data.length; i++) {
-          print('ここ');
-          if (response.data[i].attributes?.parent?.data[0].id == 1 &&
-              response.data[i].attributes?.grandparent?.data[0].id == 3) {
+      final response = await apiInstance.getQuestStatuses();
+      print(response);
+      //setState(() => queststatus = response);
+      for (int i = 0; i < (response?.data)!.length; i++) {
+        if (response?.data[i].attributes?.tree?.data?.id == 1) {
+          if (response?.data[i].attributes?.doing == false) {
             setState(() {
-              treeStatus = response.data[i].attributes?.state;
+              qCount++;
             });
-            print(treeStatus);
+
+            print('あああああああああああああああああああああああああ:$qCount');
           }
         }
-        setState(() {});
       }
-      //setState(() => {posts = response});
     } catch (e) {
       print(e);
     }
@@ -240,50 +355,149 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
                       alignment: Alignment.center,
                       children: [
                         SvgPicture.asset('assets/svg/chat.svg'),
-                        chatComment % 2 == 0
-                            ? Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'ゆうとくんが',
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontFamily: 'Zen-B',
-                                          fontSize: 20),
-                                    ),
-                                    Row(
+                        close
+                            ? chatComment % 2 == 0
+                                ? Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.end,
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'おさんぽにいこう',
-                                          style: TextStyle(
-                                              color: Color(0xFF509D01),
-                                              fontFamily: 'Zen-B',
-                                              fontSize: 22),
-                                        ),
-                                        Text(
-                                          'を達成！',
+                                          'ゆうとくんが',
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontFamily: 'Zen-B',
-                                              fontSize: 18),
+                                              fontSize: 20),
+                                        ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              'クエスト',
+                                              style: TextStyle(
+                                                  color: Color(0xFF509D01),
+                                                  fontFamily: 'Zen-B',
+                                                  fontSize: 22),
+                                            ),
+                                            Text(
+                                              'を達成しました！',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontFamily: 'Zen-B',
+                                                  fontSize: 18),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                : Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'お水',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontFamily: 'Zen-B',
+                                                  color: Color(0xFF38D3F4)),
+                                            ),
+                                            Text(
+                                              'をあげて',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontFamily: 'Zen-B'),
+                                            ),
+                                          ],
+                                        ),
+                                        Text(
+                                          '一緒に木を育てましょう！',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontFamily: 'Zen-B'),
                                         ),
                                       ],
-                                    )
-                                  ],
-                                ),
-                              )
-                            : Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Text(
-                                  'お水をあげて\n応援してあげてください！',
-                                  style: TextStyle(
-                                      fontSize: 20, fontFamily: 'Zen-B'),
-                                ),
-                              )
+                                    ),
+                                  )
+                            : chatComment % 2 == 0
+                                ? Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'ゆうとくんが',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontFamily: 'Zen-B',
+                                              fontSize: 20),
+                                        ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              'クエスト実行中',
+                                              style: TextStyle(
+                                                  color: Color(0xFF509D01),
+                                                  fontFamily: 'Zen-B',
+                                                  fontSize: 22),
+                                            ),
+                                            Text(
+                                              ' です！',
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontFamily: 'Zen-B',
+                                                  fontSize: 18),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                : Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'お水',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontFamily: 'Zen-B',
+                                                  color: Color(0xFF38D3F4)),
+                                            ),
+                                            Text(
+                                              'をあげて',
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontFamily: 'Zen-B'),
+                                            ),
+                                          ],
+                                        ),
+                                        Text(
+                                          '応援してあげてください！',
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontFamily: 'Zen-B'),
+                                        ),
+                                      ],
+                                    ),
+                                  )
                       ],
                     ),
                   )),
@@ -449,7 +663,7 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Timelinekids()));
+                              builder: (context) => const QuestScreen()));
                     },
                     child: Stack(
                       alignment: Alignment.bottomCenter,
@@ -459,14 +673,14 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
                             ? Column(
                                 children: [
                                   SvgPicture.asset(
-                                      'assets/svg/timeline_icon.svg'),
+                                      'assets/svg/hiroba_icon.svg'),
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 6),
                                     child: Stack(
                                       alignment: Alignment.center,
                                       children: [
                                         Text(
-                                          'タイムライン\nへもどる',
+                                          'ひろば\nへもどる',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             height: 1.2,
@@ -479,7 +693,7 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
                                           ),
                                         ),
                                         Text(
-                                          'タイムライン\nへもどる',
+                                          'ひろば\nへもどる',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             height: 1.2,
