@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class PostComp extends ConsumerStatefulWidget {
   PostComp({
@@ -55,6 +57,7 @@ class _PostCompState extends ConsumerState<PostComp> {
   bool like = false;
   int? likeNum = 0;
   bool commentme = false;
+  bool newLike = false;
   //bool visible = false;
 
   @override
@@ -62,6 +65,7 @@ class _PostCompState extends ConsumerState<PostComp> {
     fetchSomeData().then((value) {
       setState(() {
         print('きたああああああああああああああああああああ:${widget.likeme}');
+        newLike = widget.likeme;
 
         if (widget.commentId != null) {
           getCommentId(widget.commentId!);
@@ -131,32 +135,49 @@ class _PostCompState extends ConsumerState<PostComp> {
   }
 
   Future putPostData(num id) async {
-    print('こっちきてると');
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = PostApi(apiClient);
-    //final apiImgInstance = UploadFileApi(apiClient);
+    // print('こっちきてると');
+    // final apiClient =
+    //     ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
+    // final apiInstance = PostApi(apiClient);
+    // //final apiImgInstance = UploadFileApi(apiClient);
+    // try {
+    //   //apiImgInstance.uploadPost(images);
+    //   final newPost = PostRequest(
+    //       data: PostRequestData(
+    //     user: AppUserRequestDataFamiliesInner(fields: {'id': 1}),
+    //     content: widget.content,
+    //     kids: <AppUserRequestDataFamiliesInner>[
+    //       AppUserRequestDataFamiliesInner(fields: {'id': 2}),
+    //     ],
+    //     images: <AppUserRequestDataFamiliesInner>[
+    //       AppUserRequestDataFamiliesInner(fields: {'id': 1}),
+    //     ],
+    //     appUsers: <AppUserRequestDataFamiliesInner>[
+    //       AppUserRequestDataFamiliesInner(fields: {'id': id}),
+    //     ],
+    //     // comments: <AppUserRequestDataFamiliesInner>[
+    //     //   AppUserRequestDataFamiliesInner(fields: {'id': null}),
+    //     // ]
+    //   ));
+    //   final response = await apiInstance.putPostsId(widget.postId!, newPost);
+    //   print(response);
     try {
-      //apiImgInstance.uploadPost(images);
-      final newPost = PostRequest(
-          data: PostRequestData(
-        user: AppUserRequestDataFamiliesInner(fields: {'id': 1}),
-        content: widget.content,
-        kids: <AppUserRequestDataFamiliesInner>[
-          AppUserRequestDataFamiliesInner(fields: {'id': 2}),
-        ],
-        images: <AppUserRequestDataFamiliesInner>[
-          AppUserRequestDataFamiliesInner(fields: {'id': 1}),
-        ],
-        appUsers: <AppUserRequestDataFamiliesInner>[
-          AppUserRequestDataFamiliesInner(fields: {'id': id}),
-        ],
-        // comments: <AppUserRequestDataFamiliesInner>[
-        //   AppUserRequestDataFamiliesInner(fields: {'id': null}),
-        // ]
-      ));
-      final response = await apiInstance.putPostsId(widget.postId!, newPost);
-      print(response);
+      final url =
+          'https://cocoroiki-bff.yumekiti.net/api/posts/${widget.postId!}';
+      final headers = {'Content-Type': 'application/json'};
+      final response = await http.get(Uri.parse(url));
+      final appUsers =
+          jsonDecode(response.body)['data']['attributes']['app_users']['data'];
+      appUsers.add(id);
+      final data = {
+        'data': {'app_users': appUsers}
+      };
+
+      await http.put(
+        Uri.parse(url),
+        headers: headers,
+        body: jsonEncode(data),
+      );
     } catch (e) {
       print('こっちに来ちゃってる');
       print(e);
@@ -273,11 +294,11 @@ class _PostCompState extends ConsumerState<PostComp> {
                                 onTap: () {
                                   setState(() {
                                     putPostData(3).then(((value) {}));
-
+                                    newLike = true;
                                     ;
                                   });
                                 },
-                                child: widget.likeme
+                                child: widget.likeme || newLike
                                     ? SvgPicture.asset(
                                         'assets/svg/pink_like_grand.svg')
                                     : SvgPicture.asset(
@@ -285,8 +306,11 @@ class _PostCompState extends ConsumerState<PostComp> {
                             : GestureDetector(
                                 onTap: () {
                                   putPostData(1);
+                                  setState(() {
+                                    newLike = true;
+                                  });
                                 },
-                                child: widget.likeme
+                                child: widget.likeme || newLike
                                     ? SvgPicture.asset(
                                         'assets/svg/pink_like.svg')
                                     : SvgPicture.asset('assets/svg/like.svg')),
