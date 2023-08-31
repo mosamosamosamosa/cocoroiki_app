@@ -87,7 +87,8 @@ class _Albam3ScreenState extends State<Albam3Screen> {
                       return index == 0
                           ? Column(
                               children: [
-                                SvgPicture.asset('assets/svg/photbook.svg'),
+                                Image.asset('assets/image/photobook_title.png'),
+                                //SvgPicture.asset('assets/svg/photbook.svg'),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -104,7 +105,8 @@ class _Albam3ScreenState extends State<Albam3Screen> {
                             )
                           : Column(
                               children: [
-                                SvgPicture.asset('assets/svg/photbook.svg'),
+                                //SvgPicture.asset('assets/svg/photbook.svg'),
+                                Image.asset('assets/image/photobook.png'),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,

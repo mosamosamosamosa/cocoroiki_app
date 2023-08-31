@@ -122,12 +122,12 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
       TextPosition(offset: controller.text.length),
     );
 
-    return WillPopScope(
-        onWillPop: () {
-          Navigator.pop(context, true);
-          return Future.value(false);
-        },
-        child: SingleChildScrollView(
+    return SingleChildScrollView(
+      child: WillPopScope(
+          onWillPop: () {
+            Navigator.pop(context, true);
+            return Future.value(false);
+          },
           child: Dialog(
               elevation: 0,
               backgroundColor: Colors.transparent,
@@ -665,7 +665,7 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
                                           ]),
                                     )
                                   ],
-                                )),
-        ));
+                                ))),
+    );
   }
 }

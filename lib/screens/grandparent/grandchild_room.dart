@@ -226,6 +226,13 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
     print(treeStatus);
   }
 
+  void _onReflesh() {
+    // Navigator.push(
+    //     context, MaterialPageRoute(builder: (context) => Timelinekids()));
+
+    super.initState();
+  }
+
   Future questCount() async {
     final apiClient =
         ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
@@ -288,39 +295,44 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
                   alignment: Alignment.topCenter,
                   child: Column(
                     children: [
-                      Stack(
-                        children: [
-                          SvgPicture.asset('assets/svg/board.svg'),
-                          Positioned(
-                            top: 80,
-                            left: 0,
-                            right: 0,
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Text(
-                                  'ゆうとくん',
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    fontFamily: 'Zen-B',
-                                    foreground: Paint()
-                                      ..style = PaintingStyle.stroke
-                                      ..strokeWidth = 5
-                                      ..color = Color(0xFF835237),
+                      GestureDetector(
+                        onTap: () {
+                          initState();
+                        },
+                        child: Stack(
+                          children: [
+                            SvgPicture.asset('assets/svg/board.svg'),
+                            Positioned(
+                              top: 80,
+                              left: 0,
+                              right: 0,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Text(
+                                    'ゆうとくん',
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontFamily: 'Zen-B',
+                                      foreground: Paint()
+                                        ..style = PaintingStyle.stroke
+                                        ..strokeWidth = 5
+                                        ..color = Color(0xFF835237),
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  'ゆうとくん',
-                                  style: TextStyle(
-                                    fontFamily: 'Zen-B',
-                                    fontSize: 24,
-                                    color: Colors.white,
+                                  Text(
+                                    'ゆうとくん',
+                                    style: TextStyle(
+                                      fontFamily: 'Zen-B',
+                                      fontSize: 24,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       SizedBox(height: 6),
                       Image.asset('assets/image/mater2_0.png')
