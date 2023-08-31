@@ -11,6 +11,7 @@ import 'package:cocoroiki_app/screens/kid/quest/present_modal.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_check_modal.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_modal.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
+import 'package:cocoroiki_app/screens/kid/quest/tree_grow_modal.dart';
 import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -72,7 +73,7 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
     final questNotifier = ref.watch(questProvider.notifier);
     final questState = ref.watch(questProvider);
     if (!check) {
-      fetchSomeData();
+      //fetchSomeData();
       setState(() {
         close = widget.questClose;
       });
@@ -164,25 +165,30 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
     print(treeStatus);
     final questNotifier = ref.watch(questProvider.notifier);
     final questState = ref.watch(questProvider);
-    fetchSomeData().then((value) {
-      questCount().then((value) {
-        setState(() {
-          if (0 <= qCount && qCount <= 3) {
-            treeStatus = 1;
-          } else if (4 <= qCount && qCount <= 34) {
-            treeStatus = 2;
-          } else if (35 <= qCount && qCount <= 85) {
-            treeStatus = 3;
-          } else if (86 <= qCount && qCount <= 166) {
-            treeStatus = 4;
-          } else if (167 <= qCount && qCount <= 267) {
-            treeStatus = 5;
-          }
-        });
 
-        setState(() {
-          continueQuestFlag = true;
-        });
+    questCount().then((value) {
+      if (qCount == 4) {
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) => TreeGrowModal());
+      }
+      setState(() {
+        if (0 <= qCount && qCount <= 3) {
+          treeStatus = 1;
+        } else if (4 <= qCount && qCount <= 34) {
+          treeStatus = 2;
+        } else if (35 <= qCount && qCount <= 85) {
+          treeStatus = 3;
+        } else if (86 <= qCount && qCount <= 166) {
+          treeStatus = 4;
+        } else if (167 <= qCount && qCount <= 267) {
+          treeStatus = 5;
+        }
+      });
+
+      setState(() {
+        continueQuestFlag = true;
       });
     });
   }
@@ -267,6 +273,10 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
     try {
       final response = await apiInstance.getQuestStatuses();
       print(response);
+      setState(() {
+        qCount = 0;
+      });
+
       //setState(() => queststatus = response);
       for (int i = 0; i < (response?.data)!.length; i++) {
         if (response?.data[i].attributes?.tree?.data?.id == 1) {
@@ -600,7 +610,8 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
                 ),
               ),
               Visibility(
-                visible: visiWatermark,
+                //visible: visiWatermark,
+                visible: false,
                 child: Positioned(
                     bottom: treeStatus == 1
                         ? 310

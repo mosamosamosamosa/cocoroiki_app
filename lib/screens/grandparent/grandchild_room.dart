@@ -241,6 +241,9 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
       final response = await apiInstance.getQuestStatuses();
       print(response);
       //setState(() => queststatus = response);
+      setState(() {
+        qCount = 0;
+      });
       for (int i = 0; i < (response?.data)!.length; i++) {
         if (response?.data[i].attributes?.tree?.data?.id == 1) {
           if (response?.data[i].attributes?.doing == false) {
@@ -335,7 +338,24 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
                         ),
                       ),
                       SizedBox(height: 6),
-                      Image.asset('assets/image/mater2_0.png')
+                      qCount == 0
+                          ? Image.asset('assets/image/mater1_0.png')
+                          : qCount == 1
+                              ? Image.asset('assets/image/mater1_1.png')
+                              : qCount == 2
+                                  ? Image.asset('assets/image/mater1_2.png')
+                                  : qCount == 3
+                                      ? Image.asset('assets/image/mater1_3.png')
+                                      : 4 <= qCount && qCount <= 13
+                                          ? Image.asset(
+                                              'assets/image/mater1_0.png')
+                                          : 14 <= qCount && qCount <= 23
+                                              ? Image.asset(
+                                                  'assets/image/mater1_1.png')
+                                              : 24 <= qCount && qCount <= 34
+                                                  ? Image.asset(
+                                                      'assets/image/mater1_2.png')
+                                                  : Container()
                     ],
                   )),
               Positioned(
@@ -346,7 +366,7 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
                       onHorizontalDragUpdate: (details) => print('ふりふり'),
                       onHorizontalDragEnd: (details) => print('ふりふり終了'),
                       child: treeStatus == 1
-                          ? SvgPicture.asset('assets/svg/green2.svg')
+                          ? SvgPicture.asset('assets/svg/green.svg')
                           : treeStatus == 2
                               ? SvgPicture.asset('assets/svg/green2.svg')
                               : treeStatus == 3
@@ -632,7 +652,7 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
               Visibility(
                 visible: visiWatermark,
                 child: Positioned(
-                    bottom: 380,
+                    bottom: treeStatus == 1 ? 320 : 380,
                     right: 0,
                     left: 0,
                     child: GestureDetector(
