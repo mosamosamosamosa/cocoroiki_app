@@ -287,6 +287,30 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
                     ],
                   ),
                 ),
+                Visibility(
+                  visible: userRoleState,
+                  child: Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 410,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          SvgPicture.asset('assets/svg/intro_buble.svg'),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Text(
+                              'ゆうとくんの木',
+                              style: TextStyle(
+                                fontFamily: 'Zen-Bl',
+                                fontSize: 20,
+                                color: Color(0xFF511C0B),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
+                ),
                 Positioned(
                     top: 0,
                     child: Stack(
