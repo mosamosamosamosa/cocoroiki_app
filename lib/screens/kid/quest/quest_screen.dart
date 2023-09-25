@@ -296,14 +296,14 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          SvgPicture.asset('assets/svg/intro_buble.svg'),
+                          SvgPicture.asset('assets/svg/yuuyo_buble.svg'),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 8.0),
                             child: Text(
                               'ゆうとくんの木',
                               style: TextStyle(
                                 fontFamily: 'Zen-Bl',
-                                fontSize: 20,
+                                fontSize: 19,
                                 color: Color(0xFF511C0B),
                               ),
                             ),
