@@ -3,7 +3,9 @@ import 'dart:convert';
 
 class API {
   static const String BASE_URL = "https://cocoroiki-bff.yumekiti.net";
-  static const headers = <String, String>{ 'Content-Type': 'application/json;charset=UTF-8' };
+  static const headers = <String, String>{
+    'Content-Type': 'application/json;charset=UTF-8'
+  };
 
   //   get func
   get(String url) async {
@@ -13,13 +15,15 @@ class API {
 
   //   post func
   post(String url, dynamic data) async {
-    var response = await http.post(Uri.parse(BASE_URL + url), headers: headers, body: jsonEncode(data));
+    var response = await http.post(Uri.parse(BASE_URL + url),
+        headers: headers, body: jsonEncode(data));
     return response;
   }
 
   //   put func
   put(String url, dynamic data) async {
-    var response = await http.put(Uri.parse(BASE_URL + url), headers: headers, body: jsonEncode(data));
+    var response = await http.put(Uri.parse(BASE_URL + url),
+        headers: headers, body: jsonEncode(data));
     return response;
   }
 
@@ -29,7 +33,6 @@ class API {
     return response;
   }
 }
-
 
 // API().get("/api/posts").then((response) {
 //   print(response.body);

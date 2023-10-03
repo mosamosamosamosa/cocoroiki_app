@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:cocoroiki_app/api_client/api.dart';
+//import 'package:cocoroiki_app/api_client/api.dart';
+import 'package:cocoroiki_app/api/api.dart';
 import 'package:cocoroiki_app/components/bottom_button.dart';
 import 'package:cocoroiki_app/components/buttom_bar.dart';
 
@@ -44,7 +45,7 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
   bool visiWater = false;
   bool visiKirakira = false;
   late final AnimationController _controller;
-  TreeListResponse posts = TreeListResponse();
+  //TreeListResponse posts = TreeListResponse();
 
   var _isChanged = false;
 
@@ -234,11 +235,8 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
   }
 
   Future questCount() async {
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = QuestStatusApi(apiClient);
     try {
-      final response = await apiInstance.getQuestStatuses();
+      final response = API().get('/api/quest-statuses');
       print(response);
       //setState(() => queststatus = response);
       setState(() {

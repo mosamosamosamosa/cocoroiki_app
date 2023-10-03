@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:cocoroiki_app/api/clients.dart';
-import 'package:cocoroiki_app/api_client/api.dart';
+//import 'package:cocoroiki_app/api/clients.dart';
+import 'package:cocoroiki_app/api/api.dart';
+//import 'package:cocoroiki_app/api_client/api.dart';
 import 'package:cocoroiki_app/components/custom_app_bar.dart';
 
 import 'package:cocoroiki_app/constants.dart';
@@ -34,7 +35,7 @@ class _PostScreenState extends State<PostScreen> {
   //MultipartFile? postimage;
   File? image;
   ImagePicker picker = ImagePicker();
-  PostResponse post = PostResponse();
+  //PostResponse post = PostResponse();
 
   final controller = TextEditingController();
 
@@ -130,39 +131,6 @@ class _PostScreenState extends State<PostScreen> {
   //   }
   // }
 
-  postImageAndPost(String userId, String content, List images) async {
-    final formData =
-        http.MultipartRequest('POST', Uri.parse('${Clients().url}posts'))
-          ..fields['data'] = jsonEncode({
-            'user': userId,
-            'content': content,
-          })
-          ..files.addAll(
-            images
-                .map(
-                  (file) => http.MultipartFile.fromBytes(
-                    'files.images',
-                    file.readAsBytesSync(),
-                    filename: file.path.split('/').last,
-                  ),
-                )
-                .toList(),
-          );
-
-    try {
-      final response = await http.Response.fromStream(await formData.send());
-
-      if (response.statusCode == 200) {
-        print('Upload successful');
-        // Do something with the response if needed
-      } else {
-        print('Upload failed');
-      }
-    } catch (error) {
-      print('Error uploading data: $error');
-    }
-  }
-
   // postPost(String userId, String content, List images) async {
   //   final url = Uri.parse('${Clients().url}posts');
   //   final headers = <String, String>{
@@ -181,29 +149,6 @@ class _PostScreenState extends State<PostScreen> {
   //     // Handle error here
   //   }
   // }
-  postPost(String userId, String content, imageIds) async {
-    final url = Uri.parse('${Clients().url}posts');
-    final headers = <String, String>{
-      'Content-Type': 'application/json',
-    };
-
-    final body = jsonEncode({
-      'data': {
-        'user': userId,
-        'content': content,
-        'images': imageIds,
-        'kids': 2
-      }
-    });
-
-    try {
-      final response = await http.post(url, headers: headers, body: body);
-      // Handle the response here
-      print(response.body);
-    } catch (error) {
-      // Handle error here
-    }
-  }
 
   uploadImages(List<File> imageFiles) async {
     try {
@@ -234,7 +179,16 @@ class _PostScreenState extends State<PostScreen> {
           // アップロードされた画像のIDを表示
           print('Uploaded Image IDs: $uploadedImageIds');
 
-          await postPost(1.toString(), controller.text, uploadedImageIds);
+          await API().post(
+              '/api/posts',
+              jsonEncode({
+                'data': {
+                  'user': 1.toString(),
+                  'content': controller.text,
+                  'images': uploadedImageIds,
+                  'kids': 2
+                }
+              }));
 
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const Timelinekids()));

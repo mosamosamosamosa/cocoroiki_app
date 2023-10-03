@@ -1,4 +1,5 @@
-import 'package:cocoroiki_app/api_client/api.dart';
+//import 'package:cocoroiki_app/api_client/api.dart';
+import 'package:cocoroiki_app/api/api.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/provider/provider.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
@@ -15,7 +16,8 @@ class LoginScreen extends ConsumerStatefulWidget {
   ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-AppUserListResponse userList = AppUserListResponse();
+//AppUserListResponse userList = AppUserListResponse();
+dynamic userList;
 String email = '';
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
@@ -23,11 +25,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     bool flag = false;
     // 状態管理している値を操作できるようにする
     final userRoleNotifier = ref.watch(userRoleProvider.notifier);
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = AppUserApi(apiClient);
+
     try {
-      final response = await apiInstance.getAppUsers();
+      final response = API().get('/api/app-users');
       print(response);
       setState(() {
         userList = response!;

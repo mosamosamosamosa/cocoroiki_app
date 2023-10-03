@@ -1,4 +1,5 @@
-import 'package:cocoroiki_app/api_client/api.dart';
+//import 'package:cocoroiki_app/api_client/api.dart';
+import 'package:cocoroiki_app/api/api.dart';
 import 'package:cocoroiki_app/components/custom_app_bar.dart';
 
 import 'package:cocoroiki_app/components/post.dart';
@@ -25,7 +26,8 @@ class Timelinekids extends ConsumerStatefulWidget {
 }
 
 class _TimelinekidsState extends ConsumerState<Timelinekids> {
-  PostListResponse posts = PostListResponse();
+  //PostListResponse posts = PostListResponse();
+  dynamic posts;
   List<String> imageUrl = [];
 
   //var posts;
@@ -64,11 +66,8 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
   // }
 
   Future fetchSomeData() async {
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = PostApi(apiClient);
     try {
-      final response = await apiInstance.getPosts();
+      final response = API().get('/api/posts');
       print('帰ってきた値:$response');
       print(
           'これがいいねした人だー!!!!!${response?.data[2].attributes?.appUsers?.data[0].id}');

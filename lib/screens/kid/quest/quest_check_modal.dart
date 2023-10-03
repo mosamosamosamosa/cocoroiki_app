@@ -1,5 +1,6 @@
 import 'dart:math' as math;
-import 'package:cocoroiki_app/api_client/api.dart';
+//import 'package:cocoroiki_app/api_client/api.dart';
+import 'package:cocoroiki_app/api/api.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/screens/kid/quest/grand_room_screen.dart';
 import 'package:cocoroiki_app/screens/kid/quest/grand_room_screen2.dart';
@@ -44,11 +45,8 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
   }
 
   Future questStatus(int tree_id) async {
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = QuestStatusApi(apiClient);
     try {
-      final response = await apiInstance.getQuestStatuses();
+      final response = API().get('/api/quest-statuses');
       print(response);
       //setState(() => queststatus = response);
       for (int i = 0; i < (response?.data)!.length; i++) {
@@ -65,21 +63,17 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
   }
 
   Future putQuestStatusData(status_id) async {
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = QuestStatusApi(apiClient);
-
     try {
-      final newQuestStatus = QuestStatusRequest(
-          data: QuestStatusRequestData(
-        completedAt: DateTime.now(),
-        doing: false,
-        grandparent: AppUserRequestDataFamiliesInner(fields: {'id': 3}),
-        tree: 1,
-      ));
-      final response =
-          await apiInstance.putQuestStatusesId(status_id, newQuestStatus);
-      print(response);
+      final response = API().post("/api/quest-statuses", {
+        "data": {
+          "completedAt": DateTime.now(),
+          "doing": false,
+          "grandparent": 3,
+          "tree": 1,
+        }
+      }).then((response) {
+        print(response);
+      });
     } catch (e) {
       print(e);
     }
@@ -87,11 +81,9 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
 
   Future rewardSelect() async {
     print('リワードきた！');
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = RewardApi(apiClient);
+
     try {
-      final response = await apiInstance.getRewards();
+      final response = API().get('/api/rewards');
 
       print(response);
       //setState(() => queststatus = response);

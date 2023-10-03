@@ -1,4 +1,5 @@
-import 'package:cocoroiki_app/api_client/api.dart';
+//import 'package:cocoroiki_app/api_client/api.dart';
+import 'package:cocoroiki_app/api/api.dart';
 import 'package:cocoroiki_app/components/favorite_button.dart';
 import 'package:cocoroiki_app/components/post_image_four.dart';
 import 'package:cocoroiki_app/components/post_image_one.dart';
@@ -49,8 +50,9 @@ class PostComp extends ConsumerStatefulWidget {
 }
 
 class _PostCompState extends ConsumerState<PostComp> {
-  PostResponse? postDetail = PostResponse();
-  PostResponse putreturnPost = PostResponse();
+  //PostResponse? postDetail = PostResponse();
+  dynamic postDetail;
+  //PostResponse putreturnPost = PostResponse();
   List<String> imageList = [];
   Widget post = Container();
   bool grandlike = true;
@@ -64,7 +66,7 @@ class _PostCompState extends ConsumerState<PostComp> {
   void initState() {
     fetchSomeData().then((value) {
       setState(() {
-        print('きたああああああああああああああああああああ:${widget.likeme}');
+        // print('きたああああああああああああああああああああ:${widget.likeme}');
         newLike = widget.likeme;
 
         if (widget.commentId != null) {
@@ -90,11 +92,9 @@ class _PostCompState extends ConsumerState<PostComp> {
   Future getCommentId(num id) async {
     final userIdState = ref.watch(userIdProvider);
     print('コメントちるぞ＝');
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = CommentApi(apiClient);
+
     try {
-      final response = await apiInstance.getCommentsId(id);
+      final response = API().get('comments/$id');
 
       if (response != null) {
         if (response.data?.attributes?.user?.data?.id == userIdState) {
@@ -110,11 +110,8 @@ class _PostCompState extends ConsumerState<PostComp> {
   }
 
   Future fetchSomeData() async {
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = PostApi(apiClient);
     try {
-      final response = await apiInstance.getPostsId(widget.postId!);
+      final response = API().get('posts/${(widget.postId)!}');
 
       print('帰ってきた値:$response');
       if (response != null) {

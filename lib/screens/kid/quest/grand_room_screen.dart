@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:math' as math;
 
-import 'package:cocoroiki_app/api_client/api.dart';
+//import 'package:cocoroiki_app/api_client/api.dart';
+import 'package:cocoroiki_app/api/api.dart';
 import 'package:cocoroiki_app/components/bottom_button.dart';
 import 'package:cocoroiki_app/components/buttom_bar.dart';
 
@@ -54,7 +55,7 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
   bool visiKirakira = false;
   bool close = true;
   late final AnimationController _controller;
-  TreeListResponse posts = TreeListResponse();
+  //TreeListResponse posts = TreeListResponse();
 
   List<String> questList = [];
   String quest = '';
@@ -238,11 +239,9 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
 
     // final grandListState = ref.watch(grandListProvider);
     // final userIdState = ref.watch(userIdProvider);
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = TreeApi(apiClient);
+
     try {
-      final response = await apiInstance.getTrees();
+      final response = API().get('/api/rewards');
       print('帰ってきた値:$response');
       if (response != null) {
         print('ここ');
@@ -267,11 +266,8 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
   }
 
   Future questCount() async {
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = QuestStatusApi(apiClient);
     try {
-      final response = await apiInstance.getQuestStatuses();
+      final response = API().get('/api/quest-statuses');
       print(response);
       setState(() {
         qCount = 0;
@@ -296,11 +292,8 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
 
   //クエスト選択
   Future questSelect(bool online) async {
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = QuestApi(apiClient);
     try {
-      final response = await apiInstance.getQuests();
+      final response = API().get('/api/quests');
       print(response);
       //setState(() => queststatus = response);
       for (int i = 0; i < (response?.data)!.length; i++) {
