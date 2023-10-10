@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 //import 'package:cocoroiki_app/api_client/api.dart';
-import 'package:cocoroiki_app/api/api.dart';
+import 'package:cocoroiki_app/utils/api.dart';
 import 'package:cocoroiki_app/components/bottom_button.dart';
 import 'package:cocoroiki_app/components/buttom_bar.dart';
 

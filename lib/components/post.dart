@@ -1,4 +1,4 @@
-import 'package:cocoroiki_app/api/api.dart';
+import 'package:cocoroiki_app/utils/api.dart';
 import 'package:cocoroiki_app/components/favorite_button.dart';
 import 'package:cocoroiki_app/components/post_image_four.dart';
 import 'package:cocoroiki_app/components/post_image_one.dart';
@@ -122,25 +122,28 @@ class _PostCompState extends ConsumerState<PostComp> {
 
   Future fetchSomeData() async {
     try {
-      await API().get('/api/posts/${(widget.postId)!}').then((value) {
+      await API().get('/api/posts/${widget.postId!}').then((value) {
         print("fetchSomeDataきたよ");
 
         setState(() {
           comment = jsonDecode(value.body);
           print(comment);
         });
-        //print('帰ってきた値:$response');
+        // print('帰ってきた値:$response');
         if (comment != null) {
           print('commentnullじゃない');
           setState(() {
             postDetail = comment;
             for (int i = 0; i < widget.imageNum; i++) {
-              imageList.add(
-                  'https://cocoroiki-bff.yumekiti.net${(comment['data']['attributes']['images']['data'][i]['attributes']['url']).toString()}');
+              if (comment['data']['attributes']['images']['data'][i]
+              ['attributes']['url'] !=
+                  null)
+                imageList.add(
+                    'https://cocoroiki-bff.yumekiti.net${(comment['data']['attributes']['images']['data'][i]['attributes']['url']).toString()}');
             }
           });
         }
-        //setState(() => {posts = response});
+        // setState(() => {posts = response});
 
         print('imageList : $imageList');
       });
@@ -321,24 +324,20 @@ class _PostCompState extends ConsumerState<PostComp> {
                                     : SvgPicture.asset(
                                         'assets/svg/like_grand.svg'))
                             : GestureDetector(
-                                onTap: () {
-                                  putPostData(1);
-                                  setState(() {
-                                    newLike = true;
-                                  });
-                                },
-                                child: widget.likeme || newLike
-                                    ? SvgPicture.asset(
-                                        'assets/svg/pink_like.svg')
-                                    : SvgPicture.asset('assets/svg/like.svg')),
-                        //SizedBox(width: 4),
-                        postDetail["data"]["attributes"]["app_users"]["data"]
-                                        .length ==
-                                    null ||
-                                postDetail["data"]["attributes"]["app_users"]
-                                            ["data"]
-                                        .length ==
-                                    0
+                            onTap: () {
+                              putPostData(1);
+                              setState(() {
+                                newLike = true;
+                              });
+                            },
+                            child: widget.likeme || newLike
+                                ? SvgPicture.asset('assets/svg/pink_like.svg')
+                                : SvgPicture.asset('assets/svg/like.svg')
+                        ),
+// 修正: postDetailがnullでないかチェックする
+                        postDetail != null && postDetail["data"] != null && postDetail["data"]["attributes"] != null &&
+                            postDetail["data"]["attributes"]["app_users"]["data"] != null &&
+                            (postDetail["data"]["attributes"]["app_users"]["data"] as List).length == 0
                             ? Row(
                                 children: [
                                   SizedBox(width: 10),
@@ -364,38 +363,43 @@ class _PostCompState extends ConsumerState<PostComp> {
                       children: [
                         userRoleState
                             ? commentme
-                                ? SvgPicture.asset(
-                                    'assets/svg/orange_comment_grand.svg')
-                                : SvgPicture.asset(
-                                    'assets/svg/comment_grand.svg')
+                            ? SvgPicture.asset('assets/svg/orange_comment_grand.svg')
+                            : SvgPicture.asset('assets/svg/comment_grand.svg')
                             : commentme
-                                ? SvgPicture.asset(
-                                    'assets/svg/orange_comment.svg')
-                                : SvgPicture.asset('assets/svg/comment.svg'),
-                        postDetail["data"]["attributes"]["comments"]["data"]
-                                    .length ==
-                                0
+                            ? SvgPicture.asset('assets/svg/orange_comment.svg')
+                            : SvgPicture.asset('assets/svg/comment.svg'),
+                        (postDetail != null &&
+                            postDetail["data"] != null &&
+                            postDetail["data"]["attributes"] != null &&
+                            postDetail["data"]["attributes"]["comments"]["data"] != null &&
+                            postDetail["data"]["attributes"]["comments"]["data"].length == 0
                             ? Row(
-                                children: [
-                                  SizedBox(width: 10),
-                                  Container(),
-                                ],
-                              )
+                          children: [
+                            SizedBox(width: 10),
+                            Container(),
+                          ],
+                        )
                             : Row(
-                                children: [
-                                  SizedBox(width: 4),
-                                  Text(
-                                    (postDetail["data"]["attributes"]
-                                                ["comments"]["data"]
-                                            .length)
-                                        .toString(),
-                                    style: TextStyle(
-                                        color: Color(0xFF949494),
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: userRoleState ? 20 : 16),
-                                  ),
-                                ],
-                              )
+                          children: [
+                            SizedBox(width: 4),
+                            Text(
+                              (postDetail != null &&
+                                  postDetail["data"] != null &&
+                                  postDetail["data"]["attributes"] != null &&
+                                  postDetail["data"]["attributes"]["comments"] != null &&
+                                  postDetail["data"]["attributes"]["comments"]["data"] != null)
+                                  ? postDetail["data"]["attributes"]["comments"]["data"].length.toString()
+                                  : '0',
+                              style: TextStyle(
+                                color: Color(0xFF949494),
+                                fontWeight: FontWeight.bold,
+                                fontSize: userRoleState ? 20 : 16,
+                              ),
+                            ),
+                          ],
+
+                        ))
+
                       ],
                     )
                   ],

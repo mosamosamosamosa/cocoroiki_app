@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:cocoroiki_app/api/clients.dart';
+import 'package:cocoroiki_app/utils/clients.dart';
 
 class Posts {
   var headers = {'Content-Type': 'application/json'};
