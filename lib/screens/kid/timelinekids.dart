@@ -136,8 +136,6 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
             Stack(
               children: [
                 SizedBox(
-                    height: deviceH,
-                    width: deviceW,
                     child: FittedBox(
                         fit: BoxFit.contain,
                         child: Image.asset('assets/image/back_check.png'))),
@@ -148,7 +146,8 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
                           ? SizedBox(
                               height: deviceH,
                               width: deviceW,
-                              child: ListView.builder(
+                            child: posts['data'] != null
+                        ?    ListView.builder(
                                   padding: EdgeInsets.only(
                                       top: deviceH * 0.18,
                                       bottom: deviceH * 0.12),
@@ -190,12 +189,13 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
                                                     ? posts['data'][(posts['data'].length - 1)! - index]['attributes']['app_users']['data'][0]['id'] == userIdState || posts['data'][(posts['data'].length - 1) - index]['attributes']['app_users']['data'][1]['id'] == userIdState
                                                     : false,
                                             postNumber: index,
-                                            commentId: posts['data'][(posts['data'].length - 1)! - index]['attributes']['comments']['data'].length != 0 ? posts['data'][(posts['data'].length - 1) - index]['attributes']['comments']['data'][0]['id'] : null),
-
+                                            commentId: posts['data'][(posts['data'].length - 1)! - index]['attributes']['comments']['data'].length != 0 ? posts['data'][(posts['data'].length - 1) - index]['attributes']['comments']['data'][0]['id'] : null
+                                        ),
                                         SizedBox(height: 21),
                                       ],
                                     );
-                                  })))
+                                  }))
+                              : Container())
                           : Container(),
                     ],
                   ),

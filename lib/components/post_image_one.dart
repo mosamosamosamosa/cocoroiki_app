@@ -39,8 +39,12 @@ class _PostImageOneState extends State<PostImageOne> {
               Radius.circular(10),
             ),
           ),
-          child: FittedBox(
-              fit: BoxFit.cover, child: Image.network(widget.imageList[0])),
+          child: widget.imageList.isNotEmpty
+              ? FittedBox(
+            fit: BoxFit.cover,
+            child: Image.network(widget.imageList[0]),
+          )
+              : Text("No images available"),
         ),
       ),
     );
