@@ -1,4 +1,3 @@
-//import 'package:cocoroiki_app/api_client/api.dart';
 import 'package:cocoroiki_app/api/api.dart';
 import 'package:cocoroiki_app/components/favorite_button.dart';
 import 'package:cocoroiki_app/components/post_image_four.dart';
@@ -51,7 +50,7 @@ class PostComp extends ConsumerStatefulWidget {
 
 class _PostCompState extends ConsumerState<PostComp> {
   //PostResponse? postDetail = PostResponse();
-  dynamic postDetail;
+  Map<String, dynamic> postDetail = {};
   //PostResponse putreturnPost = PostResponse();
   List<String> imageList = [];
   Widget post = Container();
@@ -60,13 +59,18 @@ class _PostCompState extends ConsumerState<PostComp> {
   int? likeNum = 0;
   bool commentme = false;
   bool newLike = false;
+  Map<String, dynamic> comment = {};
+  Map<String, dynamic> responseComment = {};
   //bool visible = false;
 
   @override
   void initState() {
+    print('post.dart呼び出し完了');
     fetchSomeData().then((value) {
+      print("検証");
+      print(value);
       setState(() {
-        // print('きたああああああああああああああああああああ:${widget.likeme}');
+        print('きたああああああああああああああああああああ:${widget.likeme}');
         newLike = widget.likeme;
 
         if (widget.commentId != null) {
@@ -94,10 +98,17 @@ class _PostCompState extends ConsumerState<PostComp> {
     print('コメントちるぞ＝');
 
     try {
-      final response = API().get('comments/$id');
+      await API().get('/api/comments/$id').then((value) {
+        if (mounted) {
+          setState(() {
+            responseComment = json.decode(value.body);
+          });
+        }
+      });
 
-      if (response != null) {
-        if (response.data?.attributes?.user?.data?.id == userIdState) {
+      if (responseComment != null) {
+        if (responseComment['data']['attributes']['user']['data']['id'] ==
+            userIdState) {
           setState(() {
             commentme = true;
           });
@@ -111,21 +122,28 @@ class _PostCompState extends ConsumerState<PostComp> {
 
   Future fetchSomeData() async {
     try {
-      final response = API().get('posts/${(widget.postId)!}');
+      await API().get('/api/posts/${(widget.postId)!}').then((value) {
+        print("fetchSomeDataきたよ");
 
-      print('帰ってきた値:$response');
-      if (response != null) {
         setState(() {
-          postDetail = response;
-          for (int i = 0; i < widget.imageNum; i++) {
-            imageList.add(
-                'https://cocoroiki-bff.yumekiti.net${(response.data?.attributes?.images?.data[i].attributes?.url).toString()}');
-          }
+          comment = jsonDecode(value.body);
+          print(comment);
         });
-      }
-      //setState(() => {posts = response});
+        //print('帰ってきた値:$response');
+        if (comment != null) {
+          print('commentnullじゃない');
+          setState(() {
+            postDetail = comment;
+            for (int i = 0; i < widget.imageNum; i++) {
+              imageList.add(
+                  'https://cocoroiki-bff.yumekiti.net${(comment['data']['attributes']['images']['data'][i]['attributes']['url']).toString()}');
+            }
+          });
+        }
+        //setState(() => {posts = response});
 
-      print('imageList : $imageList');
+        print('imageList : $imageList');
+      });
     } catch (e) {
       print(e);
     }
@@ -166,6 +184,8 @@ class _PostCompState extends ConsumerState<PostComp> {
       final appUsers =
           jsonDecode(response.body)['data']['attributes']['app_users']['data'];
       appUsers.add(id);
+      print("検証appUser");
+      print(appUsers);
       final data = {
         'data': {'app_users': appUsers}
       };
@@ -312,9 +332,11 @@ class _PostCompState extends ConsumerState<PostComp> {
                                         'assets/svg/pink_like.svg')
                                     : SvgPicture.asset('assets/svg/like.svg')),
                         //SizedBox(width: 4),
-                        postDetail?.data?.attributes?.appUsers?.data.length ==
+                        postDetail["data"]["attributes"]["app_users"]["data"]
+                                        .length ==
                                     null ||
-                                postDetail?.data?.attributes?.appUsers?.data
+                                postDetail["data"]["attributes"]["app_users"]
+                                            ["data"]
                                         .length ==
                                     0
                             ? Row(
@@ -350,7 +372,9 @@ class _PostCompState extends ConsumerState<PostComp> {
                                 ? SvgPicture.asset(
                                     'assets/svg/orange_comment.svg')
                                 : SvgPicture.asset('assets/svg/comment.svg'),
-                        postDetail?.data?.attributes?.comments?.data.length == 0
+                        postDetail["data"]["attributes"]["comments"]["data"]
+                                    .length ==
+                                0
                             ? Row(
                                 children: [
                                   SizedBox(width: 10),
@@ -361,8 +385,9 @@ class _PostCompState extends ConsumerState<PostComp> {
                                 children: [
                                   SizedBox(width: 4),
                                   Text(
-                                    (postDetail?.data?.attributes?.comments
-                                            ?.data.length)
+                                    (postDetail["data"]["attributes"]
+                                                ["comments"]["data"]
+                                            .length)
                                         .toString(),
                                     style: TextStyle(
                                         color: Color(0xFF949494),

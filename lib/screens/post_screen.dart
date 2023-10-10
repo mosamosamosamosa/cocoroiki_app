@@ -161,7 +161,7 @@ class _PostScreenState extends State<PostScreen> {
 
       var response = await request.send();
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         // アップロード成功
         print('Images uploaded successfully');
         final responseString = await response.stream.bytesToString();
@@ -178,20 +178,24 @@ class _PostScreenState extends State<PostScreen> {
 
           // アップロードされた画像のIDを表示
           print('Uploaded Image IDs: $uploadedImageIds');
+          print("検証①");
+          print(controller.text);
+          print("検証②");
+          print(uploadedImageIds);
 
-          await API().post(
-              '/api/posts',
-              jsonEncode({
-                'data': {
-                  'user': 1.toString(),
-                  'content': controller.text,
-                  'images': uploadedImageIds,
-                  'kids': 2
-                }
-              }));
-
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const Timelinekids()));
+          await API().post("/api/posts", {
+            "data": {
+              "user": 1,
+              "content": controller.text,
+              "images": uploadedImageIds,
+              "kids": 2
+            }
+          }).then((response) {
+            print("結果");
+            print(response.body);
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const Timelinekids()));
+          });
         } else {
           print('Unexpected response format: $parsedResponse');
         }
@@ -257,7 +261,7 @@ class _PostScreenState extends State<PostScreen> {
                       padding: const EdgeInsets.only(right: 20, top: 52),
                       child: GestureDetector(
                         onTap: () async {
-                          await uploadImages(images);
+                          await uploadImages(images).then((value) {});
                         },
                         child: const Text(
                           'シェア',

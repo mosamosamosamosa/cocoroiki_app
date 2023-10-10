@@ -1,4 +1,6 @@
 //import 'package:cocoroiki_app/api_client/api.dart';
+import 'dart:convert';
+
 import 'package:cocoroiki_app/api/api.dart';
 import 'package:cocoroiki_app/components/custom_app_bar.dart';
 
@@ -27,26 +29,25 @@ class Timelinekids extends ConsumerStatefulWidget {
 
 class _TimelinekidsState extends ConsumerState<Timelinekids> {
   //PostListResponse posts = PostListResponse();
-  dynamic posts;
+  Map<String, dynamic> posts = {};
   List<String> imageUrl = [];
-
+  Map<String, dynamic> responsePosts = {};
   //var posts;
 
   @override
   void initState() {
-    fetchSomeData().then((value) {
-      //getCommentId();
-    });
-
-    super.initState();
-  }
-
-  void _onReflesh() {
-    // Navigator.push(
-    //     context, MaterialPageRoute(builder: (context) => Timelinekids()));
+    print('タイムライン画面');
     fetchSomeData();
+
     super.initState();
   }
+
+  // void _onReflesh() {
+  //   // Navigator.push(
+  //   //     context, MaterialPageRoute(builder: (context) => Timelinekids()));
+  //   fetchSomeData();
+  //   super.initState();
+  // }
 
   // Future getCommentId(int id) async {
   //   print('コメントちるぞ＝');
@@ -66,18 +67,52 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
   // }
 
   Future fetchSomeData() async {
+    print("①呼び出されました");
     try {
-      final response = API().get('/api/posts');
-      print('帰ってきた値:$response');
-      print(
-          'これがいいねした人だー!!!!!${response?.data[2].attributes?.appUsers?.data[0].id}');
-      print(
-          'これがコメントしたひとだ＝＝＝！！！！！！！${response?.data[1].attributes?.comments?.data[0]}');
-      if (response != null) {
+      await API().get('/api/posts').then((value) {
+        print("検証");
+        print(value.body);
+        print("検証");
+
         setState(() {
-          posts = response;
+          responsePosts = json.decode(value.body);
         });
-      }
+        if (responsePosts != null) {
+          print("検証2");
+          print(responsePosts);
+          print("検証3");
+          print((responsePosts['data'][0]['attributes']['kids']['data'][0]
+              ['attributes'] as Map<String, dynamic>)['name']);
+          print("検証4");
+          print(((responsePosts['data'][(responsePosts['data'].length - 1) - 0]
+                  ['attributes']['images']['data'])
+              .length));
+          print("検証5");
+          print(responsePosts['data'][(responsePosts['data'].length - 1)! - 0]
+                      ['attributes']['comments']['data']
+                  .length !=
+              0);
+
+          print("検証5");
+
+          print(responsePosts['data'][(responsePosts['data'].length - 1)! - 0]
+              ['attributes']['user']['data']['attributes']['name']);
+          setState(() {
+            posts = responsePosts.cast<String, dynamic>();
+          });
+          print("ここまできた");
+
+          print(posts['data'][(posts['data'].length - 1)! - 0]['attributes']
+                  ['app_users']['data']
+              .length);
+        }
+      });
+      // print('帰ってきた値:$response');
+      // print(
+      //     'これがいいねした人だー!!!!!${response?.data[2].attributes?.app_users?.data[0].id}');
+      // print(
+      //     'これがコメントしたひとだ＝＝＝！！！！！！！${response?.data[1].attributes?.comments?.data[0]}');
+
       //setState(() => {posts = response});
     } catch (e) {
       print(e);
@@ -101,31 +136,15 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
             Stack(
               children: [
                 SizedBox(
+                    height: deviceH,
                     width: deviceW,
                     child: FittedBox(
                         fit: BoxFit.contain,
                         child: Image.asset('assets/image/back_check.png'))),
-                CustomRefreshIndicator(
-                  onRefresh: () async {
-                    _onReflesh();
-                  },
-                  builder: MaterialIndicatorDelegate(
-                    builder: (context, controller) {
-                      return SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 30,
-                            ),
-                            SvgPicture.asset('assets/svg/green.svg'),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                SingleChildScrollView(
                   child: Column(
                     children: [
-                      posts != null
+                      posts != {}
                           ? SizedBox(
                               height: deviceH,
                               width: deviceW,
@@ -133,47 +152,51 @@ class _TimelinekidsState extends ConsumerState<Timelinekids> {
                                   padding: EdgeInsets.only(
                                       top: deviceH * 0.18,
                                       bottom: deviceH * 0.12),
-                                  itemCount: posts.data.length,
+                                  itemCount: posts['data'].length,
                                   //shrinkWrap: true,
                                   itemBuilder: ((BuildContext context, index) {
                                     return Column(
                                       children: [
+                                        // PostComp(
+                                        //     content: 'こんにちは',
+                                        //     kidName: 'ゆうと',
+                                        //     imageNum: 1,
+                                        //     postUser: 'ともこ',
+                                        //     parent: false,
+                                        //     createdTime: DateTime.now(),
+                                        //     postId: 30,
+                                        //     like: 2,
+                                        //     likeme: false,
+                                        //     postNumber: index,
+                                        //     commentId: 2),
                                         PostComp(
-                                            content: posts
-                                                .data[(posts.data.length - 1) -
-                                                    index]
-                                                .attributes
-                                                ?.content,
-                                            kidName: (posts.data[0].attributes
-                                                    ?.kids?.data[0].attributes
+                                            content: posts['data'][(posts['data'].length - 1)! - index]
+                                                ['attributes']['content'],
+                                            kidName: (posts['data'][0]['attributes']
+                                                    ['kids']['data'][0]['attributes']!
                                                 as Map<String,
                                                     dynamic>)['name'],
-                                            imageNum:
-                                                ((posts.data[(posts.data.length - 1) - index].attributes?.images?.data)!
-                                                    .length),
-                                            postUser: posts
-                                                .data[(posts.data.length - 1) - index]
-                                                .attributes!
-                                                .user
-                                                ?.data
-                                                ?.attributes
-                                                ?.name,
+                                            imageNum: ((posts['data'][(posts['data'].length - 1)! - index]
+                                                    ['attributes']['images']['data'])!
+                                                .length),
+                                            postUser: posts['data'][(posts['data'].length - 1)! - index]['attributes']['user']['data']['attributes']['name'],
                                             parent: false,
-                                            createdTime: posts.data[(posts.data.length - 1) - index].attributes!.createdAt,
-                                            postId: posts.data[(posts.data.length - 1) - index].id,
-                                            like: posts.data[(posts.data.length - 1) - index].attributes?.appUsers?.data.length,
-                                            likeme: posts.data[(posts.data.length - 1) - index].attributes?.appUsers?.data.length == 1
-                                                ? posts.data[(posts.data.length - 1) - index].attributes?.appUsers?.data[0].id == userIdState
-                                                : posts.data[(posts.data.length - 1) - index].attributes?.appUsers?.data.length == 2
-                                                    ? posts.data[(posts.data.length - 1) - index].attributes?.appUsers?.data[0].id == userIdState || posts.data[(posts.data.length - 1) - index].attributes?.appUsers?.data[1].id == userIdState
+                                            createdTime: DateTime.parse(posts['data'][(posts['data'].length - 1)! - index]['attributes']['createdAt']),
+                                            postId: posts['data'][(posts['data'].length - 1)! - index]['id'],
+                                            like: posts['data'][(posts['data'].length - 1)! - index]['attributes']['app_users']['data'].length,
+                                            likeme: posts['data'][(posts['data'].length - 1)! - index]['attributes']['app_users']['data'].length == 1
+                                                ? posts['data'][(posts['data'].length - 1)! - index]['attributes']['app_users']['data'][0]['id'] == userIdState
+                                                : posts['data'][(posts['data'].length - 1)! - index]['attributes']['app_users']['data'].length == 2
+                                                    ? posts['data'][(posts['data'].length - 1)! - index]['attributes']['app_users']['data'][0]['id'] == userIdState || posts['data'][(posts['data'].length - 1) - index]['attributes']['app_users']['data'][1]['id'] == userIdState
                                                     : false,
                                             postNumber: index,
-                                            commentId: posts.data[(posts.data.length - 1) - index].attributes?.comments?.data.length != 0 ? posts.data[(posts.data.length - 1) - index].attributes?.comments?.data[0].id : null),
-                                        SizedBox(height: 21)
+                                            commentId: posts['data'][(posts['data'].length - 1)! - index]['attributes']['comments']['data'].length != 0 ? posts['data'][(posts['data'].length - 1) - index]['attributes']['comments']['data'][0]['id'] : null),
+
+                                        SizedBox(height: 21),
                                       ],
                                     );
                                   })))
-                          : Container()
+                          : Container(),
                     ],
                   ),
                 ),
