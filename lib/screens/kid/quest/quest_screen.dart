@@ -15,7 +15,10 @@ import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+
+import '../../../utils/socket.dart';
 
 class QuestScreen extends ConsumerStatefulWidget {
   const QuestScreen({super.key});
@@ -49,8 +52,24 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
   bool visible3 = false;
   bool visible4 = false;
 
+  // socket pusher 実装
+  void pusher() async {
+    final socket = await Socket().init();
+    final myChannel = await socket.subscribe(
+        channelName: 'my-channel',
+        onEvent: (event) {
+          if (event.eventName == "my-event") {
+            print("イベントが発生しました");
+            super.initState();
+          }
+        }
+    );
+  }
+
   @override
   void initState() {
+    super.initState();
+    pusher();
     print('①initstateきました');
     fetchSomeData().then((value) {
       //print(value);

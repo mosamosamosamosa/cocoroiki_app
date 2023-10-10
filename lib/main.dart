@@ -6,10 +6,12 @@ import 'package:cocoroiki_app/screens/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:audioplayers/audioplayers.dart';
 
-void main() {
+void main() async  {
+  await dotenv.load(fileName: ".env");
   runApp(ProviderScope(child: MyApp()));
 }
 
