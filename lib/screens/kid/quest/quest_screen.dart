@@ -1,4 +1,7 @@
-import 'package:cocoroiki_app/api_client/api.dart';
+//import 'package:cocoroiki_app/api_client/api.dart';
+import 'dart:convert';
+
+import 'package:cocoroiki_app/api/api.dart';
 import 'package:cocoroiki_app/components/bottom_button.dart';
 import 'package:cocoroiki_app/components/buttom_bar.dart';
 import 'package:cocoroiki_app/constants.dart';
@@ -22,8 +25,11 @@ class QuestScreen extends ConsumerStatefulWidget {
 }
 
 class _QuestScreenState extends ConsumerState<QuestScreen> {
-  AppUserListResponse? users = AppUserListResponse();
-  QuestStatusListResponse? queststatus = QuestStatusListResponse();
+  //AppUserListResponse? users = AppUserListResponse();
+  //QuestStatusListResponse? queststatus = QuestStatusListResponse();
+  Map<String, dynamic> userData = {};
+  Map<String, dynamic> response = {};
+
   List<int> grandList = [];
   List<String> grandNameList = [];
   List<String> grandGenderList = [];
@@ -33,6 +39,7 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
   bool showIcons = true; //QRcodd表示時の他のwidgetの表示
 
   GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  bool cflag = false;
 
   //QRViewController? controller;
 
@@ -44,8 +51,11 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
 
   @override
   void initState() {
+    print('①initstateきました');
     fetchSomeData().then((value) {
+      //print(value);
       if (grandList.length == 0) {
+        print('おばあちゃんいない');
         visible0 = true;
       } else if (grandList.length == 1) {
         visible1 = true;
@@ -56,57 +66,89 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
       } else {
         visible4 = true;
       }
+      print('戻ってきたよ');
     });
 
     //setState(() {});
     //super.initState();
   }
 
+  //未可決事件
   Future questStatus(int tree_id) async {
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = QuestStatusApi(apiClient);
     try {
-      final response = await apiInstance.getQuestStatuses();
-      print(response);
-      //setState(() => queststatus = response);
-      for (int i = 0; i < (response?.data)!.length; i++) {
-        if (response?.data[i].attributes?.tree?.data?.id == tree_id) {
-          if (response?.data[i].attributes?.doing == true) {
-            return true;
+      print("ここまできた①");
+      await API().get('/api/quest-statuses').then((value) {
+        print("ここまできた②");
+        setState(() {
+          response = json.decode(value.body);
+        });
+        // print("ああああああああああああああああああああああああああああああああああ");
+        print(response);
+        //setState(() => queststatus = response);
+
+        print(response["data"].length);
+        print(response["data"][0]["attributes"]["tree"]["data"]["id"]);
+        print(response["data"][0]["attributes"]["doing"]);
+        print(response["data"][4]["attributes"]["doing"]);
+        //////////////////////ここまでOK/////////////////////////////
+        for (int i = 0; i < ((response["data"]).length); i++) {
+          if (response["data"][i]["attributes"]["tree"]["data"]["id"] ==
+              tree_id) {
+            print('ここきた！！！！！！');
+            print(response["data"][i]["attributes"]["doing"]);
+            if (response["data"][i]["attributes"]["doing"] == true) {
+              print('ここきた');
+              setState(() {
+                cflag = true;
+              });
+            }
           }
         }
-      }
-      return false;
+      });
+      return cflag;
     } catch (e) {
       print(e);
     }
   }
 
   Future fetchSomeData() async {
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = AppUserApi(apiClient);
     try {
-      final response = await apiInstance.getAppUsers();
+      print('②fetchSomeDataに来ました');
+      await API().get('/api/app-users').then((value) {
+        //responseData = response.body;
 
-      if (response != null) {
-        for (int i = 0; i < response.data.length; i++) {
-          if (response.data[i].attributes?.families?.data[0].id == 1 &&
-              response.data[i].attributes?.grandparent == true) {
-            setState(() {
-              grandList.add((response.data[i].id!).toInt());
+        setState(() {
+          userData = json.decode(value.body);
+        });
 
-              grandNameList.add((response.data[i].attributes?.name).toString());
-              grandGenderList
-                  .add((response.data[i].attributes?.gender).toString());
-            });
-            print('おばあちゃん:$grandList');
-            print(grandNameList);
-            print(grandGenderList);
+        print('userData$userData');
+        print('ああああああああああ');
+        print(userData["data"][0]["attributes"]["name"]);
+
+        if (userData != null) {
+          print("④userData取得後");
+          for (int i = 0; i < userData["data"]!.length; i++) {
+            if (userData["data"][i]["attributes"]["families"]["data"][0]
+                        ['id']! ==
+                    1 &&
+                userData["data"][i]["attributes"]["grandparent"]! == true) {
+              setState(() {
+                grandList.add((userData["data"][i]["id"])!.toInt());
+
+                grandNameList.add(
+                    (userData["data"][i]["attributes"]["name"])!.toString());
+                grandGenderList.add(
+                    (userData["data"][i]["attributes"]["gender"])!.toString());
+              });
+              print('おばあちゃん:${grandList.length}');
+              print(grandNameList);
+              print(grandGenderList);
+            }
           }
         }
-      }
+        return userData;
+        print("⑤おわり");
+      });
     } catch (e) {
       print(e);
     }
@@ -187,10 +229,11 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
                       bottom: 293,
                       right: deviceW * 0.32,
                       child: GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             grandListNotifier.state = grandList;
                             if (userRoleState) {
-                              questStatus(1).then((value) => {
+                              await questStatus(1).then((value) => {
+                                    print(value),
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -199,7 +242,9 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
                                                     questClose: !value)))
                                   });
                             } else {
-                              questStatus(1).then((value) => {
+                              print("おはよう");
+                              await questStatus(1).then((value) => {
+                                    print("こんにちは$value"),
                                     if (!value)
                                       {
                                         showDialog(

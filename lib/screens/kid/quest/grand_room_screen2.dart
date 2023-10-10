@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:cocoroiki_app/api_client/api.dart';
+//import 'package:cocoroiki_app/api_client/api.dart';
+import 'package:cocoroiki_app/api/api.dart';
 import 'package:cocoroiki_app/components/bottom_button.dart';
 import 'package:cocoroiki_app/components/buttom_bar.dart';
 
@@ -44,7 +45,7 @@ class _GrandRoomScreen2State extends ConsumerState<GrandRoomScreen2>
   bool visiWater = false;
   bool visiKirakira = true;
   late final AnimationController _controller;
-  TreeListResponse posts = TreeListResponse();
+  //TreeListResponse posts = TreeListResponse();
 
   var _isChanged = false;
 
@@ -111,11 +112,9 @@ class _GrandRoomScreen2State extends ConsumerState<GrandRoomScreen2>
 
     // final grandListState = ref.watch(grandListProvider);
     // final userIdState = ref.watch(userIdProvider);
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = TreeApi(apiClient);
+
     try {
-      final response = await apiInstance.getTrees();
+      final response = API().get('/api/trees');
       print('帰ってきた値:$response');
       if (response != null) {
         print('ここ');

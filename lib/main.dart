@@ -21,14 +21,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final audioPlayer = AudioPlayer();
-  @override
-  void initState() {
-    print('BGMスタート');
-    audioPlayer.play(AssetSource('assets/bgm/cocoroiki.mp3'));
-    audioPlayer.setReleaseMode(ReleaseMode.loop);
-    super.initState();
-  }
+  // final audioPlayer = AudioPlayer();
+  // @override
+  // void initState() {
+  //   print('BGMスタート');
+  //   audioPlayer.play(AssetSource('assets/bgm/cocoroiki.mp3'));
+  //   audioPlayer.setReleaseMode(ReleaseMode.loop);
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         fontFamily: 'Zen-M',
       ),
-      home: StartScreen(),
+      home: QuestScreen(),
     );
   }
 }

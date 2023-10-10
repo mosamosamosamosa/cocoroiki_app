@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 
-import 'package:cocoroiki_app/api_client/api.dart';
+//import 'package:cocoroiki_app/api_client/api.dart';
+import 'package:cocoroiki_app/api/api.dart';
 import 'package:cocoroiki_app/components/bottom_button.dart';
 import 'package:cocoroiki_app/components/buttom_bar.dart';
 
@@ -44,7 +46,7 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
   bool visiWater = false;
   bool visiKirakira = false;
   late final AnimationController _controller;
-  TreeListResponse posts = TreeListResponse();
+  //TreeListResponse posts = TreeListResponse();
 
   var _isChanged = false;
 
@@ -59,6 +61,7 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
   bool check = false;
   bool close = true;
   bool continueQuestFlag = false;
+  Map<String, dynamic> response = {};
 
   // @override
   // void initState() {
@@ -160,6 +163,8 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
 
     //fetchSomeData();
     setState(() {
+      print("検証");
+      print(widget.questClose);
       close = widget.questClose;
     });
     questCount().then((value) {
@@ -234,27 +239,28 @@ class _GrandchildScreenState extends ConsumerState<GrandchildScreen>
   }
 
   Future questCount() async {
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = QuestStatusApi(apiClient);
     try {
-      final response = await apiInstance.getQuestStatuses();
-      print(response);
-      //setState(() => queststatus = response);
-      setState(() {
-        qCount = 0;
-      });
-      for (int i = 0; i < (response?.data)!.length; i++) {
-        if (response?.data[i].attributes?.tree?.data?.id == 1) {
-          if (response?.data[i].attributes?.doing == false) {
-            setState(() {
-              qCount++;
-            });
+      await API().get('/api/quest-statuses').then((value) {
+        //print(response);
+        //setState(() => queststatus = response);
+        setState(() {
+          response = json.decode(value.body);
+        });
+        setState(() {
+          qCount = 0;
+        });
+        for (int i = 0; i < (response['data'])!.length; i++) {
+          if (response['data'][i]['attributes']['tree']['data']['id'] == 1) {
+            if (response['data'][i]['attributes']['doing'] == false) {
+              setState(() {
+                qCount++;
+              });
 
-            print('あああああああああああああああああああああああああ:$qCount');
+              print('あああああああああああああああああああああああああ:$qCount');
+            }
           }
         }
-      }
+      });
     } catch (e) {
       print(e);
     }

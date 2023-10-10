@@ -1,4 +1,5 @@
-import 'package:cocoroiki_app/api_client/api.dart';
+//import 'package:cocoroiki_app/api_client/api.dart';
+import 'package:cocoroiki_app/api/api.dart';
 import 'package:cocoroiki_app/components/custom_app_bar.dart';
 import 'package:cocoroiki_app/components/favorite_button.dart';
 import 'package:cocoroiki_app/components/post_image_four.dart';
@@ -40,8 +41,9 @@ class TimelineDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
-  PostResponse postDetail = PostResponse();
-  CommentListResponse comDetail = CommentListResponse();
+  // PostResponse postDetail = PostResponse();
+  // CommentListResponse comDetail = CommentListResponse();
+  dynamic postDetail;
   List<int> commentList = [];
   Widget post = Container();
   bool commentme = false;
@@ -74,12 +76,9 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
 
   Future getCommentId(num id) async {
     final userIdState = ref.watch(userIdProvider);
-    print('コメントちるぞ＝');
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = CommentApi(apiClient);
+
     try {
-      final response = await apiInstance.getCommentsId(id);
+      final response = API().get('/api/comment/$id');
 
       if (response != null) {
         if (response.data?.attributes?.user?.data?.id == userIdState) {
@@ -95,11 +94,9 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
   }
 
   Future fetchSomeData() async {
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = PostApi(apiClient);
     try {
-      final response = await apiInstance.getPostsId(widget.postId);
+      final response = API().get('/api/post/${widget.postId}');
+
       // print('帰ってきた値:$response');
       // print('content:${response?.data?.attributes?.content}');
 
@@ -113,7 +110,9 @@ class _TimelineDetailScreenState extends ConsumerState<TimelineDetailScreen> {
             commentList.add(
                 (response.data?.attributes?.comments?.data[i].id)!.toInt());
           }
-          setState(() => postDetail = response);
+          setState(() {
+            postDetail = response;
+          });
         } else {}
         //print((postDetail?.data?.attributes?.comments?.data[0].id)!.toInt());
         print('commentList : $commentList');

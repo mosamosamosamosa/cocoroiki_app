@@ -1,4 +1,7 @@
-import 'package:cocoroiki_app/api_client/api.dart';
+//import 'package:cocoroiki_app/api_client/api.dart';
+import 'dart:convert';
+
+import 'package:cocoroiki_app/api/api.dart';
 import 'package:cocoroiki_app/components/sub_app_button.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';
@@ -18,34 +21,27 @@ class QuestModal extends StatefulWidget {
 
 class _QuestModalState extends State<QuestModal> {
   int flag = 4;
+  Map<String, dynamic> response = {};
 
   Future postQuestStatusData() async {
-    final apiClient =
-        ApiClient(basePath: 'https://cocoroiki-bff.yumekiti.net/api');
-    final apiInstance = QuestStatusApi(apiClient);
+    print("①呼び出しで来ました");
     //final apiImgInstance = UploadFileApi(apiClient);
     try {
       //apiImgInstance.uploadPost(images);
-      final newQuestStatus = QuestStatusRequest(
-          data: QuestStatusRequestData(
-        completedAt: DateTime.now(),
-        doing: true,
-        grandparent: AppUserRequestDataFamiliesInner(fields: {'id': 3}),
-        tree: 1,
-        // user: AppUserRequestDataFamiliesInner(fields: {'id': 1}),
-        // content: controller.text,
-        // kids: <AppUserRequestDataFamiliesInner>[
-        //   AppUserRequestDataFamiliesInner(fields: {'id': 2}),
-        // ],
-        // images: <AppUserRequestDataFamiliesInner>[
-        //   AppUserRequestDataFamiliesInner(fields: {'id': 1}),
-        // ],
-        //like: 0,
-        // comments: <AppUserRequestDataFamiliesInner>[
-        //   AppUserRequestDataFamiliesInner(fields: {'id': null}),
-        // ]
-      ));
-      final response = await apiInstance.postQuestStatuses(newQuestStatus);
+      await API().post("/api/quest-statuses", {
+        "data": {
+          "completedAt": DateTime.now().toString(),
+          "doing": true,
+          "grandparent": 3,
+          "tree": 1,
+        }
+      }).then((value) {
+        print('②$value');
+        setState(() {
+          response = json.decode(value.body);
+        });
+      });
+
       print(response);
     } catch (e) {
       print(e);
