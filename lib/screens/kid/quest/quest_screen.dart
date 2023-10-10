@@ -1,7 +1,7 @@
 //import 'package:cocoroiki_app/api_client/api.dart';
 import 'dart:convert';
 
-import 'package:cocoroiki_app/api/api.dart';
+import 'package:cocoroiki_app/utils/api.dart';
 import 'package:cocoroiki_app/components/bottom_button.dart';
 import 'package:cocoroiki_app/components/buttom_bar.dart';
 import 'package:cocoroiki_app/constants.dart';
@@ -12,9 +12,11 @@ import 'package:cocoroiki_app/screens/kid/menu_modal.dart';
 import 'package:cocoroiki_app/screens/kid/quest/grand_room_screen.dart';
 import 'package:cocoroiki_app/screens/kid/quest/tree_modal.dart';
 import 'package:cocoroiki_app/screens/kid/timelinekids.dart';
+import 'package:cocoroiki_app/utils/socket.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pusher_channels_flutter/pusher-js/core/connection/protocol/message-types.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class QuestScreen extends ConsumerStatefulWidget {
@@ -51,6 +53,19 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
 
   @override
   void initState() {
+    super.initState();
+    print("クエストスクリーン開始");
+    print("                                  ");
+    Future(() async {
+      await Socket()
+          .init()
+          .subscribe(channelName: "my-channel", onEvent: "my-event");
+
+      void onEvent(PusherEvent event) {
+        print(event);
+      }
+    });
+
     print('①initstateきました');
     fetchSomeData().then((value) {
       //print(value);

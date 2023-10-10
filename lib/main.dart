@@ -5,11 +5,13 @@ import 'package:cocoroiki_app/screens/login/start_screen.dart';
 import 'package:cocoroiki_app/screens/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:audioplayers/audioplayers.dart';
 
-void main() {
+Future main() async {
+  await dotenv.load(fileName: ".env");
   runApp(ProviderScope(child: MyApp()));
 }
 
