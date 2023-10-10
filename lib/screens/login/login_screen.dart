@@ -1,5 +1,5 @@
 //import 'package:cocoroiki_app/api_client/api.dart';
-import 'package:cocoroiki_app/api/api.dart';
+import 'package:cocoroiki_app/utils/api.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/provider/provider.dart';
 import 'package:cocoroiki_app/screens/kid/quest/quest_screen.dart';

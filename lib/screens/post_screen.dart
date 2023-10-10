@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 //import 'package:cocoroiki_app/api/clients.dart';
-import 'package:cocoroiki_app/api/api.dart';
+import 'package:cocoroiki_app/utils/api.dart';
 //import 'package:cocoroiki_app/api_client/api.dart';
 import 'package:cocoroiki_app/components/custom_app_bar.dart';
 

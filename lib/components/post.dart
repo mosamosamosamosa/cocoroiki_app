@@ -1,4 +1,4 @@
-import 'package:cocoroiki_app/api/api.dart';
+import 'package:cocoroiki_app/utils/api.dart';
 import 'package:cocoroiki_app/components/favorite_button.dart';
 import 'package:cocoroiki_app/components/post_image_four.dart';
 import 'package:cocoroiki_app/components/post_image_one.dart';

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:math' as math;
 //import 'package:cocoroiki_app/api_client/api.dart';
-import 'package:cocoroiki_app/api/api.dart';
+import 'package:cocoroiki_app/utils/api.dart';
 import 'package:cocoroiki_app/constants.dart';
 import 'package:cocoroiki_app/screens/kid/quest/grand_room_screen.dart';
 import 'package:cocoroiki_app/screens/kid/quest/grand_room_screen2.dart';
