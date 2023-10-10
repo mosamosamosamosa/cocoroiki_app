@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math' as math;
 
 //import 'package:cocoroiki_app/api_client/api.dart';
@@ -68,6 +69,9 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
   int? treeStatus = 0;
   bool check = false;
 
+  Map<String, dynamic> questMap = {};
+  Map<String, dynamic> questselectMap = {};
+  Map<String, dynamic> rewardMap = {};
   //画面遷移した時の処理
   @override
   void didChangeDependencies() {
@@ -98,7 +102,9 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
         });
 
         if (close) {
+          print("①closeきたよ");
           questSelect(widget.online).then(((value) {
+            print("③value$value");
             var random = math.Random();
             int i = random.nextInt(questList.length);
             questNotifier.state = questList[i];
@@ -241,17 +247,24 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
     // final userIdState = ref.watch(userIdProvider);
 
     try {
-      final response = API().get('/api/rewards');
-      print('帰ってきた値:$response');
-      if (response != null) {
+      await API().get('/api/rewards').then((value) {
+        setState(() {
+          rewardMap = json.decode(value.body);
+        });
+      });
+      //print('帰ってきた値:$response');
+      if (rewardMap != null) {
         print('ここ');
 
-        for (int i = 0; i < response.data.length; i++) {
+        for (int i = 0; i < (rewardMap["data"]).length; i++) {
           print('ここ');
-          if (response.data[i].attributes?.parent?.data[0].id == 1 &&
-              response.data[i].attributes?.grandparent?.data[0].id == 3) {
+          if (rewardMap["data"][i]["attributes"]["parent"]["data"][0]["id"] ==
+                  1 &&
+              rewardMap["data"][i]["attributes"]["grandparent"]["data"][0]
+                      ["id"] ==
+                  3) {
             setState(() {
-              treeStatus = response.data[i].attributes?.state;
+              treeStatus = rewardMap["data"][i]["attributes"]["state"];
             });
             print(treeStatus);
           }
@@ -267,24 +280,27 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
 
   Future questCount() async {
     try {
-      final response = API().get('/api/quest-statuses');
-      print(response);
-      setState(() {
-        qCount = 0;
-      });
+      await API().get('/api/quest-statuses').then((value) {
+        setState(() {
+          questMap = json.decode(value.body);
+        });
+        setState(() {
+          qCount = 0;
+        });
 
-      //setState(() => queststatus = response);
-      for (int i = 0; i < (response?.data)!.length; i++) {
-        if (response?.data[i].attributes?.tree?.data?.id == 1) {
-          if (response?.data[i].attributes?.doing == false) {
-            setState(() {
-              qCount++;
-            });
+        //setState(() => queststatus = response);
+        for (int i = 0; i < (questMap["data"])!.length; i++) {
+          if (questMap["data"][i]["attributes"]["tree"]["data"]["id"] == 1) {
+            if (questMap["data"][i]["attributes"]["doing"] == false) {
+              setState(() {
+                qCount++;
+              });
 
-            print('あああああああああああああああああああああああああ:$qCount');
+              print('あああああああああああああああああああああああああ:$qCount');
+            }
           }
         }
-      }
+      });
     } catch (e) {
       print(e);
     }
@@ -292,19 +308,31 @@ class _GrandRoomScreenState extends ConsumerState<GrandRoomScreen>
 
   //クエスト選択
   Future questSelect(bool online) async {
+    print("①選択");
     try {
-      final response = API().get('/api/quests');
-      print(response);
-      //setState(() => queststatus = response);
-      for (int i = 0; i < (response?.data)!.length; i++) {
-        if (response
-                ?.data[i].attributes?.questKinds?.data[0].attributes?.online ==
-            online) {
-          setState(() {
-            questList.add((response?.data[i].attributes?.content)!);
-          });
+      await API().get('/api/quests').then((value) {
+        setState(() {
+          questselectMap = json.decode(value.body);
+        });
+        print("②選択$questselectMap");
+        ///////////////////ここまでOK///////////////////
+        //setState(() => queststatus = response);
+        print("検証");
+        print(questselectMap["data"][0]["attributes"]["quest_kinds"]["data"][0]
+            ["attributes"]["online"]);
+
+        for (int i = 0; i < (questselectMap["data"]).length - 1; i++) {
+          if (questselectMap["data"][i]["attributes"]["quest_kinds"]["data"][0]
+                  ["attributes"]["online"] ==
+              online) {
+            print("③選択");
+            setState(() {
+              questList
+                  .add((questselectMap["data"][i]["attributes"]["content"]));
+            });
+          }
         }
-      }
+      });
     } catch (e) {
       print(e);
     }

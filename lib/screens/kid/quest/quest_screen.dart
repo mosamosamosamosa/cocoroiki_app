@@ -29,6 +29,7 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
   //QuestStatusListResponse? queststatus = QuestStatusListResponse();
   Map<String, dynamic> userData = {};
   Map<String, dynamic> response = {};
+
   List<int> grandList = [];
   List<String> grandNameList = [];
   List<String> grandGenderList = [];
@@ -38,6 +39,7 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
   bool showIcons = true; //QRcodd表示時の他のwidgetの表示
 
   GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  bool cflag = false;
 
   //QRViewController? controller;
 
@@ -71,24 +73,39 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
     //super.initState();
   }
 
+  //未可決事件
   Future questStatus(int tree_id) async {
     try {
+      print("ここまできた①");
       await API().get('/api/quest-statuses').then((value) {
+        print("ここまできた②");
         setState(() {
-          response = jsonDecode(value);
+          response = json.decode(value.body);
         });
+        // print("ああああああああああああああああああああああああああああああああああ");
         print(response);
         //setState(() => queststatus = response);
-        for (int i = 0; i < (response["data"])!.length; i++) {
-          if (response["data"][i]["attributes"]["tree"]["data"]["id"]! ==
+
+        print(response["data"].length);
+        print(response["data"][0]["attributes"]["tree"]["data"]["id"]);
+        print(response["data"][0]["attributes"]["doing"]);
+        print(response["data"][4]["attributes"]["doing"]);
+        //////////////////////ここまでOK/////////////////////////////
+        for (int i = 0; i < ((response["data"]).length); i++) {
+          if (response["data"][i]["attributes"]["tree"]["data"]["id"] ==
               tree_id) {
+            print('ここきた！！！！！！');
+            print(response["data"][i]["attributes"]["doing"]);
             if (response["data"][i]["attributes"]["doing"] == true) {
-              return true;
+              print('ここきた');
+              setState(() {
+                cflag = true;
+              });
             }
           }
         }
-        return false;
       });
+      return cflag;
     } catch (e) {
       print(e);
     }
@@ -212,10 +229,11 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
                       bottom: 293,
                       right: deviceW * 0.32,
                       child: GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             grandListNotifier.state = grandList;
                             if (userRoleState) {
-                              questStatus(1).then((value) => {
+                              await questStatus(1).then((value) => {
+                                    print(value),
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -224,7 +242,9 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
                                                     questClose: !value)))
                                   });
                             } else {
-                              questStatus(1).then((value) => {
+                              print("おはよう");
+                              await questStatus(1).then((value) => {
+                                    print("こんにちは$value"),
                                     if (!value)
                                       {
                                         showDialog(

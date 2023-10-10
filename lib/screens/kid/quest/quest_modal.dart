@@ -1,4 +1,6 @@
 //import 'package:cocoroiki_app/api_client/api.dart';
+import 'dart:convert';
+
 import 'package:cocoroiki_app/api/api.dart';
 import 'package:cocoroiki_app/components/sub_app_button.dart';
 import 'package:cocoroiki_app/constants.dart';
@@ -19,20 +21,25 @@ class QuestModal extends StatefulWidget {
 
 class _QuestModalState extends State<QuestModal> {
   int flag = 4;
+  Map<String, dynamic> response = {};
 
   Future postQuestStatusData() async {
+    print("①呼び出しで来ました");
     //final apiImgInstance = UploadFileApi(apiClient);
     try {
       //apiImgInstance.uploadPost(images);
-      final response = API().post("/api/quest-statuses", {
+      await API().post("/api/quest-statuses", {
         "data": {
-          "completedAt": DateTime.now(),
+          "completedAt": DateTime.now().toString(),
           "doing": true,
           "grandparent": 3,
           "tree": 1,
         }
-      }).then((response) {
-        print(response.body);
+      }).then((value) {
+        print('②$value');
+        setState(() {
+          response = json.decode(value.body);
+        });
       });
 
       print(response);

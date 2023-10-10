@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math' as math;
 //import 'package:cocoroiki_app/api_client/api.dart';
 import 'package:cocoroiki_app/api/api.dart';
@@ -31,6 +32,10 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
   String reward = '';
   bool json = false;
   //bool timelineModal = false;
+  Map<String, dynamic> response = {};
+  Map<String, dynamic> rewardMap = {};
+  Map<String, dynamic> questMap = {};
+  int responseId = 0;
 
   @override
   void initState() {
@@ -45,34 +50,66 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
   }
 
   Future questStatus(int tree_id) async {
+    print('①questStatusまできましたid : ${tree_id}');
+
     try {
-      final response = API().get('/api/quest-statuses');
-      print(response);
-      //setState(() => queststatus = response);
-      for (int i = 0; i < (response?.data)!.length; i++) {
-        if (response?.data[i].attributes?.tree?.data?.id == tree_id) {
-          if (response?.data[i].attributes?.doing == true) {
-            return response?.data[i].id;
+      await API().get('/api/quest-statuses').then((value) {
+        print('②${value.body}');
+        setState(() {
+          response = jsonDecode(value.body);
+        });
+
+        print(
+            response['data'][0]['attributes']['tree']['data']['id'] == tree_id);
+
+        print(response['data'][3]['attributes']['doing']);
+        print("③検証");
+        print(response['data'][3]['id']);
+
+        for (int i = 0; i < (response['data'])!.length; i++) {
+          if (response['data'][i]['attributes']['tree']['data']['id'] ==
+              tree_id) {
+            print('きたきたきた！！！！！！！！！！！！！！！！！！');
+            print(response['data'][i]['attributes']['doing']);
+
+            if (response['data'][i]['attributes']['doing'] == true) {
+              print('ココ来ちゃった');
+              print(response['data'][i]['id']);
+              //// /////////////////////ここまでOK///////////////////////////////////////////
+
+              setState(() {
+                responseId = response['data'][i]['id'];
+              });
+            }
           }
         }
-      }
-      return null;
+        print('ここ来ちゃった');
+      });
+      return responseId;
+      print(response);
+      //setState(() => queststatus = response);
+
     } catch (e) {
       print(e);
     }
   }
 
-  Future putQuestStatusData(status_id) async {
+  Future putQuestStatusData(int status_id) async {
+    print('①呼び出されましたid: $status_id');
     try {
-      final response = API().post("/api/quest-statuses", {
+      await API().put("/api/quest-statuses/${status_id}", {
         "data": {
-          "completedAt": DateTime.now(),
+          "completedAt": DateTime.now().toString(),
           "doing": false,
           "grandparent": 3,
           "tree": 1,
         }
-      }).then((response) {
-        print(response);
+      }).then((value) {
+        print('完了したか確認');
+        print('②完了しました${value.body}');
+        setState(() {
+          questMap = jsonDecode(value.body);
+        });
       });
     } catch (e) {
       print(e);
@@ -83,24 +120,27 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
     print('リワードきた！');
 
     try {
-      final response = API().get('/api/rewards');
+      await API().get('/api/rewards').then((value) {
+        setState(() {
+          rewardMap = jsonDecode(value.body);
+        });
 
-      print(response);
-      //setState(() => queststatus = response);
-      for (int i = 0; i < (response?.data)!.length; i++) {
-        if (response?.data[i].attributes?.user == 1) {
-          setState(() {
-            rewardList.add((response?.data[i].attributes?.name)!);
-          });
+        //setState(() => queststatus = response);
+        for (int i = 0; i < (response['data'])!.length; i++) {
+          if (response['data'][i]['attributes']['user'] == 1) {
+            setState(() {
+              rewardList.add((response['data'][i]['attributes']['name'])!);
+            });
+          }
         }
-      }
-      var random = math.Random();
+        var random = math.Random();
 
-      int i = random.nextInt(rewardList.length);
-      setState(() {
-        reward = rewardList[i];
+        int i = random.nextInt(rewardList.length);
+        setState(() {
+          reward = rewardList[i];
+        });
+        print(reward);
       });
-      print(reward);
     } catch (e) {
       print(e);
     }
@@ -361,7 +401,7 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
                                     width: 24,
                                   ),
                                   GestureDetector(
-                                    onTap: () {
+                                    onTap: () async {
                                       if (false) {
                                         Navigator.push(
                                             context,
@@ -369,7 +409,9 @@ class _QuestCheckModaState extends State<QuestCheckModa> {
                                                 builder: (context) =>
                                                     PostScreen()));
                                       } else {
-                                        questStatus(1).then((value) {
+                                        //print(await questStatus(1));
+                                        await questStatus(1).then((value) {
+                                          print('帰ってきた: $value');
                                           putQuestStatusData(value);
                                         });
                                         setState(() {
