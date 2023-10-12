@@ -1,4 +1,5 @@
 //import 'package:cocoroiki_app/api_client/api.dart';
+import 'dart:convert';
 import 'package:cocoroiki_app/utils/api.dart';
 import 'package:cocoroiki_app/components/custom_app_bar.dart';
 import 'package:cocoroiki_app/components/grid_item.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
+import 'dart:developer';
 
 class RewardManageScreen extends StatefulWidget {
   const RewardManageScreen({super.key});
@@ -21,29 +23,36 @@ class _RewardManageScreenState extends State<RewardManageScreen> {
   List<String> reward1List = [];
   List<String> reward2List = [];
   List<String> reward3List = [];
+  Map<String, dynamic> response = {};
 
   bool visi = false;
 
   Future getReward() async {
     try {
-      final response = API().get('/api/rewards');
-      print('帰ってきた値:$response');
+      await API().get('/api/rewards').then((value) {
+        setState(() {
+          response = json.decode(value.body);
+        });
+      });
 
-      if (response != null) {
-        for (int i = 0; i < response.data.length; i++) {
-          if (response.data[i].attributes?.point == 1) {
+      print(response['data'][0]['attributes']['name']);
+
+      if (response != {}) {
+        for (int i = 0; i < response['data'].length; i++) {
+          if (response['data'][i]['attributes']['point'] == 1) {
+            print(response['data'][i]['attributes']['name']);
             setState(() {
-              reward1List.add((response.data[i].attributes?.name)!);
+              reward1List.add((response['data'][i]['attributes']['name']));
               print('レア度１  :  $reward1List');
             });
-          } else if (response.data[i].attributes?.point == 2) {
+          } else if (response['data'][i]['attributes']['point'] == 2) {
             setState(() {
-              reward2List.add((response.data[i].attributes?.name)!);
+              reward2List.add((response['data'][i]['attributes']['name']));
               print('レア度２  :  $reward2List');
             });
           } else {
             setState(() {
-              reward3List.add((response.data[i].attributes?.name)!);
+              reward3List.add((response['data'][i]['attributes']['name']));
               print('レア度３  :  $reward3List');
             });
           }
