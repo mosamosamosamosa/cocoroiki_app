@@ -34,6 +34,8 @@ dependencies:
   qr_code_scanner: ^1.0.1
   qr_flutter: ^4.0.0
   pusher_beams: ^1.1.1
+  pusher_channels_flutter: ^2.2.0
+  flutter_dotenv: ^5.1.0
   
   #flutter_reaction_button: ^0.1.2
 
@@ -75,6 +77,7 @@ flutter:
     - assets/json/mokumoku.json
    
     - assets/bgm/cocoroiki.mp3
+    - .env
   
 
   
