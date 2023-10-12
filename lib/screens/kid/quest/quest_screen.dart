@@ -245,7 +245,7 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
                               print("おはよう");
                               await questStatus(1).then((value) => {
                                     print("こんにちは$value"),
-                                    if (!value)
+                                    if (response != {})
                                       {
                                         showDialog(
                                             barrierDismissible: false,
