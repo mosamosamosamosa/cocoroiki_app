@@ -19,6 +19,7 @@ import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../utils/socket.dart';
+import '../../grandparent/quest_push_modal.dart';
 
 class QuestScreen extends ConsumerStatefulWidget {
   const QuestScreen({super.key});
@@ -59,7 +60,11 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
         channelName: 'my-channel',
         onEvent: (event) {
           if (event.eventName == "my-event") {
-            print("イベントが発生しました");
+            showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (BuildContext context) => QuestPushMpdal(questClear: false)
+            );
             super.initState();
           }
         }
@@ -68,8 +73,8 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
 
   @override
   void initState() {
-    super.initState();
     pusher();
+    super.initState();
     print('①initstateきました');
     fetchSomeData().then((value) {
       //print(value);
