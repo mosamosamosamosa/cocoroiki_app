@@ -55,20 +55,23 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
 
   // socket pusher 実装
   void pusher() async {
+    final userRoleState = ref.watch(userRoleProvider);
+
     final socket = await Socket().init();
     final myChannel = await socket.subscribe(
         channelName: 'my-channel',
         onEvent: (event) {
           if (event.eventName == "my-event") {
-            showDialog(
-                barrierDismissible: false,
-                context: context,
-                builder: (BuildContext context) => QuestPushMpdal(questClear: false)
-            );
-            super.initState();
+            if (userRoleState) {
+              showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (BuildContext context) =>
+                      QuestPushMpdal(questClear: false));
+              super.initState();
+            }
           }
-        }
-    );
+        });
   }
 
   @override
@@ -113,9 +116,9 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
         print(response["data"].length);
         print(response["data"][0]["attributes"]["tree"]["data"]["id"]);
         print(response["data"][0]["attributes"]["doing"]);
-        print(response["data"][4]["attributes"]["doing"]);
+        // print(response["data"][3]["attributes"]["doing"]);
         //////////////////////ここまでOK/////////////////////////////
-        for (int i = 0; i < ((response["data"]).length); i++) {
+        for (int i = 0; i < response["data"].length; i++) {
           if (response["data"][i]["attributes"]["tree"]["data"]["id"] ==
               tree_id) {
             print('ここきた！！！！！！');
@@ -254,9 +257,14 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
                       right: deviceW * 0.32,
                       child: GestureDetector(
                           onTap: () async {
+                            print('きたよ！①');
+                            print(grandList);
                             grandListNotifier.state = grandList;
                             if (userRoleState) {
+                              print('きたよ！②');
                               await questStatus(1).then((value) => {
+                                    print('きたよ③'),
+                                    print(value),
                                     print(value),
                                     Navigator.push(
                                         context,
@@ -269,7 +277,7 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
                               print("おはよう");
                               await questStatus(1).then((value) => {
                                     print("こんにちは$value"),
-                                    if (response != {})
+                                    if (!value)
                                       {
                                         showDialog(
                                             barrierDismissible: false,
