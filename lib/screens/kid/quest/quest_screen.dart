@@ -31,7 +31,6 @@ class QuestScreen extends ConsumerStatefulWidget {
 class _QuestScreenState extends ConsumerState<QuestScreen> {
   //AppUserListResponse? users = AppUserListResponse();
   //QuestStatusListResponse? queststatus = QuestStatusListResponse();
-  bool modalVariable = false;
   Map<String, dynamic> userData = {};
   Map<String, dynamic> response = {};
 
@@ -76,7 +75,6 @@ class _QuestScreenState extends ConsumerState<QuestScreen> {
   void initState() {
     pusher();
     super.initState();
-    pusher();
     print('①initstateきました');
     fetchSomeData().then((value) {
       //print(value);
